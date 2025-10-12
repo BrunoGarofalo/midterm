@@ -35,12 +35,37 @@ class CalculationTemplate(ABC):
 
 class Percentage(CalculationTemplate):
 
+    def check_decimals(self, a: Decimal, b: Decimal):
+        '''
+        Change the parent method check_decimals so that it checks that b isn't 0
+        and return a ValueError if it is
+        '''
+        super().check_decimals(a, b)
+        
+        if b ==0:
+            raise ValueError('ERROR: Cannot perform percent calculation if denominator = 0')
+
+
+        return super().check_decimals(a, b)
+
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
         return (a/b)*100
     
 
 class IntegerDivision(CalculationTemplate):
+    def check_decimals(self, a: Decimal, b: Decimal):
+        '''
+        Change the parent method check_decimals so that it checks that b isn't 0
+        and return a ValueError if it is
+        '''
+        super().check_decimals(a, b)
+        
+        if b ==0:
+            raise ValueError('ERROR: Cannot perform division by 0')
+
+
+        return super().check_decimals(a, b)
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
@@ -59,6 +84,12 @@ class Absdifference(CalculationTemplate):
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
         return abs(a - b)
     
+class Power(CalculationTemplate):
+
+    #method to execute the subtraction calculation
+    def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
+        return a ** b
+
 
 class Root(CalculationTemplate):
 
