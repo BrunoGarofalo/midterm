@@ -108,6 +108,13 @@ class operationFactory:
     #initialize instance
     def __init__(self, user_input):
         self.user_input = user_input
+    '''
+    Need to ensure user_input is passed correctly, input will be selected using unique IDs to ensure no mismatches occur, IE:
+
+    A = Multiplication
+    B = Integer Division
+    etc...
+    '''
 
     #create operation object based on user input, also handles operation mismatches
     def createOperationObject(self):
