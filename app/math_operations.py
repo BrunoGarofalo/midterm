@@ -7,6 +7,7 @@ from decimal import Decimal
 
 class CalculationTemplate(ABC):
 
+    operations_allowed = ['Percentage', 'Multiplication', 'Modulo', 'Root', 'Absolute Difference', 'Integer Division']
 
     @abstractmethod
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal: #takes in the instance, and inputs a and b as decimals
@@ -80,7 +81,7 @@ class Root(CalculationTemplate):
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
         self.check_decimals(a, b)
-        return a * b
+        return a ** (Decimal(1)/b)
     
 class Modulo(CalculationTemplate):
 
@@ -102,8 +103,28 @@ class Modulo(CalculationTemplate):
         self.check_decimals(a, b)
         return a % b
 
-add = Absdifference()
 
-print(add.runOperation(5, 3))
+class operationFactory:
+    #initialize instance
+    def __init__(self, user_input):
+        self.user_input = user_input
+
+    #create operation object based on user input, also handles operation mismatches
+    def createOperationObject(self):
+        if self.user_input == 'percentage':
+            return Percentage()
+        elif self.user_input == 'intdiv':
+            return IntegerDivision()
+        elif self.user_input == 'modulo':
+            return Modulo()
+        elif self.user_input == 'root':
+            return Root()
+        elif self.user_input == 'absdiff':
+            return Absdifference()
+        elif self.user_input == 'multiplication':
+            return Multiplication()
+        else:
+            raise ValueError(f'Operation {self.user_input} not allowed, operations allowed: {CalculationTemplate.operations_allowed} ')
+        
     
 
