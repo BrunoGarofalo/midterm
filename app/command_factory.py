@@ -1,4 +1,5 @@
-from app.math_operations import Percentage, IntegerDivision, Modulo, Root, Absdifference, Multiplication
+from app.math_operations import Percentage, IntegerDivision, Modulo, Root, Absdifference, Multiplication, Addition, Division, Subtraction
+from app.math_operations import CalculationTemplate
 
 class CommandFactory:
     #initialize instance
@@ -17,7 +18,13 @@ class CommandFactory:
         if self.user_input == 'percentage':
             print('Percentage object created')
             return Percentage()
-        elif self.user_input == 'intdiv':
+        elif self.user_input == 'add':
+            return Addition()
+        elif self.user_input == 'subtract':
+            return Subtraction()
+        elif self.user_input == 'div':
+            return Division()
+        elif self.user_input == 'intdiff':
             return IntegerDivision()
         elif self.user_input == 'modulo':
             return Modulo()
