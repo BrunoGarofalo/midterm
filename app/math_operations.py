@@ -22,16 +22,28 @@ class CalculationTemplate(ABC):
         pass
 
     def check_decimals(self, a: Decimal, b: Decimal) -> Decimal:
-        '''
-        This  method checks that a and b meet the requirements of specific operations
-        the specific method for checking is operation specific and is defined within its own operation class
-        '''
         pass
 
 ##################################################################################################################
 ################## create the classes fopr the math calculations
 ##################################################################################################################
+class Addition(CalculationTemplate):
 
+    #method to execute the subtraction calculation
+    def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
+        return a + b
+    
+class Subtraction(CalculationTemplate):
+
+    #method to execute the subtraction calculation
+    def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
+        return a - b
+    
+class Multiplication(CalculationTemplate):
+
+    #method to execute the subtraction calculation
+    def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
+        return a * b
 
 class Percentage(CalculationTemplate):
 
@@ -50,8 +62,25 @@ class Percentage(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        return (a/b)*100
-    
+        return f"{(a/b)*100}%"
+
+class Division(CalculationTemplate):
+    def check_decimals(self, a: Decimal, b: Decimal):
+        '''
+        Change the parent method check_decimals so that it checks that b isn't 0
+        and return a ValueError if it is
+        '''
+        super().check_decimals(a, b)
+        
+        if b ==0:
+            raise ValueError('ERROR: Cannot perform division by 0')
+
+
+        return super().check_decimals(a, b)
+
+    #method to execute the subtraction calculation
+    def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
+        return int(a / b)
 
 class IntegerDivision(CalculationTemplate):
     def check_decimals(self, a: Decimal, b: Decimal):
@@ -69,7 +98,7 @@ class IntegerDivision(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        return int(a / b)
+        return int(a // b)
     
 
 class Multiplication(CalculationTemplate):
@@ -112,7 +141,7 @@ class Root(CalculationTemplate):
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
         self.check_decimals(a, b)
-        return a ** (Decimal(1)/b)
+        return a ** (Decimal('1')/b)
     
 class Modulo(CalculationTemplate):
 
@@ -135,34 +164,5 @@ class Modulo(CalculationTemplate):
         return a % b
 
 
-class operationFactory:
-    #initialize instance
-    def __init__(self, user_input):
-        self.user_input = user_input
-    '''
-    Need to ensure user_input is passed correctly, input will be selected using unique IDs to ensure no mismatches occur, IE:
-
-    A = Multiplication
-    B = Integer Division
-    etc...
-    '''
-
-    #create operation object based on user input, also handles operation mismatches
-    def createOperationObject(self):
-        if self.user_input == 'percentage':
-            return Percentage()
-        elif self.user_input == 'intdiv':
-            return IntegerDivision()
-        elif self.user_input == 'modulo':
-            return Modulo()
-        elif self.user_input == 'root':
-            return Root()
-        elif self.user_input == 'absdiff':
-            return Absdifference()
-        elif self.user_input == 'multiplication':
-            return Multiplication()
-        else:
-            raise ValueError(f'Operation {self.user_input} not allowed, operations allowed: {CalculationTemplate.operations_allowed} ')
-        
     
 
