@@ -1,4 +1,4 @@
-from app.math_operations import Percentage, IntegerDivision, Modulo, Root, Absdifference, Multiplication, Addition, Division, Subtraction
+from app.math_operations import Percentage, IntegerDivision, Modulo, Root, Absdifference, Multiplication, Addition, Division, Subtraction, Power
 from app.math_operations import CalculationTemplate
 
 class CommandFactory:
@@ -16,7 +16,6 @@ class CommandFactory:
     #create operation object based on user input, also handles operation mismatches
     def createOperationObject(self):
         if self.user_input == 'percentage':
-            print('Percentage object created')
             return Percentage()
         elif self.user_input == 'add':
             return Addition()
@@ -34,20 +33,14 @@ class CommandFactory:
             return Absdifference()
         elif self.user_input == 'multiplication':
             return Multiplication()
-        elif self.user_input == 'hist':
-            return History()
-        elif self.user_input == 'clear':
-            return Clear()
+        elif self.user_input == 'power':
+            return Power()
         elif self.user_input == 'undo':
             return Undo()
         elif self.user_input == 'redo':
             return Redo()
-        elif self.user_input == 'save':
-            return Save()
-        elif self.user_input == 'load':
-            return Load()
         elif self.user_input == 'help':
             return Help()
         else:
-            raise ValueError(f'Command {self.user_input} not allowed, commands allowed: {CalculationTemplate.operations_allowed} ')
+            raise ValueError(f'❌ Command {self.user_input} not allowed, commands allowed: {CalculationTemplate.operations_allowed} ')
         
