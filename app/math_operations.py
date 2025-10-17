@@ -52,7 +52,6 @@ class Percentage(CalculationTemplate):
         Change the parent method check_decimals so that it checks that b isn't 0
         and return a ValueError if it is
         '''
-        super().check_decimals(a, b)
         
         if b ==0:
             raise ValueError('ERROR: Cannot perform percent calculation if denominator = 0')
@@ -70,7 +69,6 @@ class Division(CalculationTemplate):
         Change the parent method check_decimals so that it checks that b isn't 0
         and return a ValueError if it is
         '''
-        super().check_decimals(a, b)
         
         if b ==0:
             raise ValueError('ERROR: Cannot perform division by 0')
@@ -80,7 +78,7 @@ class Division(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        return int(a / b)
+        return a / b
 
 class IntegerDivision(CalculationTemplate):
     def check_decimals(self, a: Decimal, b: Decimal):
@@ -88,7 +86,6 @@ class IntegerDivision(CalculationTemplate):
         Change the parent method check_decimals so that it checks that b isn't 0
         and return a ValueError if it is
         '''
-        super().check_decimals(a, b)
         
         if b ==0:
             raise ValueError('ERROR: Cannot perform division by 0')
@@ -127,7 +124,6 @@ class Root(CalculationTemplate):
         Change the parent method check_decimals so that it checks that a isn't <0 and b isn't 0
         if they are, return a ValueError
         '''
-        super().check_decimals(a, b)
         
         if a < 0:
             raise ValueError('ERROR: cannot take root of number less than zero')
@@ -150,8 +146,7 @@ class Modulo(CalculationTemplate):
         Change the parent method check_decimals so that it checks that a isn't <0 and b isn't 0
         if they are, return a ValueError
         '''
-        super().check_decimals(a, b)
-        
+       
         if b ==0:
             raise ValueError('ERROR: modulo cannot take b as 0')
 
