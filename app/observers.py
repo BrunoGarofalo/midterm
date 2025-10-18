@@ -3,7 +3,7 @@ import os
 import pandas as pd
 from decimal import Decimal
 from app.logger import logger
-from app.config import CALCULATOR_MAX_HISTORY_SIZE, CALCULATOR_AUTO_SAVE
+from app.config import CALCULATOR_MAX_HISTORY_SIZE, CALCULATOR_AUTO_SAVE, CALCULATOR_DEFAULT_ENCODING
 
 
 class LoggingObserver:
@@ -23,7 +23,7 @@ class LoggingObserver:
     #method that adds the new calculation log to 
     def save_history(self, history):
         if len(history) >0:
-            with open("history_log.txt", "w") as file:
+            with open("history_log.txt", "w",encoding=CALCULATOR_DEFAULT_ENCODING) as file:
                         for entry in history:
                             file.write(entry + "\n")
             logger.info(f"Full history saved to {self.log_file}")
@@ -76,7 +76,7 @@ class AutosaveObserver:
 
         # Only save automatically if enabled
         if CALCULATOR_AUTO_SAVE:
-            self.df.to_csv(self.log_file, index=False)
+            self.df.to_csv(self.log_file, index=False, encoding=CALCULATOR_DEFAULT_ENCODING)
             logger.info(f"AutosaveObserver auto-saved operation: {final_message}")
 
         logger.info(f"AutosaveObserver updated with operation: {final_message}")
@@ -95,7 +95,7 @@ class AutosaveObserver:
             print("❌ No saved history to load")
             return []
         
-        df = pd.read_csv(self.log_file)
+        df = pd.read_csv(self.log_file, encoding=CALCULATOR_DEFAULT_ENCODING)
         if df.empty:
             logger.warning("AutosaveObserver attempted to load history but file is empty")
             print("❌ History file is empty")
