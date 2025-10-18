@@ -51,6 +51,24 @@ class Originator:
         '''
         self.history = memento.get_state()
 
+    def show_history(self):
+        if len(self.history) == 0:
+            print("❌ No history to display!")
+        else:
+            print("\n👉 Full History:")
+            for entry in self.history:
+                print(entry)
+
+    def delete_history(self):
+        if len(self.history) == 0:
+            print("❌ No instance history to clear!")
+        else:
+            self.history = []
+            print(f"✅ Instance history succesfully deleted!")
+
+    
+
+
 class CareTaker:
     # manage stack redo and undo
     '''
