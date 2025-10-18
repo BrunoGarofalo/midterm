@@ -68,6 +68,8 @@ def main():
             continue
 
         if operation_code == 'undo':
+            logger.info("Undo requested by user")
+
             undone_op = caretaker.undo_memento(originator)
             if undone_op:
                 print(f"↩️ Undo performed: {undone_op}")
@@ -76,6 +78,8 @@ def main():
             continue
 
         if operation_code == 'redo':
+            logger.info("Redo requested by user")
+            
             redone_op = caretaker.redo_memento(originator)
             if redone_op:
                 print(f"↪️ Redo performed: {redone_op}")

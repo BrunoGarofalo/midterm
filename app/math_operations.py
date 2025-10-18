@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from decimal import Decimal
+from app.logger import logger
 
 ##################################################################################################################
 ################## create the abstract class that will serve as the template for all calculation classses ########
@@ -31,18 +32,24 @@ class Addition(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        return a + b
+        result = a + b
+        logger.info(f"Addition performed: {a} + {b} = {result}")
+        return result
     
 class Subtraction(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        return a - b
+        result = a - b
+        logger.info(f"Subtraction performed: {a} - {b} = {result}")
+        return result
     
 class Multiplication(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
+        result = a * b
+        logger.info(f"Multiplication performed: {a} * {b} = {result}")
         return a * b
 
 class Percentage(CalculationTemplate):
@@ -54,6 +61,7 @@ class Percentage(CalculationTemplate):
         '''
         
         if b ==0:
+            logger.error(f"Percentage calculation failed: {a} / {b}, Cannot perform percent calculation if denominator = 0")
             raise ValueError('ERROR: Cannot perform percent calculation if denominator = 0')
 
 
@@ -61,7 +69,9 @@ class Percentage(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        return f"{(a/b)*100}%"
+        result = (a/b)*100
+        logger.info(f"Percentage performed: ({a} / {b}) * 100 = {result}%")
+        return f"{result}%"
 
 class Division(CalculationTemplate):
     def check_decimals(self, a: Decimal, b: Decimal):
@@ -71,6 +81,7 @@ class Division(CalculationTemplate):
         '''
         
         if b ==0:
+            logger.error(f"Division by zero attempt: {a} / {b}, Cannot perform division by 0")
             raise ValueError('ERROR: Cannot perform division by 0')
 
 
@@ -78,7 +89,11 @@ class Division(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        return a / b
+
+        result = a/b
+        logger.info(f"Division performed: {a} / {b} = {result}")
+
+        return result
 
 class IntegerDivision(CalculationTemplate):
     def check_decimals(self, a: Decimal, b: Decimal):
@@ -88,6 +103,7 @@ class IntegerDivision(CalculationTemplate):
         '''
         
         if b ==0:
+            logger.error(f"IntegerDivision check failed: attempted to divide {a} by zero")
             raise ValueError('ERROR: Cannot perform division by 0')
 
 
@@ -95,26 +111,37 @@ class IntegerDivision(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        return int(a // b)
+        result = int(a // b)
+        logger.info(f"IntegerDivision performed: {a} // {b} = {result}")
+
+        return result
     
 
 class Multiplication(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        return a * b
+        result = a * b
+        logger.info(f"Multiplication performed: {a} * {b} = {result}")
+
+        return result
     
 class Absdifference(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        return abs(a - b)
+        result = abs(a - b)
+        logger.info(f"Absolute Difference performed: |{a} - {b}| = {result}")
+        return result
     
 class Power(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        return a ** b
+        result = a ** b
+        logger.info(f"Power performed: {a} ** {b} = {result}")
+
+        return result
 
 
 class Root(CalculationTemplate):
@@ -126,9 +153,11 @@ class Root(CalculationTemplate):
         '''
         
         if a < 0:
+            logger.error(f"Invalid root attempt: root({a}, {b}), cannot take root of number less than zero")
             raise ValueError('ERROR: cannot take root of number less than zero')
         
         if b ==0:
+            logger.error(f"Invalid root degree: root({a}, {b}), degree of root cannot be 0")
             raise ValueError('ERROR: degree of root cannot be 0')
 
 
@@ -137,7 +166,11 @@ class Root(CalculationTemplate):
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
         self.check_decimals(a, b)
-        return a ** (Decimal('1')/b)
+
+        result = a ** (Decimal('1') / b)
+        logger.info(f"Root performed: {b}-th root of {a} = {result}")
+
+        return result
     
 class Modulo(CalculationTemplate):
 
@@ -148,6 +181,7 @@ class Modulo(CalculationTemplate):
         '''
        
         if b ==0:
+            logger.error(f"Modulo calculation failed: {a} % {b}, modulo cannot take b as 0")
             raise ValueError('ERROR: modulo cannot take b as 0')
 
 
@@ -156,7 +190,10 @@ class Modulo(CalculationTemplate):
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
         self.check_decimals(a, b)
-        return a % b
+        result = a % b
+        logger.info(f"Modulo performed: {a} % {b} = {result}")
+
+        return result
 
 
     

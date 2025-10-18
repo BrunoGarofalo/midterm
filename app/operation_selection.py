@@ -1,4 +1,6 @@
 
+from app.logger import logger
+
 class operationSelection:
 
     # Dictory that maps the operation ID to [Operation Name, Short Operation Name]
@@ -28,13 +30,16 @@ class operationSelection:
             self.user_input = input(f'👉 Please select one of the following commands:\n {self.user_input_message}\n').upper()
 
             if self.user_input in self.operations_dictionary:
+                logger.info(f"User selected command: {self.user_input} - {self.operations_dictionary[self.user_input][0]}")
                 break
             else:
+                logger.warning(f"Invalid command entered by user: {self.user_input}")
                 print(f"❌ Command {self.user_input} not available!")
                 
 
     def determineOperationCode(self):
         self.operation_code = self.operations_dictionary[self.user_input][1].lower()
+        logger.info(f"Determined operation code: {self.operation_code} for command {self.user_input}")
         print(f"selected command: {self.user_input} - {self.operation_code}")
         return self.operation_code
 

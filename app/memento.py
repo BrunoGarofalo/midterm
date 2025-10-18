@@ -45,6 +45,7 @@ class Originator:
     def add_operation(self, message):
         #saves new operation to temporary history, IE: "12 - 2 = 10"
         self.history.append(message)
+        logger.info(f"Operation added to history: {message}")
     
     def restore_memento(self, memento):
         #restore history from a previous memento
@@ -52,7 +53,9 @@ class Originator:
         updates the current history with the selected memento snapshot
         IE: M2.get_state() returns self.history = ["5 + 2 = 7", "3 * 4 = 12"]
         '''
+        old_history = self.history.copy()
         self.history = memento.get_state()
+        logger.info(f"History restored from memento. Previous: {old_history}, New: {self.history}")
 
     def show_history(self):
         if len(self.history) == 0:
@@ -116,6 +119,8 @@ class CareTaker:
         #clear stack redo when a new action is done
         self.stack_redo.clear()
 
+        logger.info(f"Memento saved. Undo stack size: {len(self.stack_undo)}; Redo stack cleared")
+
     def undo_memento(self, originator):
 
         '''
@@ -138,6 +143,7 @@ class CareTaker:
         Notice the most recent state is always in the history (top). The previous state is in the undo stack
         '''
         if not self.stack_undo:
+            logger.warning("Undo requested but no operation to undo")
             print("❌ No operation to undo!")
             return
 
@@ -156,8 +162,13 @@ class CareTaker:
         # Determine which operation was undone
         undone_operations = [op for op in current_state if op not in originator.history]
 
+        undone_op = undone_operations[-1] if undone_operations else None
+
+        if undone_op:
+            logger.info(f"Undo performed. Operation undone: {undone_op}")
+
         # Return the last undone operation if any
-        return undone_operations[-1] if undone_operations else None
+        return undone_op
 
     def redo_memento(self, originator):
         '''
@@ -179,6 +190,7 @@ class CareTaker:
         - redo_stack = []
         '''
         if not self.stack_redo:
+            
             print("❌ No operation to redo!")
             return False
         
@@ -194,7 +206,13 @@ class CareTaker:
         originator.restore_memento(memento)
 
         redone_operations = [op for op in originator.history if op not in current_state]
-        return redone_operations[-1] if redone_operations else None
+
+        redone_op = redone_operations[-1] if redone_operations else None
+
+        if redone_op:
+            logger.info(f"Redo performed. Operation redone: {redone_op}")
+            
+        return redone_op
 
 
 

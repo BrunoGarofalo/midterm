@@ -2,6 +2,7 @@
 import os
 import pandas as pd
 from decimal import Decimal
+from app.logger import logger
 
 
 class LoggingObserver:
@@ -15,19 +16,24 @@ class LoggingObserver:
         #update the last operation but do not save
         self.history.append(final_message)
 
+        logger.info(f"LoggingObserver updated with operation: {final_message}")
+
     #method that adds the new calculation log to 
     def save_history(self, history):
         if len(history) >0:
             with open("history_log.txt", "w") as file:
                         for entry in history:
                             file.write(entry + "\n")
+            logger.info(f"Full history saved to {self.log_file}")
             print("✅ Full history successfully saved to history_log.txt")
         else:
+            logger.warning("Attempted to save empty history, No history to be saved")
             print(f"❌ No history to be saved")
 
 
     def detach(self, final_message):
         self.history.remove(final_message)
+        logger.info(f"LoggingObserver detached operation: {final_message}")
 
    
 
@@ -41,8 +47,10 @@ class AutosaveObserver:
         if not os.path.exists(log_file) or os.path.getsize(log_file) == 0:
             self.df = pd.DataFrame(columns=self.columns)
             self.df.to_csv(log_file, index=False)
+            logger.info(f"AutosaveObserver initialized new file: {self.log_file}")
         else:
             self.df = pd.read_csv(log_file)
+            logger.info(f"AutosaveObserver loaded existing file: {self.log_file}")
     
 
     #method that adds the new calculation log to 
@@ -63,19 +71,25 @@ class AutosaveObserver:
         #save new df as a csv
         self.df.to_csv(self.log_file, index=False)
 
+        logger.info(f"AutosaveObserver updated with operation: {final_message}")
+
     
     def delete_history(self):
         self.df = pd.DataFrame(columns=self.columns)  # clear in-memory DataFrame
         self.df.to_csv(self.log_file, index=False)    # overwrite CSV with empty DataFrame
 
+        logger.warning(f"AutosaveObserver cleared history in {self.log_file}")
+
     
     def load_history(self):
         if not os.path.exists(self.log_file) or os.path.getsize(self.log_file) == 0:
+            logger.warning("AutosaveObserver attempted to load history but file is missing/empty")
             print("❌ No saved history to load")
             return []
         
         df = pd.read_csv(self.log_file)
         if df.empty:
+            logger.warning("AutosaveObserver attempted to load history but file is empty")
             print("❌ History file is empty")
             return []
 
@@ -85,6 +99,7 @@ class AutosaveObserver:
             operation_record = f"{row["timestamp"]}|{row["operation"]}|{row["operand1"]}|{row["operand2"]}|{row["result"]}"
             loaded_calculations.append(operation_record)
 
+        logger.info(f"AutosaveObserver loaded {len(loaded_calculations)} history entries from {self.log_file}")
         return loaded_calculations
 
 
