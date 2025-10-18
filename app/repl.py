@@ -79,7 +79,7 @@ def main():
 
         if operation_code == 'redo':
             logger.info("Redo requested by user")
-            
+
             redone_op = caretaker.redo_memento(originator)
             if redone_op:
                 print(f"↪️ Redo performed: {redone_op}")
@@ -104,7 +104,7 @@ def main():
             print(f"Error creating operation: {e}")
             continue
 
-        if hasattr(operation_obj, "runOperation"):
+        if hasattr(operation_obj, "calculate"):
             try:
                 # ask user to input operand A
                 operand_a = get_decimal_input("Enter first operand: ")
@@ -116,7 +116,7 @@ def main():
                 operation_obj.check_decimals(operand_a, operand_b)
 
                 #Get results
-                results = operation_obj.runOperation(operand_a, operand_b)
+                results = operation_obj.calculate(operand_a, operand_b)
 
                 #logger message
                 timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
