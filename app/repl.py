@@ -3,7 +3,7 @@ from app.command_factory import CommandFactory
 from decimal import Decimal, InvalidOperation
 from app.observers import LoggingObserver, Subject, AutosaveObserver
 from datetime import datetime
-from app.memento import MementoCalculator, Originator, CareTaker
+from app.memento import Originator, CareTaker
 
 def get_decimal_input(prompt):
     while True:
