@@ -63,9 +63,9 @@ def main():
 
         # load history from autosave observer to logging observer
         if operation_code == 'load':
-            history = autosave_observer.load_history()
-            logging_observer.history = history
-            print('History loaded!')
+            CSV_history = autosave_observer.load_history()
+            originator.get_loaded_history(CSV_history)
+            caretaker.save_memento(originator.create_memento()) 
             continue
 
 
