@@ -1,7 +1,27 @@
 from abc import ABC, abstractmethod
-from decimal import Decimal, ROUND_HALF_UP
+from decimal import Decimal, ROUND_HALF_UP, InvalidOperation
 from app.logger import logger
 from app.config import CALCULATOR_MAX_INPUT_VALUE, CALCULATOR_PRECISION
+
+
+
+def get_valid_operand(prompt):
+    while True:
+        #get user input
+        
+        try:
+            #try to convert to decimal, if it fails then the value passed is not a number
+            value = Decimal(input(prompt))
+        #return an error if this happens
+        except InvalidOperation:
+            print("❌ Invalid input. Please enter a numeric value.")
+            continue
+
+        if value > CALCULATOR_MAX_INPUT_VALUE:
+            print(f"❌ Input too large. Maximum allowed is {CALCULATOR_MAX_INPUT_VALUE}. Try again.")
+            continue
+
+        return value
 
 ##################################################################################################################
 ################## create the abstract class that will serve as the template for all calculation classses ########
@@ -26,7 +46,7 @@ class CalculationTemplate(ABC):
     def check_decimals(self, a: Decimal, b: Decimal) -> Decimal:
         """Generic check for input bounds."""
         if a > CALCULATOR_MAX_INPUT_VALUE or b > CALCULATOR_MAX_INPUT_VALUE:
-            logger.warning(f"Input exceeds max value: {a}, {b}")
+            logger.warning(f"Input exceeds max value of {CALCULATOR_MAX_INPUT_VALUE}: {a}, {b}")
             raise ValueError(f"Inputs must be ≤ {CALCULATOR_MAX_INPUT_VALUE}")
         # Round inputs according to precision
         a = a.quantize(Decimal(f"1.{'0'*CALCULATOR_PRECISION}"), rounding=ROUND_HALF_UP)
@@ -154,12 +174,7 @@ class Power(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        a, b = self.check_decimals(a, b)
-        result = a ** b
-        result = self.format_result(result)
-        logger.info(f"Power performed: {a} ** {b} = {result}")
-
-        return result
+        return a ** b
 
 
 class Root(CalculationTemplate):
