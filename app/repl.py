@@ -5,17 +5,13 @@ from app.observers import LoggingObserver, Subject, AutosaveObserver
 from datetime import datetime
 from app.memento import Originator, CareTaker
 from app.logger import logger
+from app.math_operations import get_valid_operand
+from app.operation_selection import operationSelection
 
-def get_decimal_input(prompt):
-    while True:
-        #get user input
-        value = input(prompt)
-        try:
-            #try to convert to decimal, if it fails then the value passed is not a number
-            return Decimal(value)
-        #return an error if this happens
-        except InvalidOperation:
-            print("Invalid input. Please enter a numeric value.")
+''''
+who should delete the history? the logging observer or the originator in the memento?
+Should the history be cleared when the instance ends? both the instance history and in the txt file?
+'''
 
 def main():
     logger.info("Calculator application started")
@@ -37,11 +33,28 @@ def main():
     subject_logging.attach(logging_observer)
     subject_autosave.attach(autosave_observer)
 
-    print('Welcome to the Calculator app!')
+    print("👋 Welcome to the Calculator app! Type 'help' to see available commands.")
 
     while True:
-        selection = operationSelection()
-        operation_code = selection.determineOperationCode()
+
+        # Prompt user for operation
+        user_input = input("👉 Select one of the letters corresponding to the operation, IE: A for Percent: ").strip().upper()
+
+        if user_input == "HELP":
+            print("\n📜 Available commands, select one of the letters correspondint to the operation, IE: A for Percent:")
+            print(operationSelection.show_commands())
+            continue
+
+        if user_input not in operationSelection.operations_dictionary:
+            print(f"❌ Command '{user_input}' not recognized. Type 'help' for the list.")
+            logger.warning(f"Invalid command entered by user: {user_input}")
+            continue
+        
+
+        operation_code = operationSelection.operations_dictionary[user_input][1].lower()
+        print(operation_code)
+        # selection = operationSelection()
+        # operation_code = selection.determineOperationCode()
 
         if operation_code == "exit":
             originator.delete_history()
@@ -66,6 +79,7 @@ def main():
             originator.delete_history()
             logger.warning("Instance history cleared")
             continue
+
 
         if operation_code == 'undo':
             logger.info("Undo requested by user")
@@ -107,13 +121,13 @@ def main():
         if hasattr(operation_obj, "calculate"):
             try:
                 # ask user to input operand A
-                operand_a = get_decimal_input("Enter first operand: ")
+                operand_a = get_valid_operand("Enter first operand: ")
 
                 # ask user to input operand B
-                operand_b = get_decimal_input("Enter second operand: ")
+                operand_b = get_valid_operand("Enter second operand: ")
 
-                #Pass operands to check)decimals method to validate that the entries are valid, if not an error will be raised
-                operation_obj.check_decimals(operand_a, operand_b)
+                # # Validate and round operands
+                # operand_a, operand_b = operation_obj.check_decimals(operand_a, operand_b)
 
                 #Get results
                 results = operation_obj.calculate(operand_a, operand_b)
