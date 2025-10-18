@@ -1,0 +1,38 @@
+2025-10-18 12:27:53 [INFO] Calculator application started
+2025-10-18 12:29:26 [INFO] Calculator application started
+2025-10-18 12:29:39 [INFO] Application closed!
+2025-10-18 12:36:37 [INFO] Calculator application started
+2025-10-18 12:36:43 [INFO] Calculation successfully completed: 2025-10-18 12:36:43|Percentage|2|6|33.33333333333333333333333333% 
+2025-10-18 14:38:24 [INFO] Application closed!
+2025-10-18 14:38:30 [INFO] Calculator application started
+2025-10-18 14:38:33 [WARNING] Warning: request history, no history to display!
+2025-10-18 14:38:33 [INFO] History displayed
+2025-10-18 14:44:44 [WARNING] Warning: request to clear history, no history to clear!
+2025-10-18 14:44:44 [INFO] Application closed!
+2025-10-18 14:44:52 [INFO] Calculator application started
+2025-10-18 14:45:42 [WARNING] Warning: request to clear history, no history to clear!
+2025-10-18 14:45:42 [INFO] Application closed!
+2025-10-18 14:45:46 [INFO] Calculator application started
+2025-10-18 14:46:03 [INFO] Warning: History loaded into instance successfully
+2025-10-18 14:46:03 [INFO] App history loaded from history_log.csv
+2025-10-18 14:46:06 [INFO] History successfully displayed!
+2025-10-18 14:46:06 [INFO] History displayed
+2025-10-18 14:52:54 [WARNING] Instance history succesfully deleted
+2025-10-18 14:52:54 [INFO] Application closed!
+2025-10-18 14:53:01 [INFO] Calculator application started
+2025-10-18 14:53:19 [WARNING] Warning: request history, no history to display!
+2025-10-18 14:53:19 [INFO] History displayed
+2025-10-18 14:53:34 [INFO] Calculation successfully completed: 2025-10-18 14:53:34|Multiplication|3|4|12 
+2025-10-18 14:53:40 [INFO] Calculation successfully completed: 2025-10-18 14:53:40|IntegerDivision|3|7|0 
+2025-10-18 14:53:49 [INFO] Calculation successfully completed: 2025-10-18 14:53:49|Multiplication|4|6|24 
+2025-10-18 14:53:57 [INFO] History successfully displayed!
+2025-10-18 14:53:57 [INFO] History displayed
+2025-10-18 14:56:11 [WARNING] Instance history succesfully deleted
+2025-10-18 14:56:11 [INFO] Application closed!
+2025-10-18 14:56:16 [INFO] Calculator application started
+2025-10-18 14:56:28 [INFO] Calculation successfully completed: 2025-10-18 14:56:28|Percentage|4|7|57.14285714285714285714285714% 
+2025-10-18 14:56:30 [INFO] Calculation successfully completed: 2025-10-18 14:56:30|Modulo|3|3|0 
+2025-10-18 14:56:32 [INFO] History successfully displayed!
+2025-10-18 14:56:32 [INFO] History displayed
+2025-10-18 14:56:58 [WARNING] Instance history succesfully deleted
+2025-10-18 14:56:58 [INFO] Application closed!
