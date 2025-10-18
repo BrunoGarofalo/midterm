@@ -3,27 +3,38 @@ import os
 import pandas as pd
 from decimal import Decimal
 from app.logger import logger
-from app.config import CALCULATOR_MAX_HISTORY_SIZE, CALCULATOR_AUTO_SAVE, CALCULATOR_DEFAULT_ENCODING
+from app.config import (
+    CALCULATOR_MAX_HISTORY_SIZE, 
+    CALCULATOR_AUTO_SAVE, 
+    CALCULATOR_DEFAULT_ENCODING,
+    CALCULATOR_HISTORY_DIR,
+    CSV_HISTORY_FILE,
+    TXT_HISTORY_FILE
+)
 
 
 class LoggingObserver:
-    def __init__(self, log_file='history_log.txt'):
-        self.log_file = log_file
+    def __init__(self, log_file=TXT_HISTORY_FILE):
+
+        # Ensure the history directory exists
+        os.makedirs(CALCULATOR_HISTORY_DIR, exist_ok=True)
+
+        self.log_file = os.path.join(CALCULATOR_HISTORY_DIR, log_file)
         # self.history = []
 
-    #method that adds the new calculation log to 
-    def update(self, final_message):
+    # #method that adds the new calculation log to 
+    # def update(self, final_message):
 
-        #update the last operation but do not save
-        if len(self.history) > CALCULATOR_MAX_HISTORY_SIZE:
-            self.history = self.history[-CALCULATOR_MAX_HISTORY_SIZE:]
+    #     #update the last operation but do not save
+    #     if len(self.history) > CALCULATOR_MAX_HISTORY_SIZE:
+    #         self.history = self.history[-CALCULATOR_MAX_HISTORY_SIZE:]
 
-        logger.info(f"LoggingObserver updated with operation: {final_message}")
+    #     logger.info(f"LoggingObserver updated with operation: {final_message}")
 
     #method that adds the new calculation log to 
     def save_history(self, history):
         if len(history) >0:
-            with open("history_log.txt", "w",encoding=CALCULATOR_DEFAULT_ENCODING) as file:
+            with open(self.log_file, "w",encoding=CALCULATOR_DEFAULT_ENCODING) as file:
                         for entry in history:
                             file.write(entry + "\n")
             logger.info(f"Full history saved to {self.log_file}")
@@ -37,21 +48,27 @@ class LoggingObserver:
         self.history.remove(final_message)
         logger.info(f"LoggingObserver detached operation: {final_message}")
 
+
+
+
    
 
 class AutosaveObserver:
 
-    def __init__(self, log_file='history_log.csv'):
-        self.log_file = log_file
+    def __init__(self, log_file=CSV_HISTORY_FILE):
+        # Ensure the history directory exists
+        os.makedirs(CALCULATOR_HISTORY_DIR, exist_ok=True)
+
+        self.log_file = os.path.join(CALCULATOR_HISTORY_DIR, log_file)
         self.columns = ["timestamp", "operation", "operand1", "operand2", "result"]
 
         # If the file doesn't exist or is empty, create a new one
-        if not os.path.exists(log_file) or os.path.getsize(log_file) == 0:
+        if not os.path.exists(self.log_file) or os.path.getsize(self.log_file) == 0:
             self.df = pd.DataFrame(columns=self.columns)
-            self.df.to_csv(log_file, index=False)
+            self.df.to_csv(self.log_file, index=False)
             logger.info(f"AutosaveObserver initialized new file: {self.log_file}")
         else:
-            self.df = pd.read_csv(log_file)
+            self.df = pd.read_csv(self.log_file)
             logger.info(f"AutosaveObserver loaded existing file: {self.log_file}")
     
 
