@@ -1,4 +1,6 @@
 from copy import deepcopy
+import pandas as pd
+import os
 
 class MementoCalculator:
     #hold snapshop in time
@@ -59,6 +61,7 @@ class Originator:
             for entry in self.history:
                 print(entry)
 
+
     def delete_history(self):
         if len(self.history) == 0:
             print("❌ No instance history to clear!")
@@ -66,6 +69,13 @@ class Originator:
             self.history = []
             print(f"✅ Instance history succesfully deleted!")
 
+    def get_loaded_history(self, CSV_history):
+        if CSV_history:
+            # CSV_history is a list of operation messages
+            self.history = CSV_history.copy()  # to avoid accidental mutation 
+            print("✅ History loaded into instance successfully.")
+        else:
+            print("❌ No history to load from CSV.")
     
 
 
