@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 from app.logger import logger
+from app.config import CALCULATOR_MAX_INPUT_VALUE, CALCULATOR_PRECISION
 
 ##################################################################################################################
 ################## create the abstract class that will serve as the template for all calculation classses ########
@@ -23,7 +24,49 @@ class CalculationTemplate(ABC):
         pass
 
     def check_decimals(self, a: Decimal, b: Decimal) -> Decimal:
-        pass
+        """Generic check for input bounds."""
+        if a > CALCULATOR_MAX_INPUT_VALUE or b > CALCULATOR_MAX_INPUT_VALUE:
+            logger.warning(f"Input exceeds max value: {a}, {b}")
+            raise ValueError(f"Inputs must be ≤ {CALCULATOR_MAX_INPUT_VALUE}")
+        # Round inputs according to precision
+        a = a.quantize(Decimal(f"1.{'0'*CALCULATOR_PRECISION}"), rounding=ROUND_HALF_UP)
+        b = b.quantize(Decimal(f"1.{'0'*CALCULATOR_PRECISION}"), rounding=ROUND_HALF_UP)
+        return a, b
+    
+    def format_result(self, result: Decimal) -> Decimal:
+        """Round result according to CALCULATOR_PRECISION."""
+        return result.quantize(Decimal(f"1.{'0'*CALCULATOR_PRECISION}"), rounding=ROUND_HALF_UP)
+    
+    def calculate(self, a: Decimal, b: Decimal) -> Decimal:
+
+        a, b = self.check_decimals(a, b)
+
+
+        result = self.runOperation(a, b)
+
+
+        if isinstance(result, Decimal):
+            result = self.format_result(result)
+
+
+        logger.info(f"{self.__class__.__name__} performed: {a} {self._operator_symbol()} {b} = {result}")
+        return result
+
+    def _operator_symbol(self) -> str:
+        """Symbol for logging purposes."""
+        mapping = {
+            "Addition": "+",
+            "Subtraction": "-",
+            "Multiplication": "*",
+            "Division": "/",
+            "IntegerDivision": "//",
+            "Modulo": "%",
+            "Power": "**",
+            "Root": "root",
+            "Percentage": "%",
+            "Absdifference": "|a-b|"
+        }
+        return mapping.get(self.__class__.__name__, "?")
 
 ##################################################################################################################
 ################## create the classes fopr the math calculations
@@ -32,24 +75,18 @@ class Addition(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        result = a + b
-        logger.info(f"Addition performed: {a} + {b} = {result}")
-        return result
+        return a + b
     
 class Subtraction(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        result = a - b
-        logger.info(f"Subtraction performed: {a} - {b} = {result}")
-        return result
+        return a - b
     
 class Multiplication(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        result = a * b
-        logger.info(f"Multiplication performed: {a} * {b} = {result}")
         return a * b
 
 class Percentage(CalculationTemplate):
@@ -69,9 +106,7 @@ class Percentage(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        result = (a/b)*100
-        logger.info(f"Percentage performed: ({a} / {b}) * 100 = {result}%")
-        return f"{result}%"
+        return (a/b)
 
 class Division(CalculationTemplate):
     def check_decimals(self, a: Decimal, b: Decimal):
@@ -89,11 +124,7 @@ class Division(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-
-        result = a/b
-        logger.info(f"Division performed: {a} / {b} = {result}")
-
-        return result
+        return a/b
 
 class IntegerDivision(CalculationTemplate):
     def check_decimals(self, a: Decimal, b: Decimal):
@@ -111,34 +142,21 @@ class IntegerDivision(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        result = int(a // b)
-        logger.info(f"IntegerDivision performed: {a} // {b} = {result}")
-
-        return result
-    
-
-class Multiplication(CalculationTemplate):
-
-    #method to execute the subtraction calculation
-    def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        result = a * b
-        logger.info(f"Multiplication performed: {a} * {b} = {result}")
-
-        return result
+        return int(a//b)
     
 class Absdifference(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        result = abs(a - b)
-        logger.info(f"Absolute Difference performed: |{a} - {b}| = {result}")
-        return result
+        return abs(a - b)
     
 class Power(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
+        a, b = self.check_decimals(a, b)
         result = a ** b
+        result = self.format_result(result)
         logger.info(f"Power performed: {a} ** {b} = {result}")
 
         return result
@@ -165,12 +183,7 @@ class Root(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        self.check_decimals(a, b)
-
-        result = a ** (Decimal('1') / b)
-        logger.info(f"Root performed: {b}-th root of {a} = {result}")
-
-        return result
+        return a ** (Decimal('1') / b)
     
 class Modulo(CalculationTemplate):
 
@@ -189,11 +202,7 @@ class Modulo(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        self.check_decimals(a, b)
-        result = a % b
-        logger.info(f"Modulo performed: {a} % {b} = {result}")
-
-        return result
+        return a%b
 
 
     
