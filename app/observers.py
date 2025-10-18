@@ -3,6 +3,7 @@ import os
 import pandas as pd
 from decimal import Decimal
 from app.logger import logger
+from app.config import CALCULATOR_MAX_HISTORY_SIZE, CALCULATOR_AUTO_SAVE
 
 
 class LoggingObserver:
@@ -14,7 +15,8 @@ class LoggingObserver:
     def update(self, final_message):
 
         #update the last operation but do not save
-        self.history.append(final_message)
+        if len(self.history) > CALCULATOR_MAX_HISTORY_SIZE:
+            self.history = self.history[-CALCULATOR_MAX_HISTORY_SIZE:]
 
         logger.info(f"LoggingObserver updated with operation: {final_message}")
 
@@ -68,15 +70,21 @@ class AutosaveObserver:
         #add new row to df
         self.df = pd.concat([self.df, new_row], ignore_index=True)
 
-        #save new df as a csv
-        self.df.to_csv(self.log_file, index=False)
+        # Trim to max history size
+        if len(self.df) > CALCULATOR_MAX_HISTORY_SIZE:
+            self.df = self.df.tail(CALCULATOR_MAX_HISTORY_SIZE)
+
+        # Only save automatically if enabled
+        if CALCULATOR_AUTO_SAVE:
+            self.df.to_csv(self.log_file, index=False)
+            logger.info(f"AutosaveObserver auto-saved operation: {final_message}")
 
         logger.info(f"AutosaveObserver updated with operation: {final_message}")
 
     
     def delete_history(self):
-        self.df = pd.DataFrame(columns=self.columns)  # clear in-memory DataFrame
-        self.df.to_csv(self.log_file, index=False)    # overwrite CSV with empty DataFrame
+        self.df = pd.DataFrame(columns=self.columns)  
+        self.df.to_csv(self.log_file, index=False)   
 
         logger.warning(f"AutosaveObserver cleared history in {self.log_file}")
 
