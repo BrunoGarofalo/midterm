@@ -3,6 +3,7 @@ from app.command_factory import CommandFactory
 from decimal import Decimal, InvalidOperation
 from app.observers import LoggingObserver, Subject, AutosaveObserver
 from datetime import datetime
+from app.memento import MementoCalculator, Originator, CareTaker
 
 def get_decimal_input(prompt):
     while True:
@@ -17,9 +18,17 @@ def get_decimal_input(prompt):
 
 def main():
 
+    caretaker = CareTaker()
+    originator = Originator()
+
+    #instantiate and attach observers
     logging_observer = LoggingObserver()
     autosave_observer = AutosaveObserver()
 
+    '''
+    I need to simplify, I do not want 2 subjects
+    simplify by having originator.attach_observer() and originator internally calls notify whenever add_operation is called
+    '''
     subject_logging = Subject()
     subject_autosave = Subject()
 
@@ -33,23 +42,23 @@ def main():
         operation_code = selection.determineOperationCode()
 
         if operation_code == "exit":
-            logging_observer.delete_history()
+            originator.delete_history()
             print("Goodbye!!")
             break
 
         if operation_code=='save':
-            logging_observer.save_history()
+            logging_observer.save_history(originator.history)
             continue
 
         # show history of logging observer
         if operation_code == 'hist': 
-            logging_observer.show_history()
+            originator.show_history()
             continue
             
         #clear history of logging observer
         if operation_code == 'clear':
             # autosave_observer.delete_history()
-            logging_observer.delete_history()
+            originator.delete_history()
             continue
 
         # load history from autosave observer to logging observer
@@ -84,9 +93,15 @@ def main():
                 timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 final_message = f"{timestamp}|{operation_obj.__class__.__name__}|{operand_a}|{operand_b}|{results} "
 
+                #create memento of current state (before change)
+                caretaker.save_memento(originator.create_memento())
+
+                #add the new operation (this changes the state)
+                originator.add_operation(final_message)
+
                 #notify observers
                 subject_autosave.notify(final_message)
-                subject_logging.notify(final_message)
+                # subject_logging.notify(final_message)
 
                 print(final_message)
 
