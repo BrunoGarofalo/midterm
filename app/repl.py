@@ -4,6 +4,7 @@ from decimal import Decimal, InvalidOperation
 from app.observers import LoggingObserver, Subject, AutosaveObserver
 from datetime import datetime
 from app.memento import Originator, CareTaker
+from app.logger import logger
 
 def get_decimal_input(prompt):
     while True:
@@ -17,6 +18,7 @@ def get_decimal_input(prompt):
             print("Invalid input. Please enter a numeric value.")
 
 def main():
+    logger.info("Calculator application started")
 
     caretaker = CareTaker()
     originator = Originator()
@@ -43,35 +45,58 @@ def main():
 
         if operation_code == "exit":
             originator.delete_history()
+            logger.info("Application closed!")
             print("Goodbye!!")
             break
 
         if operation_code=='save':
             logging_observer.save_history(originator.history)
+            logger.info("History saved manually to history_log.txt")
             continue
 
         # show history of logging observer
         if operation_code == 'hist': 
             originator.show_history()
+            logger.info("History displayed")
             continue
             
         #clear history of logging observer
         if operation_code == 'clear':
             # autosave_observer.delete_history()
             originator.delete_history()
+            logger.warning("Instance history cleared")
             continue
+
+        if operation_code == 'undo':
+            undone_op = caretaker.undo_memento(originator)
+            if undone_op:
+                print(f"↩️ Undo performed: {undone_op}")
+                for op in originator.history:
+                    subject_autosave.notify(op)
+            continue
+
+        if operation_code == 'redo':
+            redone_op = caretaker.redo_memento(originator)
+            if redone_op:
+                print(f"↪️ Redo performed: {redone_op}")
+                for op in originator.history:
+                    subject_autosave.notify(op)
+            continue
+
 
         # load history from autosave observer to logging observer
         if operation_code == 'load':
             CSV_history = autosave_observer.load_history()
             originator.get_loaded_history(CSV_history)
             caretaker.save_memento(originator.create_memento()) 
+            logger.info("App history loaded from history_log.csv")
             continue
 
 
         try:
             operation_obj = CommandFactory(operation_code).createOperationObject()
         except Exception as e:
+            logger.error(f"Calculation error: {e}")
             print(f"Error creating operation: {e}")
             continue
 
@@ -101,14 +126,15 @@ def main():
 
                 #notify observers
                 subject_autosave.notify(final_message)
-                # subject_logging.notify(final_message)
 
-                print(final_message)
+                #Log  successful completion of calculation
+                logger.info(f"Calculation successfully completed: {final_message}")
 
                 #display the result
                 print(f"✅ Result of {operation_code} with operands {operand_a} and {operand_b} = {results}")
 
             except  Exception as e:
+                logger.error(f"Calculation error: {e}")
                 print(f"❌ Error: {e}")
 
 
