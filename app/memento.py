@@ -1,6 +1,7 @@
 from copy import deepcopy
 import pandas as pd
 import os
+from app.logger import logger
 
 class MementoCalculator:
     #hold snapshop in time
@@ -55,26 +56,32 @@ class Originator:
 
     def show_history(self):
         if len(self.history) == 0:
+            logger.warning(f"Warning: request history, no history to display!")
             print("❌ No history to display!")
         else:
             print("\n👉 Full History:")
             for entry in self.history:
                 print(entry)
+            logger.info(f"History successfully displayed!")
 
 
     def delete_history(self):
         if len(self.history) == 0:
+            logger.warning(f"Warning: request to clear history, no history to clear!")
             print("❌ No instance history to clear!")
         else:
             self.history = []
+            logger.warning(f"Instance history succesfully deleted")
             print(f"✅ Instance history succesfully deleted!")
 
     def get_loaded_history(self, CSV_history):
         if CSV_history:
             # CSV_history is a list of operation messages
             self.history = CSV_history.copy()  # to avoid accidental mutation 
+            logger.info(f"Warning: History loaded into instance successfully")
             print("✅ History loaded into instance successfully.")
         else:
+            logger.warning(f"Warning: request to load history from CSV, no history to load!")
             print("❌ No history to load from CSV.")
     
 
@@ -131,8 +138,11 @@ class CareTaker:
         Notice the most recent state is always in the history (top). The previous state is in the undo stack
         '''
         if not self.stack_undo:
-            print("No operation to undo!")
+            print("❌ No operation to undo!")
             return
+
+        # Save current state for comparison
+        current_state = originator.history.copy()
 
         #take the last memento from the stack_undo
         memento = self.stack_undo.pop()
@@ -142,6 +152,12 @@ class CareTaker:
 
         # restore popped memento from stack_undo to history
         originator.restore_memento(memento)
+
+        # Determine which operation was undone
+        undone_operations = [op for op in current_state if op not in originator.history]
+
+        # Return the last undone operation if any
+        return undone_operations[-1] if undone_operations else None
 
     def redo_memento(self, originator):
         '''
@@ -163,9 +179,11 @@ class CareTaker:
         - redo_stack = []
         '''
         if not self.stack_redo:
-            print("No operation to redo!")
-            return
+            print("❌ No operation to redo!")
+            return False
         
+        current_state = originator.history.copy()
+
         #take the last memento from the stack_redo
         memento = self.stack_redo.pop()
 
@@ -174,6 +192,10 @@ class CareTaker:
 
         # restore popped memento from stack_redo to history
         originator.restore_memento(memento)
+
+        redone_operations = [op for op in originator.history if op not in current_state]
+        return redone_operations[-1] if redone_operations else None
+
 
 
 
