@@ -1,5 +1,6 @@
 from app.math_operations import Percentage, IntegerDivision, Modulo, Root, Absdifference, Multiplication, Addition, Division, Subtraction, Power
 from app.math_operations import CalculationTemplate
+from app.logger import logger
 
 class CommandFactory:
     #initialize instance
@@ -35,12 +36,9 @@ class CommandFactory:
             return Multiplication()
         elif self.user_input == 'power':
             return Power()
-        elif self.user_input == 'undo':
-            return Undo()
-        elif self.user_input == 'redo':
-            return Redo()
         elif self.user_input == 'help':
             return Help()
         else:
+            logger.error(f"Value error: Command {self.user_input} not allowed")
             raise ValueError(f'❌ Command {self.user_input} not allowed, commands allowed: {CalculationTemplate.operations_allowed} ')
         

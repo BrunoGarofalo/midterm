@@ -25,43 +25,10 @@ class LoggingObserver:
         else:
             print(f"❌ No history to be saved")
 
-    # def manual_history_save(self):
-    #     #get individual values from message
-    #     message_values = self.last_operation.split("|")
-
-    #     #zip values to create key-value pairs and create dict
-    #     values_dict = dict(zip(self.columns, message_values))
-
-    #     #create new data row in pandas
-    #     new_row = pd.DataFrame([values_dict])
-
-    #     #add new row to df
-    #     self.df = pd.concat([self.df, new_row], ignore_index=True)
-
-    #     #save new df as a csv
-    #     self.df.to_csv(self.log_file, index=False)
-
-    #     print(f"✅ Log entry saved to {self.log_file}")
-
 
     def detach(self, final_message):
         self.history.remove(final_message)
 
-
-    # def show_history(self):
-    #     if len(self.history) == 0:
-    #         print("❌ No history to display!")
-    #     else:
-    #         print("\n👉 Full History:")
-    #         for entry in self.history:
-    #             print(entry)
-
-    # def delete_history(self):
-    #     if os.path.exists(self.log_file):
-    #         os.remove(self.log_file)
-    #         print(f"✅ History succesfully deleted!")
-    #     else:
-    #         print("❌ No history to be displayed...yet!")
    
 
 class AutosaveObserver:
@@ -96,13 +63,6 @@ class AutosaveObserver:
         #save new df as a csv
         self.df.to_csv(self.log_file, index=False)
 
-        print(f"✅ Log entry saved to {self.log_file}")
-
-    # def show_history(self):
-    #     if not self.df.empty:
-    #         print(self.df)
-    #     else:
-    #         print("❌ No history to be displayed...yet!")
     
     def delete_history(self):
         self.df = pd.DataFrame(columns=self.columns)  # clear in-memory DataFrame
