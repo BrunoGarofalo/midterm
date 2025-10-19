@@ -1,5 +1,6 @@
 
 from app.logger import logger
+from app.exceptions import CommandError
 
 class operationSelection:
 
@@ -23,26 +24,6 @@ class operationSelection:
                             'Q': ['Display available commands', 'help'],
                             'R': ['Exit the program', 'exit']}
 
-    # user_input_message = "\n".join([f"{key:<2}: {value[0]}" for key, value in operations_dictionary.items()])
-
-    # def __init__(self):
-    #     print("👋 Welcome! Type 'help' to see the list of available commands.")
-    #     while True:
-    #         self.user_input = input(f'👉 Please select one of the following commands:\n {self.user_input_message}\n').upper()
-
-    #         if self.user_input in self.operations_dictionary:
-    #             logger.info(f"User selected command: {self.user_input} - {self.operations_dictionary[self.user_input][0]}")
-    #             break
-    #         else:
-    #             logger.warning(f"Invalid command entered by user: {self.user_input}")
-    #             print(f"❌ Command {self.user_input} not available!")
-                
-
-    # def determineOperationCode(self):
-    #     self.operation_code = self.operations_dictionary[self.user_input][1].lower()
-    #     logger.info(f"Determined operation code: {self.operation_code} for command {self.user_input}")
-    #     print(f"selected command: {self.user_input} - {self.operation_code}")
-    #     return self.operation_code
 
     @classmethod
     def show_commands(cls):
@@ -57,7 +38,7 @@ class operationSelection:
             logger.info(f"Determined operation code '{op_code}' for command '{user_input}'")
             return op_code
         else:
-            logger.warning(f"Invalid operation key: {user_input}")
-            return None
+            logger.warning(f"❌ Invalid operation key: {user_input}")
+            raise CommandError(f"❌ Invalid command '{user_input}'. Type 'help' to see available commands.")
 
 

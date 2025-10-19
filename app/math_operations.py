@@ -2,9 +2,12 @@ from abc import ABC, abstractmethod
 from decimal import Decimal, ROUND_HALF_UP, InvalidOperation
 from app.logger import logger
 from app.config import CALCULATOR_MAX_INPUT_VALUE, CALCULATOR_PRECISION
+from app.exceptions import ValidationError, OperationError
 
 
-
+# ------------------------------------------------------------
+# INPUT VALIDATION
+# ------------------------------------------------------------
 def get_valid_operand(prompt):
     while True:
         #get user input
@@ -14,18 +17,20 @@ def get_valid_operand(prompt):
             value = Decimal(input(prompt))
         #return an error if this happens
         except InvalidOperation:
-            print("❌ Invalid input. Please enter a numeric value.")
+            logger.warning(f"❌ Invalid input {prompt}. Please enter a numeric value.")
+            print(f"❌ Invalid input {prompt}. Please enter a numeric value.")
             continue
 
         if value > CALCULATOR_MAX_INPUT_VALUE:
+            logger.warning(f"❌ Input too large {prompt}")
             print(f"❌ Input too large. Maximum allowed is {CALCULATOR_MAX_INPUT_VALUE}. Try again.")
             continue
 
         return value
 
-##################################################################################################################
-################## create the abstract class that will serve as the template for all calculation classses ########
-##################################################################################################################
+# ------------------------------------------------------------
+# ABS class as template for calculation classes
+# ------------------------------------------------------------
 
 class CalculationTemplate(ABC):
 
@@ -46,31 +51,41 @@ class CalculationTemplate(ABC):
     def check_decimals(self, a: Decimal, b: Decimal) -> Decimal:
         """Generic check for input bounds."""
         if a > CALCULATOR_MAX_INPUT_VALUE or b > CALCULATOR_MAX_INPUT_VALUE:
-            logger.warning(f"Input exceeds max value of {CALCULATOR_MAX_INPUT_VALUE}: {a}, {b}")
-            raise ValueError(f"Inputs must be ≤ {CALCULATOR_MAX_INPUT_VALUE}")
-        # Round inputs according to precision
-        a = a.quantize(Decimal(f"1.{'0'*CALCULATOR_PRECISION}"), rounding=ROUND_HALF_UP)
-        b = b.quantize(Decimal(f"1.{'0'*CALCULATOR_PRECISION}"), rounding=ROUND_HALF_UP)
+            logger.warning(f"❌ Input exceeds max value of {CALCULATOR_MAX_INPUT_VALUE}: {a}, {b}")
+            raise ValidationError(f"❌ Inputs must be ≤ {CALCULATOR_MAX_INPUT_VALUE}")
+        try:
+            # Round inputs according to precision
+            a = a.quantize(Decimal(f"1.{'0'*CALCULATOR_PRECISION}"), rounding=ROUND_HALF_UP)
+            b = b.quantize(Decimal(f"1.{'0'*CALCULATOR_PRECISION}"), rounding=ROUND_HALF_UP)
+            
+        except InvalidOperation as e:
+            logger.exception(f"❌ rounding operation failed {e}")
+            raise ValidationError(f"Error rounding operands: {e}")
+        
         return a, b
-    
+
     def format_result(self, result: Decimal) -> Decimal:
-        """Round result according to CALCULATOR_PRECISION."""
-        return result.quantize(Decimal(f"1.{'0'*CALCULATOR_PRECISION}"), rounding=ROUND_HALF_UP)
+        try:
+            return result.quantize(Decimal(f"1.{'0'*CALCULATOR_PRECISION}"), rounding=ROUND_HALF_UP)
+        except InvalidOperation as e:
+            logger.exception("❌ Result formatting failed.")
+            raise OperationError(f"❌ Error formatting result: {e}")
     
     def calculate(self, a: Decimal, b: Decimal) -> Decimal:
+        try:
 
-        a, b = self.check_decimals(a, b)
+            a, b = self.check_decimals(a, b)
+            result = self.runOperation(a, b)
 
+            if isinstance(result, Decimal):
+                result = self.format_result(result)
 
-        result = self.runOperation(a, b)
-
-
-        if isinstance(result, Decimal):
-            result = self.format_result(result)
-
-
-        logger.info(f"{self.__class__.__name__} performed: {a} {self._operator_symbol()} {b} = {result}")
-        return result
+            logger.info(f"{self.__class__.__name__} performed: {a} {self._operator_symbol()} {b} = {result}")
+            return result
+        
+        except Exception as e:
+            logger.exception("❌ Unexpected error during calculation.")
+            raise OperationError(f"❌ Unexpected error: {e}")
 
     def _operator_symbol(self) -> str:
         """Symbol for logging purposes."""
@@ -174,7 +189,11 @@ class Power(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        return a ** b
+        try:
+            return a ** b
+        except InvalidOperation as e:
+            logger.error(f"❌ Power calculation failed: {a}^{b}")
+            raise OperationError(f"❌ Power calculation failed:{a}^{b}, {e}")
 
 
 class Root(CalculationTemplate):
@@ -186,19 +205,23 @@ class Root(CalculationTemplate):
         '''
         
         if a < 0:
-            logger.error(f"Invalid root attempt: root({a}, {b}), cannot take root of number less than zero")
-            raise ValueError('ERROR: cannot take root of number less than zero')
+            logger.error(f"❌ Invalid root attempt: root({a}, {b}), cannot take root of number less than zero")
+            raise ValidationError('❌ ERROR: cannot take root of number less than zero')
         
         if b ==0:
-            logger.error(f"Invalid root degree: root({a}, {b}), degree of root cannot be 0")
-            raise ValueError('ERROR: degree of root cannot be 0')
+            logger.error(f"❌ Invalid root degree: root({a}, {b}), degree of root cannot be 0")
+            raise ValidationError('❌ ERROR: degree of root cannot be 0')
 
 
         return super().check_decimals(a, b)
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        return a ** (Decimal('1') / b)
+        try:
+            return a ** (Decimal("1") / b)
+        except InvalidOperation as e:
+            logger.exception("❌ Root calculation failed.")
+            raise OperationError(f"❌ Root calculation failed:{a}, {b}, {e}")
     
 class Modulo(CalculationTemplate):
 
