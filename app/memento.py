@@ -2,14 +2,21 @@ from copy import deepcopy
 import pandas as pd
 import os
 from app.logger import logger
+from app.exceptions import HistoryError, FileAccessError, DataFormatError
 
 class MementoCalculator:
     #hold snapshop in time
     def __init__(self, state):
-        # state set as private variable, deecopy will prevent that the history is modified outside
-        '''self._state holds a snapshot of the entire history up to the moment the memento is created
-        _state: [5+2=7, 3*4=12, 10-1=9]   <-- snapshot of history at this point'''
-        self._state = deepcopy(state)
+        try:
+
+            # state set as private variable, deecopy will prevent that the history is modified outside
+            '''self._state holds a snapshot of the entire history up to the moment the memento is created
+            _state: [5+2=7, 3*4=12, 10-1=9]   <-- snapshot of history at this point'''
+            self._state = deepcopy(state)
+        
+        except Exception as e:
+            logger.exception(f"❌ Failed to create memento: {e}")
+            raise HistoryError(f"❌ Failed to create memento: {e}") from e
 
     def get_state(self):
         #gets the actual history of mementos or history snapshots
@@ -22,7 +29,11 @@ class MementoCalculator:
 
         IE: M2.get_state() returns ["5 + 2 = 7", "3 * 4 = 12"]
         '''
-        return deepcopy(self._state)
+        try:
+            return deepcopy(self._state)
+        except Exception as e:
+            logger.exception(f"❌ Failed to get memento state: {e}")
+            raise HistoryError(f"❌ Failed to get memento state: {e}") from e
     
 class Originator: 
     #the object whose state we want to track, holds the current history and creates or restores mementos
@@ -40,12 +51,22 @@ class Originator:
         M2: ["5 + 2 = 7", "3 * 4 = 12"]
         M3: ["5 + 2 = 7", "3 * 4 = 12", "10 - 1 = 9"]
         '''
-        return MementoCalculator(self.history)
+        try:
+            return MementoCalculator(self.history)
+        
+        except HistoryError as e:
+            logger.error(f"Cannot create memento: {e}")
+            raise
     
     def add_operation(self, message):
         #saves new operation to temporary history, IE: "12 - 2 = 10"
-        self.history.append(message)
-        logger.info(f"Operation added to history: {message}")
+        try:
+            self.history.append(message)
+            logger.info(f"Operation added to history: {message}")
+
+        except Exception as e:
+            logger.exception(f"❌ Failed to add operation to history: {e}")
+            raise HistoryError(f"❌ Failed to add operation: {e}") from e
     
     def restore_memento(self, memento):
         #restore history from a previous memento
@@ -53,9 +74,15 @@ class Originator:
         updates the current history with the selected memento snapshot
         IE: M2.get_state() returns self.history = ["5 + 2 = 7", "3 * 4 = 12"]
         '''
-        old_history = self.history.copy()
-        self.history = memento.get_state()
-        logger.info(f"History restored from memento. Previous: {old_history}, New: {self.history}")
+        try:
+
+            old_history = self.history.copy()
+            self.history = memento.get_state()
+            logger.info(f"History restored from memento. Previous: {old_history}, New: {self.history}")
+
+        except Exception as e:
+            logger.exception(f"❌ Failed to restore memento: {e}")
+            raise HistoryError(f"❌ Failed to restore memento: {e}") from e
 
     def show_history(self):
         if len(self.history) == 0:
@@ -70,19 +97,24 @@ class Originator:
 
     def delete_history(self):
         if len(self.history) == 0:
-            logger.warning(f"Warning: request to clear history, no history to clear!")
+            logger.warning(f"❌ Warning: request to clear history, no history to clear!")
             print("❌ No instance history to clear!")
         else:
             self.history = []
-            logger.warning(f"Instance history succesfully deleted")
+            logger.warning(f"✅ Instance history succesfully deleted")
             print(f"✅ Instance history succesfully deleted!")
 
     def get_loaded_history(self, CSV_history):
         if CSV_history:
-            # CSV_history is a list of operation messages
-            self.history = CSV_history.copy()  # to avoid accidental mutation 
-            logger.info(f"Warning: History loaded into instance successfully")
-            print("✅ History loaded into instance successfully.")
+            try:
+                # CSV_history is a list of operation messages
+                self.history = CSV_history.copy()  # to avoid accidental mutation 
+                logger.info(f"Warning: History loaded into instance successfully")
+                print("✅ History loaded into instance successfully.")
+
+            except Exception as e:
+                logger.exception(f"❌ Failed to load history into instance: {e}")
+                raise DataFormatError(f"❌ Failed to load history: {e}") from e 
         else:
             logger.warning(f"Warning: request to load history from CSV, no history to load!")
             print("❌ No history to load from CSV.")
@@ -114,12 +146,17 @@ class CareTaker:
 
 
     def save_memento(self, memento):
-        self.stack_undo.append(memento)
-        
-        #clear stack redo when a new action is done
-        self.stack_redo.clear()
+        try:
 
-        logger.info(f"Memento saved. Undo stack size: {len(self.stack_undo)}; Redo stack cleared")
+            self.stack_undo.append(memento)
+            
+            #clear stack redo when a new action is done
+            self.stack_redo.clear()
+
+            logger.info(f"Memento saved. Undo stack size: {len(self.stack_undo)}; Redo stack cleared")
+        except Exception as e:
+            logger.exception(f"❌ Failed to save memento: {e}")
+            raise HistoryError(f"❌ Failed to save memento: {e}") from e
 
     def undo_memento(self, originator):
 
@@ -143,32 +180,37 @@ class CareTaker:
         Notice the most recent state is always in the history (top). The previous state is in the undo stack
         '''
         if not self.stack_undo:
-            logger.warning("Undo requested but no operation to undo")
+            logger.warning("❌ Undo requested but no operation to undo")
             print("❌ No operation to undo!")
-            return
+            return None
 
-        # Save current state for comparison
-        current_state = originator.history.copy()
+        try:
+            # Save current state for comparison
+            current_state = originator.history.copy()
 
-        #take the last memento from the stack_undo
-        memento = self.stack_undo.pop()
+            #take the last memento from the stack_undo
+            memento = self.stack_undo.pop()
 
-        # add memento for new state to stack_redo
-        self.stack_redo.append(originator.create_memento())
+            # add memento for new state to stack_redo
+            self.stack_redo.append(originator.create_memento())
 
-        # restore popped memento from stack_undo to history
-        originator.restore_memento(memento)
+            # restore popped memento from stack_undo to history
+            originator.restore_memento(memento)
 
-        # Determine which operation was undone
-        undone_operations = [op for op in current_state if op not in originator.history]
+            # Determine which operation was undone
+            undone_operations = [op for op in current_state if op not in originator.history]
 
-        undone_op = undone_operations[-1] if undone_operations else None
+            undone_op = undone_operations[-1] if undone_operations else None
 
-        if undone_op:
-            logger.info(f"Undo performed. Operation undone: {undone_op}")
+            if undone_op:
+                logger.info(f"Undo performed. Operation undone: {undone_op}")
 
-        # Return the last undone operation if any
-        return undone_op
+            # Return the last undone operation if any
+            return undone_op
+        
+        except Exception as e:
+            logger.exception(f"❌ Failed to perform undo: {e}")
+            raise HistoryError(f"❌ Undo failed: {e}") from e
 
     def redo_memento(self, originator):
         '''
@@ -190,30 +232,34 @@ class CareTaker:
         - redo_stack = []
         '''
         if not self.stack_redo:
-            
+            logger.warning("❌ Red requested but no operation to redo")
             print("❌ No operation to redo!")
             return False
         
-        current_state = originator.history.copy()
+        try:
+            current_state = originator.history.copy()
 
-        #take the last memento from the stack_redo
-        memento = self.stack_redo.pop()
+            #take the last memento from the stack_redo
+            memento = self.stack_redo.pop()
 
-        # add memento for new state to stack_redo
-        self.stack_undo.append(originator.create_memento())
+            # add memento for new state to stack_redo
+            self.stack_undo.append(originator.create_memento())
 
-        # restore popped memento from stack_redo to history
-        originator.restore_memento(memento)
+            # restore popped memento from stack_redo to history
+            originator.restore_memento(memento)
 
-        redone_operations = [op for op in originator.history if op not in current_state]
+            redone_operations = [op for op in originator.history if op not in current_state]
 
-        redone_op = redone_operations[-1] if redone_operations else None
+            redone_op = redone_operations[-1] if redone_operations else None
 
-        if redone_op:
-            logger.info(f"Redo performed. Operation redone: {redone_op}")
-            
-        return redone_op
+            if redone_op:
+                logger.info(f"Redo performed. Operation redone: {redone_op}")
 
+            return redone_op
+        
+        except Exception as e:
+            logger.exception(f"❌ Failed to perform redo: {e}")
+            raise HistoryError(f"❌ Redo failed: {e}") from e
 
 
 
