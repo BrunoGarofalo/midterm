@@ -8,6 +8,8 @@ from app.logger import logger
 from app.math_operations import get_valid_operand
 from app.operation_selection import operationSelection
 from app.exceptions import OperationError, ValidationError, CommandError, HistoryError
+from colorama import init, Fore, Style
+init(autoreset=True) 
 
 ''''
 who should delete the history? the logging observer or the originator in the memento?
@@ -37,13 +39,14 @@ def main():
     subject_logging.attach(logging_observer)
     subject_autosave.attach(autosave_observer)
 
-    print("👋 Welcome to the Calculator app! Type 'help' to see available commands.")
+    print(f"{Fore.CYAN}👋 Welcome to the Calculator app! Type 'help' to see available commands.{Style.RESET_ALL}")
 
     while True:
         try:
 
             # Prompt user for operation
-            user_input = input("👉 Select one of the letters corresponding to the operation, IE: A for Percent: ").strip().upper()
+            user_input = input(f"{Fore.MAGENTA}👉 Select one of the letters corresponding to the operation (IE: A for Percent: {Style.RESET_ALL}){Fore.YELLOW} - (Type 'help' to see available commands)").strip().upper()
+            print(user_input)
 
             if user_input == "HELP":
                 print("\n📜 Available commands, select one of the letters correspondint to the operation, IE: A for Percent:")
@@ -51,8 +54,7 @@ def main():
                 continue
 
             if user_input not in operationSelection.operations_dictionary:
-                # logger.warning(f"❌ CommandError: Invalid command entered by user: {user_input}")
-                raise CommandError(f"❌ Command '{user_input}' not recognized. Type 'help' for the list.")
+                raise CommandError(f"'{user_input}' not recognized. Type 'help' for the list.")
 
             
 
@@ -118,6 +120,7 @@ def main():
 
             try:
                 operation_obj = CommandFactory(operation_code).createOperationObject()
+                print(f"{Fore.YELLOW}Operation Selected: {operation_obj.__class__.__name__}{Style.RESET_ALL}")
             except Exception as e:
                 logger.error(f"Calculation error: {e}")
                 raise OperationError(f"Failed to create operation object: {e}")
@@ -154,7 +157,7 @@ def main():
                     logger.info(f"Calculation successfully completed: {final_message}")
 
                     #display the result
-                    print(f"✅ Result of {operation_code} with operands {operand_a} and {operand_b} = {results}")
+                    print(f"{Fore.GREEN}✅ Result of {operation_code} with operands {operand_a} and {operand_b} = {results}{Style.RESET_ALL}")
 
                 except  (InvalidOperation, ValueError) as e:
                     logger.error(f"Calculation error: {e}")
@@ -162,22 +165,22 @@ def main():
 
         # Custom Exception Handling
         except CommandError as e:
-            print(e)
+            print(f"{Fore.RED}⌨️ Command error: {e}{Style.RESET_ALL}")
             logger.warning(f"⌨️ Command error: {e}")
 
         except ValidationError as e:
-            print(f"❌ Input Error: {e}")
+            print(f"{Fore.RED}❌ Input Error: {e}{Style.RESET_ALL}")
             logger.error(f"❌ Validation error: {e}")
 
         except OperationError as e:
-            print(f"⚠️ Operation Error: {e}")
+            print(f"{Fore.RED}⚠️ Operation Error: {e}{Style.RESET_ALL}")
             logger.error(f"⚠️ Operation error: {e}")
 
         except HistoryError as e:
-            print(f"📂 History Error: {e}")
+            print(f"{Fore.BLUE}📂 History Error: {e}{Style.RESET_ALL}")
             logger.error(f"📂 History error: {e}")
 
         # --- CATCH-ALL FALLBACK ---
         except Exception as e:
-            print(f"💥 Unexpected error: {e}")
+            print(f"{Fore.RED}{Style.BRIGHT}💥 Unexpected error: {e}{Style.RESET_ALL}")
             logger.exception("Unhandled exception occurred during REPL loop. 💥 Unexpected error: {e}")

@@ -3,6 +3,8 @@ from decimal import Decimal, ROUND_HALF_UP, InvalidOperation
 from app.logger import logger
 from app.config import CALCULATOR_MAX_INPUT_VALUE, CALCULATOR_PRECISION
 from app.exceptions import ValidationError, OperationError
+from colorama import init, Fore, Style
+init(autoreset=True) 
 
 
 # ------------------------------------------------------------
@@ -18,12 +20,12 @@ def get_valid_operand(prompt):
         #return an error if this happens
         except InvalidOperation:
             logger.warning(f"❌ Invalid input {prompt}. Please enter a numeric value.")
-            print(f"❌ Invalid input {prompt}. Please enter a numeric value.")
+            print(f"❌ {Fore.MAGENTA} Invalid input {prompt}. Please enter a numeric value.{Style.RESET_ALL}")
             continue
 
         if value > CALCULATOR_MAX_INPUT_VALUE:
             logger.warning(f"❌ Input too large {prompt}")
-            print(f"❌ Input too large. Maximum allowed is {CALCULATOR_MAX_INPUT_VALUE}. Try again.")
+            print(f"❌ {Fore.MAGENTA} Input too large. Maximum allowed is {CALCULATOR_MAX_INPUT_VALUE}. Try again.{Style.RESET_ALL}")
             continue
 
         return value

@@ -21,8 +21,7 @@ class operationSelection:
                             'N': ['Redo current operation', 'redo'],
                             'O': ['Save calculation history', 'save'],
                             'P': ['Load calculation history', 'load'],
-                            'Q': ['Display available commands', 'help'],
-                            'R': ['Exit the program', 'exit']}
+                            'Q': ['Exit the program', 'exit']}
 
 
     @classmethod

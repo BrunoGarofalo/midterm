@@ -3,6 +3,8 @@ import pandas as pd
 import os
 from app.logger import logger
 from app.exceptions import HistoryError, FileAccessError, DataFormatError
+from colorama import init, Fore, Style
+init(autoreset=True) 
 
 class MementoCalculator:
     #hold snapshop in time
@@ -87,22 +89,22 @@ class Originator:
     def show_history(self):
         if len(self.history) == 0:
             logger.warning(f"Warning: request history, no history to display!")
-            print("❌ No history to display!")
+            print(f"❌ {Fore.MAGENTA} No history to display!{Style.RESET_ALL}")
         else:
             print("\n👉 Full History:")
             for entry in self.history:
-                print(entry)
+                print(f"{Fore.YELLOW}{entry}{Style.RESET_ALL}")
             logger.info(f"History successfully displayed!")
 
 
     def delete_history(self):
         if len(self.history) == 0:
             logger.warning(f"❌ Warning: request to clear history, no history to clear!")
-            print("❌ No instance history to clear!")
+            print(f"❌{Fore.MAGENTA} No instance history to clear!{Style.RESET_ALL}")
         else:
             self.history = []
             logger.warning(f"✅ Instance history succesfully deleted")
-            print(f"✅ Instance history succesfully deleted!")
+            print(f"✅ {Fore.GREEN} Instance history succesfully deleted!{Style.RESET_ALL}")
 
     def get_loaded_history(self, CSV_history):
         if CSV_history:
@@ -110,14 +112,14 @@ class Originator:
                 # CSV_history is a list of operation messages
                 self.history = CSV_history.copy()  # to avoid accidental mutation 
                 logger.info(f"Warning: History loaded into instance successfully")
-                print("✅ History loaded into instance successfully.")
+                print(f"✅{Fore.GREEN}History loaded into instance successfully.{Style.RESET_ALL}")
 
             except Exception as e:
                 logger.exception(f"❌ Failed to load history into instance: {e}")
                 raise DataFormatError(f"❌ Failed to load history: {e}") from e 
         else:
             logger.warning(f"Warning: request to load history from CSV, no history to load!")
-            print("❌ No history to load from CSV.")
+            print(f"❌ {Fore.MAGENTA}No history to load from CSV.{Style.RESET_ALL}")
     
 
 
@@ -181,7 +183,7 @@ class CareTaker:
         '''
         if not self.stack_undo:
             logger.warning("❌ Undo requested but no operation to undo")
-            print("❌ No operation to undo!")
+            print(f"❌ {Fore.MAGENTA}No operation to undo!{Style.RESET_ALL}")
             return None
 
         try:
@@ -233,7 +235,7 @@ class CareTaker:
         '''
         if not self.stack_redo:
             logger.warning("❌ Red requested but no operation to redo")
-            print("❌ No operation to redo!")
+            print(f"❌ {Fore.MAGENTA} No operation to redo!{Style.RESET_ALL}")
             return False
         
         try:

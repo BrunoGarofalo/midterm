@@ -13,6 +13,8 @@ from app.config import (
 )
 
 from app.exceptions import FileAccessError, DataFormatError, HistoryError
+from colorama import init, Fore, Style
+init(autoreset=True) 
 
 
 # ------------------------------------------------------------
@@ -45,7 +47,7 @@ class LoggingObserver:
     def save_history(self, history):
         if not history:
             logger.warning("❌ Attempted to save empty history. No data written.")
-            print("❌ No history to be saved.")
+            print(f"❌{Fore.MAGENTA} No history to be saved.{Style.RESET_ALL}")
             return
         
         try:
@@ -53,10 +55,10 @@ class LoggingObserver:
                         for entry in history:
                             file.write(entry + "\n")
             logger.info(f"✅ Full history saved to {self.log_file}")
-            print("✅ Full history successfully saved to history_log.txt")
+            print(f"✅ {Fore.GREEN} Full history successfully saved to history_log.txt{Style.RESET_ALL}")
         except Exception as e:
             logger.warning("❌ Attempted to save empty history, No history to be saved {e}")
-            print(f"❌ No history to be saved")
+            print(f"❌ {Fore.MAGENTA} No history to be saved{Style.RESET_ALL}")
             raise FileAccessError(f"Error saving history to file: {e}")
 
 
@@ -145,13 +147,13 @@ class AutosaveObserver:
         try:
             if not os.path.exists(self.log_file) or os.path.getsize(self.log_file) == 0:
                 logger.warning("❌ AutosaveObserver attempted to load history but folder is missing/empty")
-                print("❌ No saved history to load")
+                print(f"❌ {Fore.MAGENTA} No saved history to load{Style.RESET_ALL}")
                 return []
             
             df = pd.read_csv(self.log_file, encoding=CALCULATOR_DEFAULT_ENCODING)
             if df.empty:
                 logger.warning("❌ AutosaveObserver attempted to load history but file is empty")
-                print("❌ History file is empty")
+                print(f"❌{Fore.MAGENTA} History file is empty{Style.RESET_ALL}")
                 return []
 
             loaded_calculations = []
