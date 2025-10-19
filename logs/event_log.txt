@@ -1,38 +1,180 @@
-2025-10-18 12:27:53 [INFO] Calculator application started
-2025-10-18 12:29:26 [INFO] Calculator application started
-2025-10-18 12:29:39 [INFO] Application closed!
-2025-10-18 12:36:37 [INFO] Calculator application started
-2025-10-18 12:36:43 [INFO] Calculation successfully completed: 2025-10-18 12:36:43|Percentage|2|6|33.33333333333333333333333333% 
-2025-10-18 14:38:24 [INFO] Application closed!
-2025-10-18 14:38:30 [INFO] Calculator application started
-2025-10-18 14:38:33 [WARNING] Warning: request history, no history to display!
-2025-10-18 14:38:33 [INFO] History displayed
-2025-10-18 14:44:44 [WARNING] Warning: request to clear history, no history to clear!
-2025-10-18 14:44:44 [INFO] Application closed!
-2025-10-18 14:44:52 [INFO] Calculator application started
-2025-10-18 14:45:42 [WARNING] Warning: request to clear history, no history to clear!
-2025-10-18 14:45:42 [INFO] Application closed!
-2025-10-18 14:45:46 [INFO] Calculator application started
-2025-10-18 14:46:03 [INFO] Warning: History loaded into instance successfully
-2025-10-18 14:46:03 [INFO] App history loaded from history_log.csv
-2025-10-18 14:46:06 [INFO] History successfully displayed!
-2025-10-18 14:46:06 [INFO] History displayed
-2025-10-18 14:52:54 [WARNING] Instance history succesfully deleted
-2025-10-18 14:52:54 [INFO] Application closed!
-2025-10-18 14:53:01 [INFO] Calculator application started
-2025-10-18 14:53:19 [WARNING] Warning: request history, no history to display!
-2025-10-18 14:53:19 [INFO] History displayed
-2025-10-18 14:53:34 [INFO] Calculation successfully completed: 2025-10-18 14:53:34|Multiplication|3|4|12 
-2025-10-18 14:53:40 [INFO] Calculation successfully completed: 2025-10-18 14:53:40|IntegerDivision|3|7|0 
-2025-10-18 14:53:49 [INFO] Calculation successfully completed: 2025-10-18 14:53:49|Multiplication|4|6|24 
-2025-10-18 14:53:57 [INFO] History successfully displayed!
-2025-10-18 14:53:57 [INFO] History displayed
-2025-10-18 14:56:11 [WARNING] Instance history succesfully deleted
-2025-10-18 14:56:11 [INFO] Application closed!
-2025-10-18 14:56:16 [INFO] Calculator application started
-2025-10-18 14:56:28 [INFO] Calculation successfully completed: 2025-10-18 14:56:28|Percentage|4|7|57.14285714285714285714285714% 
-2025-10-18 14:56:30 [INFO] Calculation successfully completed: 2025-10-18 14:56:30|Modulo|3|3|0 
-2025-10-18 14:56:32 [INFO] History successfully displayed!
-2025-10-18 14:56:32 [INFO] History displayed
-2025-10-18 14:56:58 [WARNING] Instance history succesfully deleted
-2025-10-18 14:56:58 [INFO] Application closed!
+
+2025-10-18 17:39:02 [INFO] User selected command: R - Exit the program
+2025-10-18 17:39:02 [INFO] Determined operation code: exit for command R
+2025-10-18 17:39:02 [WARNING] Instance history succesfully deleted
+2025-10-18 17:39:02 [INFO] Application closed!
+2025-10-18 17:48:00 [INFO] Calculator application started
+2025-10-18 17:48:00 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-18 17:48:29 [INFO] User selected command: A - Percentage
+2025-10-18 17:48:29 [INFO] Determined operation code: percentage for command A
+2025-10-18 17:48:33 [INFO] Percentage performed: 3.0000 % 5.0000 = 0.6000
+2025-10-18 17:48:33 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
+2025-10-18 17:48:33 [INFO] Operation added to history: 2025-10-18 17:48:33|Percentage|3|5|0.6000 
+2025-10-18 17:48:33 [INFO] AutosaveObserver auto-saved operation: 2025-10-18 17:48:33|Percentage|3|5|0.6000 
+2025-10-18 17:48:33 [INFO] AutosaveObserver updated with operation: 2025-10-18 17:48:33|Percentage|3|5|0.6000 
+2025-10-18 17:48:33 [INFO] Calculation successfully completed: 2025-10-18 17:48:33|Percentage|3|5|0.6000 
+2025-10-18 17:48:49 [INFO] User selected command: C - Multiplication
+2025-10-18 17:48:49 [INFO] Determined operation code: multiplication for command C
+2025-10-18 17:48:52 [INFO] Multiplication performed: 3.0000 * 4.0000 = 12.0000
+2025-10-18 17:48:52 [INFO] Memento saved. Undo stack size: 2; Redo stack cleared
+2025-10-18 17:48:52 [INFO] Operation added to history: 2025-10-18 17:48:52|Multiplication|3|4|12.0000 
+2025-10-18 17:48:52 [INFO] AutosaveObserver auto-saved operation: 2025-10-18 17:48:52|Multiplication|3|4|12.0000 
+2025-10-18 17:48:52 [INFO] AutosaveObserver updated with operation: 2025-10-18 17:48:52|Multiplication|3|4|12.0000 
+2025-10-18 17:48:52 [INFO] Calculation successfully completed: 2025-10-18 17:48:52|Multiplication|3|4|12.0000 
+2025-10-18 17:48:57 [INFO] User selected command: K - Display history
+2025-10-18 17:48:57 [INFO] Determined operation code: hist for command K
+2025-10-18 17:48:57 [INFO] History successfully displayed!
+2025-10-18 17:48:57 [INFO] History displayed
+2025-10-18 17:49:24 [INFO] User selected command: O - Save calculation history
+2025-10-18 17:49:24 [INFO] Determined operation code: save for command O
+2025-10-18 17:49:24 [INFO] Full history saved to history/history_log.txt
+2025-10-18 17:49:24 [INFO] History saved manually to history_log.txt
+2025-10-18 18:00:22 [INFO] User selected command: R - Exit the program
+2025-10-18 18:00:22 [INFO] Determined operation code: exit for command R
+2025-10-18 18:00:22 [WARNING] Instance history succesfully deleted
+2025-10-18 18:00:22 [INFO] Application closed!
+2025-10-18 18:00:35 [INFO] Calculator application started
+2025-10-18 18:00:35 [INFO] AutosaveObserver initialized new file: history/history_log.csv
+2025-10-18 18:00:52 [INFO] User selected command: A - Percentage
+2025-10-18 18:00:52 [INFO] Determined operation code: percentage for command A
+2025-10-18 18:00:54 [INFO] Percentage performed: 2.0000 % 2.0000 = 1.0000
+2025-10-18 18:00:54 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
+2025-10-18 18:00:54 [INFO] Operation added to history: 2025-10-18 18:00:54|Percentage|2|2|1.0000 
+2025-10-18 18:00:54 [INFO] AutosaveObserver auto-saved operation: 2025-10-18 18:00:54|Percentage|2|2|1.0000 
+2025-10-18 18:00:54 [INFO] AutosaveObserver updated with operation: 2025-10-18 18:00:54|Percentage|2|2|1.0000 
+2025-10-18 18:00:54 [INFO] Calculation successfully completed: 2025-10-18 18:00:54|Percentage|2|2|1.0000 
+2025-10-18 18:02:26 [INFO] User selected command: K - Display history
+2025-10-18 18:02:26 [INFO] Determined operation code: hist for command K
+2025-10-18 18:02:26 [INFO] History successfully displayed!
+2025-10-18 18:02:26 [INFO] History displayed
+2025-10-18 18:02:31 [INFO] User selected command: O - Save calculation history
+2025-10-18 18:02:31 [INFO] Determined operation code: save for command O
+2025-10-18 18:02:31 [INFO] Full history saved to history/history_log.txt
+2025-10-18 18:02:31 [INFO] History saved manually to history_log.txt
+2025-10-18 18:03:24 [INFO] User selected command: R - Exit the program
+2025-10-18 18:03:24 [INFO] Determined operation code: exit for command R
+2025-10-18 18:03:24 [WARNING] Instance history succesfully deleted
+2025-10-18 18:03:24 [INFO] Application closed!
+2025-10-18 18:06:35 [INFO] Calculator application started
+2025-10-18 18:06:35 [INFO] AutosaveObserver initialized new file: history/history_log.csv
+2025-10-18 18:06:44 [INFO] User selected command: A - Percentage
+2025-10-18 18:06:44 [INFO] Determined operation code: percentage for command A
+2025-10-18 18:06:47 [INFO] Percentage performed: 6.0000 % 2.0000 = 3.0000
+2025-10-18 18:06:47 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
+2025-10-18 18:06:47 [INFO] Operation added to history: 2025-10-18 18:06:47|Percentage|6|2|3.0000 
+2025-10-18 18:06:47 [INFO] AutosaveObserver auto-saved operation: 2025-10-18 18:06:47|Percentage|6|2|3.0000 
+2025-10-18 18:06:47 [INFO] AutosaveObserver updated with operation: 2025-10-18 18:06:47|Percentage|6|2|3.0000 
+2025-10-18 18:06:47 [INFO] Calculation successfully completed: 2025-10-18 18:06:47|Percentage|6|2|3.0000 
+2025-10-18 18:06:56 [INFO] User selected command: O - Save calculation history
+2025-10-18 18:06:56 [INFO] Determined operation code: save for command O
+2025-10-18 18:06:56 [INFO] Full history saved to history/history_log.txt
+2025-10-18 18:06:56 [INFO] History saved manually to history_log.txt
+2025-10-18 18:07:00 [INFO] User selected command: K - Display history
+2025-10-18 18:07:00 [INFO] Determined operation code: hist for command K
+2025-10-18 18:07:00 [INFO] History successfully displayed!
+2025-10-18 18:07:00 [INFO] History displayed
+2025-10-18 18:07:02 [INFO] User selected command: R - Exit the program
+2025-10-18 18:07:02 [INFO] Determined operation code: exit for command R
+2025-10-18 18:07:02 [WARNING] Instance history succesfully deleted
+2025-10-18 18:07:02 [INFO] Application closed!
+2025-10-18 18:22:16 [INFO] Calculator application started
+2025-10-18 18:22:16 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-18 18:22:36 [INFO] Display command linst
+2025-10-18 18:23:03 [ERROR] Value error: Command Percentage not allowed
+2025-10-18 18:23:03 [ERROR] Calculation error: ❌ Command Percentage not allowed, commands allowed: ['Percentage', 'Multiplication', 'Modulo', 'Root', 'Absolute Difference', 'Integer Division', 'Power'] 
+2025-10-18 18:29:24 [ERROR] Value error: Command Percentage not allowed
+2025-10-18 18:29:24 [ERROR] Calculation error: ❌ Command Percentage not allowed, commands allowed: ['Percentage', 'Multiplication', 'Modulo', 'Root', 'Absolute Difference', 'Integer Division', 'Power'] 
+2025-10-18 18:29:32 [INFO] Calculator application started
+2025-10-18 18:29:32 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-18 18:30:08 [ERROR] Value error: Command Percentage not allowed
+2025-10-18 18:30:08 [ERROR] Calculation error: ❌ Command Percentage not allowed, commands allowed: ['Percentage', 'Multiplication', 'Modulo', 'Root', 'Absolute Difference', 'Integer Division', 'Power'] 
+2025-10-18 18:30:53 [INFO] Calculator application started
+2025-10-18 18:30:53 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-18 18:30:55 [ERROR] Value error: Command Percentage not allowed
+2025-10-18 18:30:55 [ERROR] Calculation error: ❌ Command Percentage not allowed, commands allowed: ['Percentage', 'Multiplication', 'Modulo', 'Root', 'Absolute Difference', 'Integer Division', 'Power'] 
+2025-10-18 18:32:01 [INFO] Calculator application started
+2025-10-18 18:32:01 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-18 18:32:20 [INFO] Calculator application started
+2025-10-18 18:32:20 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-18 18:32:52 [INFO] Calculator application started
+2025-10-18 18:32:52 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-18 18:33:43 [INFO] Calculator application started
+2025-10-18 18:33:43 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-18 18:33:47 [WARNING] Invalid command entered by user: a
+2025-10-18 18:34:36 [INFO] Calculator application started
+2025-10-18 18:34:36 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-18 18:34:39 [ERROR] Value error: Command Percentage not allowed
+2025-10-18 18:34:39 [ERROR] Calculation error: ❌ Command Percentage not allowed, commands allowed: ['Percentage', 'Multiplication', 'Modulo', 'Root', 'Absolute Difference', 'Integer Division', 'Power'] 
+2025-10-18 18:35:02 [INFO] Calculator application started
+2025-10-18 18:35:02 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-18 18:35:19 [INFO] Percentage performed: 100.0000 % 2.0000 = 50.0000
+2025-10-18 18:35:19 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
+2025-10-18 18:35:19 [INFO] Operation added to history: 2025-10-18 18:35:19|Percentage|100|2|50.0000 
+2025-10-18 18:35:19 [INFO] AutosaveObserver auto-saved operation: 2025-10-18 18:35:19|Percentage|100|2|50.0000 
+2025-10-18 18:35:19 [INFO] AutosaveObserver updated with operation: 2025-10-18 18:35:19|Percentage|100|2|50.0000 
+2025-10-18 18:35:19 [INFO] Calculation successfully completed: 2025-10-18 18:35:19|Percentage|100|2|50.0000 
+2025-10-18 18:35:24 [WARNING] Invalid command entered by user: HELP
+2025-10-18 18:35:45 [WARNING] Invalid command entered by user: HELP
+2025-10-18 18:35:52 [INFO] Calculator application started
+2025-10-18 18:35:52 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-18 18:36:26 [INFO] Multiplication performed: 3.0000 * 4.0000 = 12.0000
+2025-10-18 18:36:26 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
+2025-10-18 18:36:26 [INFO] Operation added to history: 2025-10-18 18:36:26|Multiplication|3|4|12.0000 
+2025-10-18 18:36:26 [INFO] AutosaveObserver auto-saved operation: 2025-10-18 18:36:26|Multiplication|3|4|12.0000 
+2025-10-18 18:36:26 [INFO] AutosaveObserver updated with operation: 2025-10-18 18:36:26|Multiplication|3|4|12.0000 
+2025-10-18 18:36:26 [INFO] Calculation successfully completed: 2025-10-18 18:36:26|Multiplication|3|4|12.0000 
+2025-10-18 18:36:45 [INFO] Full history saved to history/history_log.txt
+2025-10-18 18:36:45 [INFO] History saved manually to history_log.txt
+2025-10-18 18:36:55 [INFO] History successfully displayed!
+2025-10-18 18:36:55 [INFO] History displayed
+2025-10-18 18:37:01 [INFO] Multiplication performed: 4.0000 * 3.0000 = 12.0000
+2025-10-18 18:37:01 [INFO] Memento saved. Undo stack size: 2; Redo stack cleared
+2025-10-18 18:37:01 [INFO] Operation added to history: 2025-10-18 18:37:01|Multiplication|4|3|12.0000 
+2025-10-18 18:37:01 [INFO] AutosaveObserver auto-saved operation: 2025-10-18 18:37:01|Multiplication|4|3|12.0000 
+2025-10-18 18:37:01 [INFO] AutosaveObserver updated with operation: 2025-10-18 18:37:01|Multiplication|4|3|12.0000 
+2025-10-18 18:37:01 [INFO] Calculation successfully completed: 2025-10-18 18:37:01|Multiplication|4|3|12.0000 
+2025-10-18 18:37:05 [INFO] IntegerDivision performed: 3.0000 // 6.0000 = 0
+2025-10-18 18:37:05 [INFO] Memento saved. Undo stack size: 3; Redo stack cleared
+2025-10-18 18:37:05 [INFO] Operation added to history: 2025-10-18 18:37:05|IntegerDivision|3|6|0 
+2025-10-18 18:37:05 [INFO] AutosaveObserver auto-saved operation: 2025-10-18 18:37:05|IntegerDivision|3|6|0 
+2025-10-18 18:37:05 [INFO] AutosaveObserver updated with operation: 2025-10-18 18:37:05|IntegerDivision|3|6|0 
+2025-10-18 18:37:05 [INFO] Calculation successfully completed: 2025-10-18 18:37:05|IntegerDivision|3|6|0 
+2025-10-18 18:37:11 [INFO] History successfully displayed!
+2025-10-18 18:37:11 [INFO] History displayed
+2025-10-18 18:37:21 [INFO] Full history saved to history/history_log.txt
+2025-10-18 18:37:21 [INFO] History saved manually to history_log.txt
+2025-10-18 18:37:38 [WARNING] Instance history succesfully deleted
+2025-10-18 18:37:38 [INFO] Application closed!
+2025-10-19 07:22:22 [INFO] Calculator application started
+2025-10-19 07:22:23 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-19 07:22:29 [INFO] User selected operation: help
+2025-10-19 07:22:29 [ERROR] Calculation error: name 'Help' is not defined
+2025-10-19 07:22:29 [ERROR] Operation error: Failed to create operation object: name 'Help' is not defined
+2025-10-19 07:48:32 [INFO] User selected operation: percentage
+2025-10-19 07:48:35 [INFO] Percentage performed: 2.0000 % 5.0000 = 0.4000
+2025-10-19 07:48:35 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
+2025-10-19 07:48:35 [INFO] Operation added to history: 2025-10-19 07:48:35|Percentage|2|5|0.4000 
+2025-10-19 07:48:35 [INFO] AutosaveObserver auto-saved operation: 2025-10-19 07:48:35|Percentage|2|5|0.4000 
+2025-10-19 07:48:35 [INFO] AutosaveObserver updated with operation: 2025-10-19 07:48:35|Percentage|2|5|0.4000 
+2025-10-19 07:48:35 [INFO] Calculation successfully completed: 2025-10-19 07:48:35|Percentage|2|5|0.4000 
+2025-10-19 07:48:40 [INFO] User selected operation: exit
+2025-10-19 07:48:40 [WARNING] Instance history succesfully deleted
+2025-10-19 07:48:40 [INFO] Application closed!
+2025-10-19 07:48:50 [INFO] Calculator application started
+2025-10-19 07:48:50 [INFO] ✅ LoggingObserver initialized with log file: history/history_log.txt
+2025-10-19 07:48:50 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-19 07:48:55 [WARNING] ⌨️ Command error: ❌ Command 'Z' not recognized. Type 'help' for the list.
+2025-10-19 07:49:03 [INFO] User selected operation: percentage
+2025-10-19 07:49:14 [INFO] Percentage performed: 1.0000 % 2.0000 = 0.5000
+2025-10-19 07:49:14 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
+2025-10-19 07:49:14 [INFO] Operation added to history: 2025-10-19 07:49:14|Percentage|1|2|0.5000 
+2025-10-19 07:49:14 [INFO] ✅ AutosaveObserver auto-saved operation: 2025-10-19 07:49:14|Percentage|1|2|0.5000 
+2025-10-19 07:49:14 [INFO] ✅ AutosaveObserver updated with operation: 2025-10-19 07:49:14|Percentage|1|2|0.5000 
+2025-10-19 07:49:14 [INFO] Calculation successfully completed: 2025-10-19 07:49:14|Percentage|1|2|0.5000 
+2025-10-19 08:07:53 [INFO] User selected operation: exit
+2025-10-19 08:07:53 [WARNING] Instance history succesfully deleted
+2025-10-19 08:07:53 [INFO] Application closed!
+2025-10-19 08:09:42 [INFO] Calculator application started
+2025-10-19 08:09:42 [INFO] ✅ LoggingObserver initialized with log file: history/history_log.txt
+2025-10-19 08:09:42 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-19 08:09:55 [WARNING] ⌨️ Command error: ❌ Command 'Z' not recognized. Type 'help' for the list.
