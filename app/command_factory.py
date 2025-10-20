@@ -1,5 +1,5 @@
-from app.math_operations import Percentage, IntegerDivision, Modulo, Root, Absdifference, Multiplication, Addition, Division, Subtraction, Power
-from app.math_operations import CalculationTemplate
+from app.calculation import Percentage, IntegerDivision, Modulo, Root, Absdifference, Multiplication, Addition, Division, Subtraction, Power
+from app.calculation import CalculationTemplate
 from app.logger import logger
 from app.exceptions import CommandError
 

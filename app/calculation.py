@@ -5,30 +5,9 @@ from app.config import CALCULATOR_MAX_INPUT_VALUE, CALCULATOR_PRECISION
 from app.exceptions import ValidationError, OperationError
 from colorama import init, Fore, Style
 init(autoreset=True) 
+from app.input_validators import validate_nonzero, validate_nonnegative
 
 
-# ------------------------------------------------------------
-# INPUT VALIDATION
-# ------------------------------------------------------------
-def get_valid_operand(prompt):
-    while True:
-        #get user input
-        
-        try:
-            #try to convert to decimal, if it fails then the value passed is not a number
-            value = Decimal(input(prompt))
-        #return an error if this happens
-        except InvalidOperation:
-            logger.warning(f"❌ Invalid input {prompt}. Please enter a numeric value.")
-            print(f"❌ {Fore.MAGENTA} Invalid input {prompt}. Please enter a numeric value.{Style.RESET_ALL}")
-            continue
-
-        if value > CALCULATOR_MAX_INPUT_VALUE:
-            logger.warning(f"❌ Input too large {prompt}")
-            print(f"❌ {Fore.MAGENTA} Input too large. Maximum allowed is {CALCULATOR_MAX_INPUT_VALUE}. Try again.{Style.RESET_ALL}")
-            continue
-
-        return value
 
 # ------------------------------------------------------------
 # ABS class as template for calculation classes
@@ -136,27 +115,18 @@ class Percentage(CalculationTemplate):
         
         if b ==0:
             logger.error(f"Percentage calculation failed: {a} / {b}, Cannot perform percent calculation if denominator = 0")
-            raise ValueError('ERROR: Cannot perform percent calculation if denominator = 0')
+            raise ValidationError('ERROR: Cannot perform percent calculation if denominator = 0')
 
 
         return super().check_decimals(a, b)
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        return (a/b)
+        return f"{(a/b)*100}%"
 
 class Division(CalculationTemplate):
     def check_decimals(self, a: Decimal, b: Decimal):
-        '''
-        Change the parent method check_decimals so that it checks that b isn't 0
-        and return a ValueError if it is
-        '''
-        
-        if b ==0:
-            logger.error(f"Division by zero attempt: {a} / {b}, Cannot perform division by 0")
-            raise ValueError('ERROR: Cannot perform division by 0')
-
-
+        validate_nonzero(b, "Denominator")
         return super().check_decimals(a, b)
 
     #method to execute the subtraction calculation
@@ -201,20 +171,9 @@ class Power(CalculationTemplate):
 class Root(CalculationTemplate):
 
     def check_decimals(self, a: Decimal, b: Decimal):
-        '''
-        Change the parent method check_decimals so that it checks that a isn't <0 and b isn't 0
-        if they are, return a ValueError
-        '''
-        
-        if a < 0:
-            logger.error(f"❌ Invalid root attempt: root({a}, {b}), cannot take root of number less than zero")
-            raise ValidationError('❌ ERROR: cannot take root of number less than zero')
-        
-        if b ==0:
-            logger.error(f"❌ Invalid root degree: root({a}, {b}), degree of root cannot be 0")
-            raise ValidationError('❌ ERROR: degree of root cannot be 0')
-
-
+      
+        validate_nonnegative(a, "Radicand")
+        validate_nonzero(b, "Degree of root")
         return super().check_decimals(a, b)
 
     #method to execute the subtraction calculation

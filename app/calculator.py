@@ -5,7 +5,7 @@ from app.observers import LoggingObserver, Subject, AutosaveObserver
 from datetime import datetime
 from app.memento import Originator, CareTaker
 from app.logger import logger
-from app.math_operations import get_valid_operand
+from app.input_validators import get_valid_operand
 from app.operation_selection import operationSelection
 from app.exceptions import OperationError, ValidationError, CommandError, HistoryError
 from colorama import init, Fore, Style
@@ -123,19 +123,36 @@ def main():
                 print(f"{Fore.YELLOW}Operation Selected: {operation_obj.__class__.__name__}{Style.RESET_ALL}")
             except Exception as e:
                 logger.error(f"Calculation error: {e}")
-                raise OperationError(f"Failed to create operation object: {e}")
+                raise OperationError(f"❌ Failed to create operation object: {e}")
 
             ################## CALCULATIONS #####################
             if hasattr(operation_obj, "calculate"):
                 try:
-                    # ask user to input operand A
-                    operand_a = get_valid_operand("Enter first operand: ")
+                    # === Get operand A with validation ===
+                    while True:
+                        operand_a = get_valid_operand("Enter first operand: ")
 
-                    # ask user to input operand B
-                    operand_b = get_valid_operand("Enter second operand: ")
+                        try:
+                            if hasattr(operation_obj, "check_decimals"):
+                                # Validate 'a' using the same method, passing b=1 as dummy if needed
+                                operation_obj.check_decimals(operand_a, Decimal("1"))
+                            break  # Operand A is valid
+                        except (ValueError, ValidationError) as e:
+                            print(f"{Fore.RED} {e}. Please re-enter the first operand.{Style.RESET_ALL}")
+                            logger.warning(f"❌ Invalid first operand for {operation_obj.__class__.__name__}: {e}")
 
-                    # # Validate and round operands
-                    # operand_a, operand_b = operation_obj.check_decimals(operand_a, operand_b)
+                    # === Get operand B with validation ===
+                    while True:
+                        operand_b = get_valid_operand("Enter second operand: ")
+
+                        try:
+                            if hasattr(operation_obj, "check_decimals"):
+                                operation_obj.check_decimals(operand_a, operand_b)
+                            break  # Operand B is valid
+                        except (ValueError, ValidationError) as e:
+                            print(f"{Fore.RED} {e}. Please re-enter the second operand.{Style.RESET_ALL}")
+                            logger.warning(f"❌ Invalid second operand for {operation_obj.__class__.__name__}: {e}")
+
 
                     #Get results
                     results = operation_obj.calculate(operand_a, operand_b)
