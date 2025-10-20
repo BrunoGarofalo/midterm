@@ -1,5 +1,5 @@
 import pytest
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 from app.calculation import (
     Addition, Subtraction, Multiplication, Division,
     IntegerDivision, Percentage, Power, Root,
@@ -7,6 +7,8 @@ from app.calculation import (
 )
 from app.exceptions import ValidationError, OperationError
 from app.config import CALCULATOR_MAX_INPUT_VALUE, CALCULATOR_PRECISION
+from unittest.mock import patch
+from unittest.mock import Mock
 
 # Helper function to quantize decimals using config precision
 def quantize_decimal(val: Decimal):
@@ -83,49 +85,108 @@ def test_power_basic():
     result = op.calculate(Decimal("2"), Decimal("3"))
     assert result == quantize_decimal(Decimal("8"))
 
-# # ---------------------------------------------------------
-# # Root
-# # ---------------------------------------------------------
-# def test_root_basic():
-#     op = Root()
-#     result = op.calculate(Decimal("16"), Decimal("2"))
-#     assert result == quantize_decimal(Decimal("4"))
+# ---------------------------------------------------------
+# Root
+# ---------------------------------------------------------
+def test_root_basic():
+    op = Root()
+    result = op.calculate(Decimal("16"), Decimal("2"))
+    assert result == quantize_decimal(Decimal("4"))
 
-# def test_root_negative_radicand():
-#     op = Root()
-#     with pytest.raises(ValidationError):
-#         op.calculate(Decimal("-16"), Decimal("2"))
+def test_root_negative_radicand():
+    op = Root()
+    with pytest.raises(OperationError):
+        op.calculate(Decimal("-16"), Decimal("2"))
 
-# def test_root_zero_degree():
-#     op = Root()
-#     with pytest.raises(ValidationError):
-#         op.calculate(Decimal("16"), Decimal("0"))
+def test_root_zero_degree():
+    op = Root()
+    with pytest.raises(OperationError):
+        op.calculate(Decimal("16"), Decimal("0"))
 
-# # ---------------------------------------------------------
-# # Modulo
-# # ---------------------------------------------------------
-# def test_modulo_basic():
-#     op = Modulo()
-#     result = op.calculate(Decimal("10"), Decimal("3"))
-#     assert result == quantize_decimal(Decimal("1"))
+# ---------------------------------------------------------
+# Modulo
+# ---------------------------------------------------------
+def test_modulo_basic():
+    op = Modulo()
+    result = op.calculate(Decimal("10"), Decimal("3"))
+    assert result == quantize_decimal(Decimal("1"))
 
-# def test_modulo_by_zero():
-#     op = Modulo()
-#     with pytest.raises(ValueError):
-#         op.calculate(Decimal("10"), Decimal("0"))
+def test_modulo_by_zero():
+    op = Modulo()
+    with pytest.raises(OperationError):
+        op.calculate(Decimal("10"), Decimal("0"))
 
-# # ---------------------------------------------------------
-# # Absolute Difference
-# # ---------------------------------------------------------
-# def test_absdifference_basic():
-#     op = Absdifference()
-#     result = op.calculate(Decimal("5"), Decimal("3"))
-#     assert result == quantize_decimal(Decimal("2"))
+# ---------------------------------------------------------
+# Absolute Difference
+# ---------------------------------------------------------
+def test_absdifference_basic():
+    op = Absdifference()
+    result = op.calculate(Decimal("5"), Decimal("3"))
+    assert result == quantize_decimal(Decimal("2"))
 
-# # ---------------------------------------------------------
-# # Input exceeding max value
-# # ---------------------------------------------------------
-# def test_check_decimals_exceeds_max():
-#     op = Addition()
-#     with pytest.raises(ValidationError):
-#         op.calculate(CALCULATOR_MAX_INPUT_VALUE + 1, Decimal("1"))
+# ---------------------------------------------------------
+# Input exceeding max value
+# ---------------------------------------------------------
+def test_check_decimals_exceeds_max():
+    op = Addition()
+    with pytest.raises(OperationError):
+        op.calculate(CALCULATOR_MAX_INPUT_VALUE + 1, Decimal("1"))
+
+# ---------------------------------------------------------
+# check_decimals_invalid_operation
+# ---------------------------------------------------------
+def test_check_decimals_invalid_operation():
+    op = Addition()
+    a = Decimal("1")
+    b = Decimal("2")
+
+    with patch.object(op, "_round_operand", side_effect=InvalidOperation("mock")):
+        with pytest.raises(ValidationError) as exc_info:
+            op.check_decimals(a, b)
+
+    assert "Error rounding operands" in str(exc_info.value)
+
+# ---------------------------------------------------------
+# format result except test
+# ---------------------------------------------------------
+def test_format_result_invalid_operation():
+    op = Addition()
+    result = Decimal("123.456")
+
+    with patch.object(op, "_round_result", side_effect=InvalidOperation("mock")):
+        with pytest.raises(OperationError) as exc_info:
+            op.format_result(result)
+
+    assert "Error formatting result" in str(exc_info.value)
+
+
+# ---------------------------------------------------------
+# tst power except
+# ---------------------------------------------------------
+def test_power_invalid_operation():
+    op = Power()
+
+    a = "not_a_decimal"  # invalid input to force exception
+    b = Decimal("2")
+
+    with pytest.raises(OperationError) as exc_info:
+        op.runOperation(a, b)
+
+    assert "Power calculation failed" in str(exc_info.value)
+
+# ---------------------------------------------------------
+# tests for root exception
+# ---------------------------------------------------------
+class BadDecimal(Decimal):
+    def __pow__(self, other):
+        raise InvalidOperation("forced error")
+
+def test_root_runoperation_invalidoperation():
+    op = Root()
+    a = BadDecimal("4")
+    b = Decimal("2")
+
+    with pytest.raises(OperationError) as exc_info:
+        op.runOperation(a, b)
+
+    assert "Root calculation failed" in str(exc_info.value)
