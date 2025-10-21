@@ -6,7 +6,7 @@ from app.exceptions import ValidationError, OperationError
 from colorama import init, Fore, Style
 init(autoreset=True) 
 from app.input_validators import validate_nonzero, validate_nonnegative
-from logger import logger
+from app.logger import logger
 
 
 
