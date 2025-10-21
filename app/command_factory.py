@@ -45,6 +45,6 @@ class CommandFactory:
                 raise CommandError(f"❌ Command '{self.user_input}' not allowed. Allowed commands: {CalculationTemplate.operations_allowed}"
                 )
         except Exception as e:
-            logger.exception(f"Failed to create operation object for '{self.user_input}': {e}")
+            logger.exception(f"❌ Failed to create operation object for '{self.user_input}': {e}")
             raise
         

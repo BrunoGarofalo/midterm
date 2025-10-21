@@ -1,15 +1,12 @@
-from app.operation_selection import operationSelection
 from app.command_factory import CommandFactory
 from decimal import Decimal, InvalidOperation
 from app.observers import LoggingObserver, Subject, AutosaveObserver
 from datetime import datetime
 from app.memento import Originator, CareTaker
 from app.logger import logger
-from app.input_validators import get_valid_operand
 from app.exceptions import OperationError, ValidationError, CommandError, HistoryError
 from colorama import init, Fore, Style
-import logging
-import os
+from logger import logger
 from dotenv import load_dotenv
 init(autoreset=True) 
 
@@ -26,15 +23,6 @@ class Calculator:
         self.originator = Originator()
         self.caretaker = CareTaker()
         self.subject = Subject() 
-
-
-        # Logging info
-        self.log_dir = os.getenv("CALCULATOR_LOG_DIR", ".")
-        self.log_file = os.getenv("LOG_HISTORY_FILE", "history.log")
-        self.log_file = os.path.join(self.log_dir, self.log_file)
-
-        #initialize logger
-        self.initialize_logger()
 
         # Attach observers
         self.logging_observer = LoggingObserver()
@@ -63,36 +51,6 @@ class Calculator:
                             'P': ['Load calculation history', 'load'],
                             'Q': ['Exit the program', 'exit']}
         
-    def initialize_logger(self):
-        # Ensure directory exists
-        os.makedirs(self.log_dir, exist_ok=True)
-
-        # Configure the logger
-        self.logger = logging.getLogger(self.__class__.__name__)
-        self.logger.setLevel(logging.INFO)
-
-        # Prevent adding multiple handlers if multiple instances
-        if not self.logger.hasHandlers():
-            handler = logging.FileHandler(self.log_file)
-            formatter = logging.Formatter(
-                '%(asctime)s [%(levelname)s] %(message)s',
-                datefmt='%Y-%m-%d %H:%M:%S'
-            )
-            handler.setFormatter(formatter)
-            self.logger.addHandler(handler)
-
-        self.logger.info("Calculator initialized")
-
-    def log(self, message: str, level="info"):
-        """Convenience method to log messages."""
-        if level == "info":
-            self.logger.info(message)
-        elif level == "warning":
-            self.logger.warning(message)
-        elif level == "error":
-            self.logger.error(message)
-        else:
-            self.logger.debug(message)
         
     @classmethod
     def show_commands(cls):
@@ -104,10 +62,10 @@ class Calculator:
         """Return the operation code (short name) for a given input letter."""
         if user_input in cls.operations_dictionary:
             op_code = cls.operations_dictionary[user_input][1]
-            cls.log(f"Determined operation code '{op_code}' for command '{user_input}'", "info")
+            logger.info(f"✅ Determined operation code '{op_code}' for command '{user_input}'")
             return op_code
         else:
-            cls.log(f"❌ Invalid operation key: {user_input}", "warning")
+            logger.warning(f"❌ Invalid operation key: {user_input}")
             raise CommandError(f"❌ Invalid command '{user_input}'. Type 'help' to see available commands.")
     
      # ----------------- Operations -----------------
@@ -118,7 +76,7 @@ class Calculator:
         try:
             return CommandFactory(op_code).createOperationObject()
         except Exception as e:
-            raise OperationError(f"Failed to create operation: {e}")
+            raise OperationError(f"❌  Failed to create operation: {e}")
 
     # ----------------- History / Undo / Redo -----------------
     def add_operation(self, message: str):
@@ -127,27 +85,28 @@ class Calculator:
         self.notify_observers(message)
 
     def undo(self):
-        self.log("Undo requested by user", "info")
+        logger.info("Undo requested by user")
         return self.caretaker.undo_memento(self.originator)
 
 
     def redo(self):
-        self.log("Redo requested by user", "info")
+        logger.info("Redo requested by user")
         return self.caretaker.redo_memento(self.originator)
 
     def show_history(self):
         if not self.originator.history:
-            print(f"⚠️ {Fore.YELLOW}No history available.{Style.RESET_ALL}")
-            self.log("Attempted to display history but it is empty", "warning")
-            return "No history available"
+            print(f"⚠️ {Fore.YELLOW} No history available.{Style.RESET_ALL}")
+            logger.warning("Attempted to display history but it is empty")
+            # return "No history available"
 
         for op in self.originator.history:
             print(op)
 
-        self.log("History displayed", "info")
+        logger.info("✅ History displayed")
 
     def delete_history(self):
         self.originator.history.clear()
+
         # Optionally clear observers as well
         self.logging_observer.delete_history()
         # self.autosave_observer.delete_history()
@@ -159,29 +118,19 @@ class Calculator:
 
     def save_history(self):
         self.logging_observer.save_history(self.originator.history)
-        self.log("History saved manually to history_log.txt", "info")
+        logger.info("✅ History saved manually to history_log.txt")
 
     def load_history(self):
         loaded = self.autosave_observer.load_history()
         self.originator.get_loaded_history(loaded)
         self.caretaker.save_memento(self.originator.create_memento())
-        self.log("App history loaded from history_log.csv", "info")
+        logger.info("✅ App history loaded from history_log.csv")
 
     def clear_history(self):
         self.originator.delete_history()
-        self.log("Instance history cleared", "warning")
-        ##################################
+        logger.warning("✅ Instance history cleared")
 
-    # ----------------- Commands -----------------
-    def show_commands(self):
-        from app.operation_selection import operationSelection
-        self.log("Command list displayed", "info")
-        return operationSelection.show_commands()
 
-    def get_operation_code(self, user_input: str):
-        from app.operation_selection import operationSelection
-        self.log("COperation selection requested", "info")
-        return operationSelection.get_operation_code(user_input)
 
 
 #################################################################################################################################

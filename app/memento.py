@@ -15,6 +15,7 @@ class MementoCalculator:
             '''self._state holds a snapshot of the entire history up to the moment the memento is created
             _state: [5+2=7, 3*4=12, 10-1=9]   <-- snapshot of history at this point'''
             self._state = deepcopy(state)
+            logger.info("Memento succesfully created")
         
         except Exception as e:
             logger.exception(f"❌ Failed to create memento: {e}")
@@ -57,7 +58,7 @@ class Originator:
             return MementoCalculator(self.history)
         
         except HistoryError as e:
-            logger.error(f"Cannot create memento: {e}")
+            logger.error(f"❌ Cannot create memento: {e}")
             raise
     
     def add_operation(self, message, caretaker=None):
@@ -69,7 +70,7 @@ class Originator:
 
             # Add the new operation
             self.history.append(message)
-            logger.info(f"Operation added to history: {message}")
+            logger.info(f"✅ Operation added to history: {message}")
 
         except Exception as e:
             logger.exception(f"❌ Failed to add operation to history: {e}")
@@ -85,7 +86,7 @@ class Originator:
 
             old_history = self.history.copy()
             self.history = memento.get_state()
-            logger.info(f"History restored from memento. Previous: {old_history}, New: {self.history}")
+            logger.info(f"✅ History restored from memento. Previous: {old_history}, New: {self.history}")
 
         except Exception as e:
             logger.exception(f"❌ Failed to restore memento: {e}")

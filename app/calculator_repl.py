@@ -33,7 +33,7 @@ def main():
                 user_input = input(
                     f"{Fore.MAGENTA}👉 Select operation (type 'help' to list commands): {Style.RESET_ALL}"
                 ).strip().upper()
-                calc.log(f"user input entered {user_input}", "info")
+                logger.info(f"user input entered {user_input}")
                 
 
                 if user_input == "HELP":
@@ -50,7 +50,7 @@ def main():
                 # ------------------ EXIT ------------------
                 if op_code == "exit":
                     calc.delete_history()
-                    calc.log("Application closed!", "info")
+                    logger.info("Application closed!")
                     print("Application closing. Goodbye!!")
                     break
 

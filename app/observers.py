@@ -90,10 +90,10 @@ class AutosaveObserver:
             if not os.path.exists(self.log_file) or os.path.getsize(self.log_file) == 0:
                 self.df = pd.DataFrame(columns=self.columns)
                 self.df.to_csv(self.log_file, index=False)
-                logger.info(f"AutosaveObserver initialized new file: {self.log_file}")
+                logger.info(f"✅ AutosaveObserver initialized new file: {self.log_file}")
             else:
                 self.df = pd.read_csv(self.log_file)
-                logger.info(f"AutosaveObserver loaded existing file: {self.log_file}")
+                logger.info(f"✅ AutosaveObserver loaded existing file: {self.log_file}")
         
         except Exception as e:
             logger.exception("❌ Failed to initialize AutosaveObserver.")
@@ -137,7 +137,7 @@ class AutosaveObserver:
             self.df = pd.DataFrame(columns=self.columns)  
             self.df.to_csv(self.log_file, index=False)   
 
-            logger.warning(f"AutosaveObserver cleared history in {self.log_file}")
+            logger.warning(f"✅ AutosaveObserver cleared history in {self.log_file}")
         
         except Exception as e:
             logger.exception("❌ Failed to clear autosave history.")

@@ -6,6 +6,7 @@ from app.exceptions import ValidationError, OperationError
 from colorama import init, Fore, Style
 init(autoreset=True) 
 from app.input_validators import validate_nonzero, validate_nonnegative
+from logger import logger
 
 
 
@@ -35,11 +36,13 @@ class CalculationTemplate(ABC):
 
     def check_decimals(self, a: Decimal, b: Decimal) -> tuple[Decimal, Decimal]:
         if a > CALCULATOR_MAX_INPUT_VALUE or b > CALCULATOR_MAX_INPUT_VALUE:
+            logger.error(f"❌ {e} wrong inputs, Inputs must be ≤ {CALCULATOR_MAX_INPUT_VALUE}")
             raise ValidationError(f"❌ Inputs must be ≤ {CALCULATOR_MAX_INPUT_VALUE}")
         try:
             a = self._round_operand(a)
             b = self._round_operand(b)
         except InvalidOperation as e:
+            logger.error(f"❌ {e} rounding operands {a}, {b}")
             raise ValidationError(f"Error rounding operands: {e}")
         return a, b
 
@@ -62,7 +65,7 @@ class CalculationTemplate(ABC):
             if isinstance(result, Decimal):
                 result = self.format_result(result)
 
-            logger.info(f"{self.__class__.__name__} performed: {a} {self._operator_symbol()} {b} = {result}")
+            logger.info(f"✅ {self.__class__.__name__} performed: {a} {self._operator_symbol()} {b} = {result}")
             return result
         
         except Exception as e:
