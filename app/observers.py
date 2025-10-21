@@ -34,42 +34,43 @@ class LoggingObserver:
             logger.exception("❌ Failed to initialize LoggingObserver  {e}")
             raise FileAccessError(f"❌ Failed to create log directory: {e}")
 
-    # #method that adds the new calculation log to 
-    # def update(self, final_message):
-
-    #     #update the last operation but do not save
-    #     if len(self.history) > CALCULATOR_MAX_HISTORY_SIZE:
-    #         self.history = self.history[-CALCULATOR_MAX_HISTORY_SIZE:]
-
-    #     logger.info(f"LoggingObserver updated with operation: {final_message}")
-
-    #method that adds the new calculation log to 
-    def save_history(self, history):
-        if not history:
+    # method that appends new calculation to TXT file
+    def save_calculation(self, message):
+        if not message:
             logger.warning("❌ Attempted to save empty history. No data written.")
             print(f"❌{Fore.MAGENTA} No history to be saved.{Style.RESET_ALL}")
             return
         
         try:
-            with open(self.log_file, "w",encoding=CALCULATOR_DEFAULT_ENCODING) as file:
-                        for entry in history:
-                            file.write(entry + "\n")
-            logger.info(f"✅ Full history saved to {self.log_file}")
-            print(f"✅ {Fore.GREEN} Full history successfully saved to history_log.txt{Style.RESET_ALL}")
+            with open(self.log_file, "a",encoding=CALCULATOR_DEFAULT_ENCODING) as file:
+                file.write(message + "\n")
+            logger.info(f"✅ New calculation saved to {self.log_file}")
+            # print(f"✅ {Fore.GREEN} Full history successfully saved to history_log.txt{Style.RESET_ALL}")
         except Exception as e:
-            logger.warning("❌ Attempted to save empty history, No history to be saved {e}")
-            print(f"❌ {Fore.MAGENTA} No history to be saved{Style.RESET_ALL}")
-            raise FileAccessError(f"Error saving history to file: {e}")
+            logger.warning("❌ Failed to save new calculation {e}")
+            raise FileAccessError(f"Error saving calculation {message} to file: {e}")
 
-
-    def detach(self, final_message):
+    def delete_history(self):
+        #Delete the history file safely
         try:
-            if hasattr(self, "history") and final_message in self.history:
-                self.history.remove(final_message)
-                logger.info(f"LoggingObserver detached operation: {final_message}")
-        except Exception as e:
-            logger.exception("❌ Failed to detach operation from LoggingObserver.")
-            raise HistoryError(f"❌ Error detaching operation: {e}")
+            if os.path.exists(self.log_file):
+                os.remove(self.log_file)
+                print(f"✅ Deleted {self.log_file}")
+            else:
+                raise FileNotFoundError(f"⚠️ File not found: {self.log_file}")
+        except PermissionError as e:
+            raise PermissionError(f"❌ Permission denied: cannot delete {self.log_file}") from e
+        except OSError as e:
+            raise OSError(f"❌ Error deleting file {self.log_file}: {e}") from e
+
+    # def detach(self, final_message):
+    #     try:
+    #         if hasattr(self, "history") and final_message in self.history:
+    #             self.history.remove(final_message)
+    #             logger.info(f"LoggingObserver detached operation: {final_message}")
+    #     except Exception as e:
+    #         logger.exception("❌ Failed to detach operation from LoggingObserver.")
+    #         raise HistoryError(f"❌ Error detaching operation: {e}")
 
 
 # ------------------------------------------------------------
@@ -99,7 +100,7 @@ class AutosaveObserver:
             raise FileAccessError(f"❌ Error initializing AutosaveObserver: {e}")
 
     #method that adds the new calculation log to 
-    def update(self, final_message):
+    def save_calculation(self, final_message):
         try:
             #get individual values from message
             message_values = final_message.split("|")
@@ -153,7 +154,7 @@ class AutosaveObserver:
             df = pd.read_csv(self.log_file, encoding=CALCULATOR_DEFAULT_ENCODING)
             if df.empty:
                 logger.warning("❌ AutosaveObserver attempted to load history but file is empty")
-                print(f"❌{Fore.MAGENTA} History file is empty{Style.RESET_ALL}")
+                print(f"❌{Fore.Magenta} History file is empty{Style.RESET_ALL}")
                 return []
 
             loaded_calculations = []
@@ -189,4 +190,4 @@ class Subject:
 
     def notify(self, final_message):
         for observer in self.observers:
-            observer.update(final_message)
+            observer.save_calculation(final_message)

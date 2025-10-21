@@ -25,8 +25,8 @@ class Calculator:
     def __init__(self):
         self.originator = Originator()
         self.caretaker = CareTaker()
-        self.subject_logging = Subject()
-        self.subject_autosave = Subject()
+        self.subject = Subject() 
+
 
         # Logging info
         self.log_dir = os.getenv("CALCULATOR_LOG_DIR", ".")
@@ -39,9 +39,12 @@ class Calculator:
         # Attach observers
         self.logging_observer = LoggingObserver()
         self.autosave_observer = AutosaveObserver()
-        self.subject_logging.attach(self.logging_observer)
-        self.subject_autosave.attach(self.autosave_observer)
 
+        self.subject.attach(self.logging_observer )
+        self.subject.attach(self.autosave_observer)
+
+
+        # define operations
         self.operations_dictionary = {'A':['Percentage', 'Percentage'], 
                             'B': ['Modulo', 'Modulo'], 
                             'C': ['Multiplication', 'Multiplication'], 
@@ -107,29 +110,6 @@ class Calculator:
             cls.log(f"❌ Invalid operation key: {user_input}", "warning")
             raise CommandError(f"❌ Invalid command '{user_input}'. Type 'help' to see available commands.")
     
-    #--------------------Validate operand -----------------
-    def get_validated_operand(prompt: str, operation_obj=None, operand_a: Decimal | None = None) -> Decimal:
-        """
-        Prompt for an operand until valid.
-        If operation_obj has a check_decimals method, validate the input.
-        For the second operand, pass operand_a for validation if needed.
-        """
-        while True:
-            operand = get_valid_operand(prompt)
-            try:
-                if operation_obj and hasattr(operation_obj, "check_decimals"):
-                    if operand_a is None:
-                        # first operand
-                        operation_obj.check_decimals(operand, Decimal("1"))
-                    else:
-                        # second operand
-                        operation_obj.check_decimals(operand_a, operand)
-                break
-            except (ValueError, ValidationError) as e:
-                print(f"{Fore.RED}{e}. Please re-enter.{Style.RESET_ALL}")
-                # self.log(f"Invalid operand entered: {operand}, Error: {e}", "error")
-        return operand
-
      # ----------------- Operations -----------------
     def create_operation(self, op_code: str):
         """
@@ -156,20 +136,26 @@ class Calculator:
         return self.caretaker.redo_memento(self.originator)
 
     def show_history(self):
+        if not self.originator.history:
+            print(f"⚠️ {Fore.YELLOW}No history available.{Style.RESET_ALL}")
+            self.log("Attempted to display history but it is empty", "warning")
+            return "No history available"
+
         for op in self.originator.history:
             print(op)
+
         self.log("History displayed", "info")
 
     def delete_history(self):
         self.originator.history.clear()
         # Optionally clear observers as well
-        self.logging_observer.history.clear()
-        self.autosave_observer.delete_history()
+        self.logging_observer.delete_history()
+        # self.autosave_observer.delete_history()
 
     # ----------------- Observers -----------------
     def notify_observers(self, final_message: str):
-        self.subject_logging.notify(final_message)
-        self.subject_autosave.notify(final_message)
+        self.subject.notify(final_message)
+
 
     def save_history(self):
         self.logging_observer.save_history(self.originator.history)

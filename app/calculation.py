@@ -18,7 +18,8 @@ class CalculationTemplate(ABC):
     operations_allowed = ['Percentage', 'Multiplication', 'Modulo', 'Root', 'Absolute Difference', 'Integer Division', 'Power']
 
     @abstractmethod
-    def runOperation(self, a: Decimal, b: Decimal) -> Decimal: #takes in the instance, and inputs a and b as decimals
+    def runOperation(self, a: Decimal, b: Decimal) -> Decimal: # pragma: no cover
+        #takes in the instance, and inputs a and b as decimals
         '''
         This abstract method runs the selected mathematical operation
         Takes in 2 inputs:
@@ -29,25 +30,25 @@ class CalculationTemplate(ABC):
         '''
         pass
 
-    def check_decimals(self, a: Decimal, b: Decimal) -> Decimal:
-        """Generic check for input bounds."""
+    def _round_operand(self, operand: Decimal) -> Decimal:
+        return operand.quantize(Decimal(f"1.{'0'*CALCULATOR_PRECISION}"), rounding=ROUND_HALF_UP)
+
+    def check_decimals(self, a: Decimal, b: Decimal) -> tuple[Decimal, Decimal]:
         if a > CALCULATOR_MAX_INPUT_VALUE or b > CALCULATOR_MAX_INPUT_VALUE:
-            logger.warning(f"❌ Input exceeds max value of {CALCULATOR_MAX_INPUT_VALUE}: {a}, {b}")
             raise ValidationError(f"❌ Inputs must be ≤ {CALCULATOR_MAX_INPUT_VALUE}")
         try:
-            # Round inputs according to precision
-            a = a.quantize(Decimal(f"1.{'0'*CALCULATOR_PRECISION}"), rounding=ROUND_HALF_UP)
-            b = b.quantize(Decimal(f"1.{'0'*CALCULATOR_PRECISION}"), rounding=ROUND_HALF_UP)
-            
+            a = self._round_operand(a)
+            b = self._round_operand(b)
         except InvalidOperation as e:
-            logger.exception(f"❌ rounding operation failed {e}")
             raise ValidationError(f"Error rounding operands: {e}")
-        
         return a, b
+
+    def _round_result(self, value: Decimal) -> Decimal:
+        return value.quantize(Decimal(f"1.{'0'*CALCULATOR_PRECISION}"), rounding=ROUND_HALF_UP)
 
     def format_result(self, result: Decimal) -> Decimal:
         try:
-            return result.quantize(Decimal(f"1.{'0'*CALCULATOR_PRECISION}"), rounding=ROUND_HALF_UP)
+            return self._round_result(result)
         except InvalidOperation as e:
             logger.exception("❌ Result formatting failed.")
             raise OperationError(f"❌ Error formatting result: {e}")
@@ -122,7 +123,7 @@ class Percentage(CalculationTemplate):
 
     #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
-        return f"{(a/b)*100}%"
+        return (a/b)*100
 
 class Division(CalculationTemplate):
     def check_decimals(self, a: Decimal, b: Decimal):
@@ -142,7 +143,7 @@ class IntegerDivision(CalculationTemplate):
         
         if b ==0:
             logger.error(f"IntegerDivision check failed: attempted to divide {a} by zero")
-            raise ValueError('ERROR: Cannot perform division by 0')
+            raise ValidationError('ERROR: Cannot perform division by 0')
 
 
         return super().check_decimals(a, b)
@@ -163,7 +164,7 @@ class Power(CalculationTemplate):
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
         try:
             return a ** b
-        except InvalidOperation as e:
+        except Exception as e:   # catch all exceptions
             logger.error(f"❌ Power calculation failed: {a}^{b}")
             raise OperationError(f"❌ Power calculation failed:{a}^{b}, {e}")
 

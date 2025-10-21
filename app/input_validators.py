@@ -27,6 +27,15 @@ def get_valid_operand(prompt: str) -> Decimal:
         # --- Nonzero or nonnegative checks can be delegated later ---
         return value
 
+def get_validated_operand(prompt: str) -> Decimal:
+    """
+    Prompt user for a valid decimal operand.
+    Only converts input to Decimal and ensures it's numeric.
+    """
+    while True:
+        operand = get_valid_operand(prompt)
+        if operand is not None:
+            return operand
 
 def validate_nonzero(value: Decimal, var_name: str = "value"):
     """Ensure a given Decimal value is not zero."""

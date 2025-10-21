@@ -4,10 +4,24 @@ from datetime import datetime
 from colorama import Fore, Style, init
 from app.calculator import Calculator
 from app.exceptions import CommandError, ValidationError, OperationError, HistoryError
-from app.input_validators import get_valid_operand
+from app.input_validators import get_validated_operand
 from app.logger import logger
 
 init(autoreset=True)
+
+''''
+who should delete the history? the logging observer or the originator in the memento?
+Should the history be cleared when the instance ends? both the instance history and in the txt file?
+Should the redone operation be recalculated? meaning the operands should be re entered?
+load – Load calculation history from file using pandas. is this ALL history, from all instances?
+save – Manually save calculation history to file using pandas. is this just the instance history? does it replace the
+should the logging observer save the history only when prompted?
+Manual save is supposed to save to a CSV? would that override the history saved by the autosave observer?
+Move check decimals into input_validation.py
+to show history need to check if history is available first
+need to validate global variables
+data should be saved without exceeding the CALCULATOR_MAX_HISTORY_SIZE
+'''
 
 def main():
     try:
@@ -31,6 +45,7 @@ def main():
                 except CommandError as e:
                     print(f"{Fore.RED}⌨️ {e}{Style.RESET_ALL}")
                     continue
+
 
                 # ------------------ EXIT ------------------
                 if op_code == "exit":
@@ -80,8 +95,9 @@ def main():
                 print(f"{Fore.YELLOW}Operation Selected: {operation_obj.__class__.__name__}{Style.RESET_ALL}")
 
                 #-------------------VALIDATE OPERANDS---------------
-                operand_a = calc.get_validated_operand("Enter first operand: ", operation_obj)
-                operand_b = calc.get_validated_operand("Enter second operand: ", operation_obj, operand_a)
+                operand_a = get_validated_operand("Enter first operand: ")
+                operand_b = get_validated_operand("Enter second operand: ")             
+
 
                 # Perform calculation
                 result = operation_obj.calculate(operand_a, operand_b)
@@ -89,14 +105,11 @@ def main():
                 log_message = f"{timestamp}|{operation_obj.__class__.__name__}|{operand_a}|{operand_b}|{result}"
 
                 # Update calculator state and observers
-                # calc.add_operation(log_message)
+                calc.add_operation(log_message)
                 # calc.notify_observers(log_message)
 
-                # Display result
-                if operation_obj =="Percentage":\
-                    print(f"{Fore.GREEN}✅ Result: {result}%{Style.RESET_ALL}")
-                else:
-                    print(f"{Fore.GREEN}✅ Result: {result}{Style.RESET_ALL}")
+
+                print(f"{Fore.GREEN}✅ Result of {op_code} with operands {operand_a} and {operand_b} = {result}{Style.RESET_ALL}")
 
 
             # ------------------ EXCEPTIONS ------------------

@@ -60,9 +60,14 @@ class Originator:
             logger.error(f"Cannot create memento: {e}")
             raise
     
-    def add_operation(self, message):
+    def add_operation(self, message, caretaker=None):
         #saves new operation to temporary history, IE: "12 - 2 = 10"
         try:
+            # Save current state to undo stack before adding new operation
+            if caretaker:
+                caretaker.save_memento(self.create_memento())
+
+            # Add the new operation
             self.history.append(message)
             logger.info(f"Operation added to history: {message}")
 
@@ -187,29 +192,19 @@ class CareTaker:
             return None
 
         try:
-            # Save current state for comparison
-            current_state = originator.history.copy()
-
-            #take the last memento from the stack_undo
-            memento = self.stack_undo.pop()
-
-            # add memento for new state to stack_redo
+            # Save current state to redo stack
             self.stack_redo.append(originator.create_memento())
 
-            # restore popped memento from stack_undo to history
+            # Pop the previous state from undo stack and restore it
+            memento = self.stack_undo.pop()
             originator.restore_memento(memento)
 
-            # Determine which operation was undone
-            undone_operations = [op for op in current_state if op not in originator.history]
-
-            undone_op = undone_operations[-1] if undone_operations else None
-
-            if undone_op:
-                logger.info(f"Undo performed. Operation undone: {undone_op}")
-
-            # Return the last undone operation if any
+            # Return the last undone operation
+            undone_op = None
+            if originator.history:
+                undone_op = self.stack_redo[-1].get_state()[-1]  # last operation before undo
             return undone_op
-        
+
         except Exception as e:
             logger.exception(f"❌ Failed to perform undo: {e}")
             raise HistoryError(f"❌ Undo failed: {e}") from e
