@@ -46,24 +46,23 @@ def test_loggingobserver_save_calculation_file_error(monkeypatch):
 # ----------------------------
 # AutosaveObserver Tests
 # ----------------------------
-# def test_autosaveobserver_init_file_error(monkeypatch):
-#     """Simulate a failure in reading the CSV file to trigger FileAccessError."""
+def test_autosaveobserver_init_file_error(tmp_path, monkeypatch):
+    from app.observers import AutosaveObserver
+    from app.exceptions import FileAccessError
+    import pandas as pd
 
-#     # Prevent actual directory creation
-#     monkeypatch.setattr(os, "makedirs", lambda *args, **kwargs: None)
+    # Create a file with content so read_csv is triggered
+    fake_file = tmp_path / "dummy.csv"
+    fake_file.write_text("timestamp,operation,operand1,operand2,result\n")  # non-empty CSV
 
-#     # Simulate pandas read_csv failure
-#     def fake_read_csv(*args, **kwargs):
-#         raise Exception("read fail")
-    
-#     monkeypatch.setattr(pd, "read_csv", fake_read_csv)
+    # Mock read_csv to raise an exception
+    monkeypatch.setattr(pd, "read_csv", lambda *args, **kwargs: (_ for _ in ()).throw(Exception("read fail")))
 
-#     # Attempt to initialize AutosaveObserver and assert FileAccessError is raised
-#     with pytest.raises(FileAccessError) as exc_info:
-#         AutosaveObserver(log_file="dummy.csv")
+    # Now initializing should trigger FileAccessError
+    with pytest.raises(FileAccessError) as exc_info:
+        AutosaveObserver(log_file=str(fake_file))
 
-#     # Optional: check that the exception message contains our custom message
-#     assert "read fail" in str(exc_info.value)
+    assert "read fail" in str(exc_info.value)
 
 
 def test_autosaveobserver_delete_history_exception():
