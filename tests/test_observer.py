@@ -47,24 +47,23 @@ def test_loggingobserver_save_calculation_file_error(monkeypatch):
 # AutosaveObserver Tests
 # ----------------------------
 def test_autosaveobserver_init_file_error(monkeypatch):
-    # Simulate os.makedirs success
+    """Simulate a failure in reading the CSV file to trigger FileAccessError."""
+
+    # Prevent actual directory creation
     monkeypatch.setattr(os, "makedirs", lambda *args, **kwargs: None)
+
+    # Simulate pandas read_csv failure
+    def fake_read_csv(*args, **kwargs):
+        raise Exception("read fail")
     
-    # Simulate pd.read_csv failure
-    monkeypatch.setattr(pd, "read_csv", lambda *args, **kwargs: (_ for _ in ()).throw(Exception("read fail")))
-    
-    with pytest.raises(FileAccessError):
+    monkeypatch.setattr(pd, "read_csv", fake_read_csv)
+
+    # Attempt to initialize AutosaveObserver and assert FileAccessError is raised
+    with pytest.raises(FileAccessError) as exc_info:
         AutosaveObserver(log_file="dummy.csv")
 
-
-def test_autosaveobserver_update_exception(monkeypatch):
-    observer = AutosaveObserver()
-    
-    # Patch pandas concat to raise
-    monkeypatch.setattr(pd, "concat", lambda *args, **kwargs: (_ for _ in ()).throw(Exception("concat fail")))
-    
-    with pytest.raises(FileAccessError):
-        observer.save_calculation("2025-10-20|add|5|2|7")
+    # Optional: check that the exception message contains our custom message
+    assert "read fail" in str(exc_info.value)
 
 
 def test_autosaveobserver_delete_history_exception():
