@@ -114,17 +114,17 @@ def main():
 
             # ------------------ EXCEPTIONS ------------------
             except ValidationError as e:
-                print(f"{Fore.RED}❌ Input Error: {e}{Style.RESET_ALL}")
+                print(f"{Fore.RED}❌ Calculator_REPL.py #1 - Input Error: {e}{Style.RESET_ALL}")
             except OperationError as e:
-                print(f"{Fore.RED}⚠️ Operation Error: {e}{Style.RESET_ALL}")
+                print(f"{Fore.RED}⚠️ Calculator_REPL.py #2 - Operation Error: {e}{Style.RESET_ALL}")
             except HistoryError as e:
-                print(f"{Fore.BLUE}📂 History Error: {e}{Style.RESET_ALL}")
+                print(f"{Fore.BLUE}📂 Calculator_REPL.py #3 - History Error: {e}{Style.RESET_ALL}")
             except Exception as e:
-                print(f"{Fore.RED}💥 Unexpected error: {e}{Style.RESET_ALL}")
+                print(f"{Fore.RED}💥 Calculator_REPL.py #4 -  Unexpected error: {e}{Style.RESET_ALL}")
 
     except Exception as e:
         # Handle fatal errors during initialization
-        print(f"Fatal error: {e}")
-        logger.error(f"Fatal error in calculator REPL: {e}")
+        print(f"💥 Calculator_REPL.py #5 - Fatal error: {e}")
+        logger.error(f"💥 Calculator_REPL.py #5 -Fatal error in calculator REPL: {e}")
         raise
 

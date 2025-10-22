@@ -154,7 +154,7 @@ class AutosaveObserver:
             df = pd.read_csv(self.log_file, encoding=CALCULATOR_DEFAULT_ENCODING)
             if df.empty:
                 logger.warning("❌ AutosaveObserver attempted to load history but file is empty")
-                print(f"❌{Fore.Magenta} History file is empty{Style.RESET_ALL}")
+                print(f"❌{Fore.MAGENTA} History file is empty{Style.RESET_ALL}")
                 return []
 
             loaded_calculations = []

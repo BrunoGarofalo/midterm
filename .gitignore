@@ -1,1 +1,5 @@
 venv/
+app/__pycache__
+history/history_log.csv
+history/history_log.txt
+logs/event_log.txt
