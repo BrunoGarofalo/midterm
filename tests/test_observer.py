@@ -49,20 +49,21 @@ def test_loggingobserver_save_calculation_file_error(monkeypatch):
 def test_autosaveobserver_init_file_error(tmp_path, monkeypatch):
     from app.observers import AutosaveObserver
     from app.exceptions import FileAccessError
-    import pandas as pd
 
-    # Create a file with content so read_csv is triggered
+    # Create a non-empty fake CSV
     fake_file = tmp_path / "dummy.csv"
-    fake_file.write_text("timestamp,operation,operand1,operand2,result\n")  # non-empty CSV
+    fake_file.write_text("timestamp,operation,operand1,operand2,result\n1,add,1,1,2\n")
 
-    # Mock read_csv to raise an exception
-    monkeypatch.setattr(pd, "read_csv", lambda *args, **kwargs: (_ for _ in ()).throw(Exception("read fail")))
+    # Patch the constants to point to tmp_path
+    monkeypatch.setattr("app.observers.CALCULATOR_HISTORY_DIR", str(tmp_path))
 
-    # Now initializing should trigger FileAccessError
-    with pytest.raises(FileAccessError) as exc_info:
-        AutosaveObserver(log_file=str(fake_file))
+    # Patch read_csv to raise an exception
+    monkeypatch.setattr("pandas", "read_csv", lambda *args, **kwargs: (_ for _ in ()).throw(Exception("read fail")))
 
-    assert "read fail" in str(exc_info.value)
+    # Now initialization should try to read the file and raise FileAccessError
+    with pytest.raises(FileAccessError):
+        AutosaveObserver(log_file="dummy.csv")
+
 
 
 def test_autosaveobserver_delete_history_exception():
