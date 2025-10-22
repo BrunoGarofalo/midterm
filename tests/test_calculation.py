@@ -9,10 +9,87 @@ from app.exceptions import ValidationError, OperationError
 from app.config import CALCULATOR_MAX_INPUT_VALUE, CALCULATOR_PRECISION
 from unittest.mock import patch
 from unittest.mock import Mock
+from app.calculation import CalculationTemplate
 
 # Helper function to quantize decimals using config precision
 def quantize_decimal(val: Decimal):
     return val.quantize(Decimal(f"1.{'0'*CALCULATOR_PRECISION}"))
+# ------------------------------------------------------------
+# Dummy concrete class to allow instantiation
+# ------------------------------------------------------------
+class DummyCalc(CalculationTemplate):
+    def __init__(self, max_value=Decimal("1000"), precision=2):
+        self.max_value = max_value
+        self.precision = precision
+
+    def runOperation(self, a, b):
+        return a + b
+
+    def _round_operand(self, operand: Decimal) -> Decimal:
+        """Override to use injected precision."""
+        return operand.quantize(Decimal(f"1.{'0'*self.precision}"))
+
+
+# ------------------------------------------------------------
+# Fixtures
+# ------------------------------------------------------------
+@pytest.fixture
+def calc():
+    return DummyCalc(max_value=Decimal("1000"), precision=2)
+
+
+# ------------------------------------------------------------
+# Test check_decimals normal behavior
+# ------------------------------------------------------------
+def test_check_decimals_within_bounds(calc):
+    """✅ Should round and return values within the allowed max."""
+    a, b = calc.check_decimals(Decimal("123.456"), Decimal("789.654"))
+    assert a == Decimal("123.46")  # now rounded to 2 decimals correctly
+    assert b == Decimal("789.65")
+
+
+# ------------------------------------------------------------
+# Test exceeding max value
+# ------------------------------------------------------------
+def test_check_decimals_exceeds_max(calc):
+    """❌ Should raise ValidationError if operand exceeds max_value."""
+    with pytest.raises(ValidationError):
+        calc.check_decimals(Decimal("1001"), Decimal("10"))
+
+    with pytest.raises(ValidationError):
+        calc.check_decimals(Decimal("10"), Decimal("5000"))
+
+
+# ------------------------------------------------------------
+# Test InvalidOperation during rounding
+# ------------------------------------------------------------
+def test_check_decimals_invalid_rounding(calc):
+    """❌ Should raise ValidationError if rounding fails."""
+    # Monkeypatch _round_operand to raise InvalidOperation
+    def bad_round(_):
+        raise InvalidOperation("bad")
+
+    calc._round_operand = bad_round
+
+    with pytest.raises(ValidationError) as exc:
+        calc.check_decimals(Decimal("1"), Decimal("2"))
+    assert "Error rounding operands" in str(exc.value)
+
+# ------------------------------------------------------------
+# Test InvalidOperation during rounding
+# ------------------------------------------------------------
+def test_check_decimals_invalid_rounding(calc):
+    """❌ Should raise ValidationError if rounding fails."""
+    # Monkeypatch _round_operand to raise InvalidOperation
+    def bad_round(_):
+        raise InvalidOperation("bad")
+
+    calc._round_operand = bad_round
+
+    with pytest.raises(ValidationError) as exc:
+        calc.check_decimals(Decimal("1"), Decimal("2"))
+    assert "Error rounding operands" in str(exc.value)
+
 
 # ---------------------------------------------------------
 # Addition
