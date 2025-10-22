@@ -46,10 +46,6 @@ def test_loggingobserver_save_calculation_file_error(monkeypatch):
 # ----------------------------
 # AutosaveObserver Tests
 # ----------------------------
-
-
-
-
 def test_autosaveobserver_delete_history_exception():
     observer = AutosaveObserver()
 
