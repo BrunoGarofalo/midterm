@@ -3,20 +3,21 @@
 Welcome to the Python Calculator!
 
 ⚙️ 1. ***Prerequisites***
+
 🔹 **Install Git**
 
-MacOS (Homebrew)
+***MacOS (Homebrew)***
 
 - brew install git
 
 
-Windows
+***Windows***
 
 - Download and install Git for Windows
 
 ✅ Accept the default options during installation.
 
-Verify Git:
+🔹 **Verify Git:**
 
 - git --version
 
@@ -34,21 +35,21 @@ Only once per machine.
 - ssh-add ~/.ssh/id_ed25519
 
 
-Copy your public key
+**Copy your public key**
 
-Mac/Linux:
+***Mac/Linux:***
 
 - cat ~/.ssh/id_ed25519.pub | pbcopy
 
 
-Windows (Git Bash):
+***Windows (Git Bash):***
 
 - cat ~/.ssh/id_ed25519.pub | clip
 
 
-Add the key to GitHub: Settings → SSH & GPG Keys → New SSH Key
+🔹 **Add the key to GitHub: Settings → SSH & GPG Keys → New SSH Key**
 
-Test connection:
+🔹 **Test connection:**
 
 - ssh -T git@github.com
 
@@ -58,7 +59,7 @@ Test connection:
 
 ## 🐍 ***3. Python Environment Setup***
 
-Create and activate a virtual environment:
+🔹 **Create and activate a virtual environment:**
 
 - python -m venv venv
 ### Mac/Linux
@@ -67,7 +68,7 @@ Create and activate a virtual environment:
 - venv\Scripts\activate
 
 
-Install dependencies:
+🔹 **Install dependencies:**
 
 - pip install -r requirements.txt
 
@@ -76,36 +77,36 @@ Install dependencies:
 ⚙️ **Variable - Description - Default**
 
 ### Base Directories
-1. CALCULATOR_LOG_DIR: Directory for log (Default = logs)
-2. CALCULATOR_HISTORY_DIR: Directory for history files (Default = history)
+1. **CALCULATOR_LOG_DIR:** Directory for log (Default = logs)
+2. **CALCULATOR_HISTORY_DIR:** Directory for history files (Default = history)
 
 ### File names
-3. CSV_CARETAKER_HISTORY_FILE: File name of CSV for history manual save (Default= caretaker_history.csv)
-4. TXT_HISTORY_FILE: JSON file where calculations are saved for by autologging observer (Default = history_log.json)
-5. LOG_HISTORY_FILE: TXT file where event logs are saved (Default = event_log.txt)
-6. CSV_HISTORY_FILE: CSV file where autosave observer saves the each calculation (Defaul = history_log.csv) 
+3. **CSV_CARETAKER_HISTORY_FILE:** File name of CSV for history manual save (Default= caretaker_history.csv)
+4. **TXT_HISTORY_FILE:** JSON file where calculations are saved for by autologging observer (Default = history_log.json)
+5. **LOG_HISTORY_FILE:** TXT file where event logs are saved (Default = event_log.txt)
+6. **CSV_HISTORY_FILE:** CSV file where autosave observer saves the each calculation (Defaul = history_log.csv) 
 
 ### CSV file columns
-7. CSV_COLUMNS: Column names of CVS files (Default = timestamp,operation,operand1,operand2,result,instance_id)
+7. **CSV_COLUMNS:** Column names of CVS files (Default = timestamp,operation,operand1,operand2,result,instance_id)
 
 ### History Settings
-8. CALCULATOR_MAX_HISTORY_SIZE: Max history entries	(Default = 100)
-9. CALCULATOR_AUTO_SAVE: Auto-save history (Default=True)
+8. **CALCULATOR_MAX_HISTORY_SIZE:** Max history entries	(Default = 100)
+9. **CALCULATOR_AUTO_SAVE:** Auto-save history (Default=True)
 
 ### Calculation Settings
-10. CALCULATOR_PRECISION: Decimal places in results (Default = 4)
-11. CALCULATOR_MAX_INPUT_VALUE: Max allowed input (Default = 1000)
-12. CALCULATOR_DEFAULT_ENCODING: File encoding (Default = utf-8)
+10. **CALCULATOR_PRECISION:** Decimal places in results (Default = 4)
+11. **CALCULATOR_MAX_INPUT_VALUE:** Max allowed input (Default = 1000)
+12. **CALCULATOR_DEFAULT_ENCODING:** File encoding (Default = utf-8)
 
 
 ## ▶️ ***5. Running the Calculator***
 - python calculator_repl.py
 
-Prompt Example:
+🔹 **Prompt Example:**
 
 👉 Select operation (type 'help' to list commands):
 
-Type help to see commands:
+***Type help to see commands:***
 
 🔑 Key	📌 Operation
 A	Percentage
@@ -144,7 +145,7 @@ Q	Exit
 
 ## 🧪 ***7. Testing***
 
-Run unit tests:
+🔹 **Run unit tests:**
 
 - Minimum coverage set to 90%
 - pytest tests/
