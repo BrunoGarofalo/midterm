@@ -98,12 +98,12 @@ class Calculator:
         self.notify_observers(message)
 
     def undo(self):
-        logger.info("Undo requested by user")
+        logger.info("⚠️ Undo requested by user")
         return self.caretaker.undo_memento(self.originator)
 
 
     def redo(self):
-        logger.info("Redo requested by user")
+        logger.info("⚠️ Redo requested by user")
         return self.caretaker.redo_memento(self.originator)
 
     def show_history(self):
@@ -118,23 +118,35 @@ class Calculator:
         logger.info("✅ History displayed")
 
     def delete_history(self):
-        prompt = (
-                f"{Fore.RED}⚠️ Are you sure you want to delete the calculator history? "
-                f"All memory will be lost!{Style.RESET_ALL} "
-                f"{Fore.RED}Y{Style.RESET_ALL}/{Fore.RED}N{Style.RESET_ALL}: "
-            )
+        while True:
+            prompt = (
+                    f"{Fore.RED}⚠️ Are you sure you want to delete the calculator history? "
+                    f"All memory will be lost!{Style.RESET_ALL} "
+                    f"{Fore.RED}Y{Style.RESET_ALL}/{Fore.RED}N{Style.RESET_ALL}: "
+                )
+            try:
+                user_input = input(prompt).strip().upper()
 
-        user_input = input(prompt).strip().upper()
+            except EOFError:
+                logger.warning("❌ No input received; aborting history deletion")
+                return
+            
+            # Ask user to confirm action
+            if user_input in ("Y", "YES"):
 
-        if user_input =="Y" or user_input=="YES":
+                # Delete CSV file
+                self.caretaker.delete_saved_history(self.originator)
+                logger.info("✅ User confirmed and deleted both in-memory and saved history.")
+                break
 
-            # Delete CSV file
-            self.caretaker.delete_saved_history(self.originator)
-            logger.info("✅ User confirmed and deleted both in-memory and saved history.")
-
-        elif user_input =="N" or user_input=="NO":
-            print(f"✅ History deletion aborted by user")
-            logger.info("✅ User aborted history deletion request")
+            elif user_input in ("N", "NO"):
+                print(f"✅ History deletion aborted by user")
+                logger.info("✅ User aborted history deletion request")
+                break
+            else:
+                print(f"⚠️ {Fore.YELLOW} Please enter either Y or N")
+                logger.info(f"❌ User entered wrong input {user_input} for data delete request")
+                
 
 
 
