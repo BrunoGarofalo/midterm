@@ -71,9 +71,7 @@ Install dependencies:
 
 - pip install -r requirements.txt
 
-🔧 ***4. Configuration***
-
-Variables:
+🔧 ***# 4. Configuration***
 
 ⚙️ **Variable - Description - Default**
 
@@ -81,20 +79,20 @@ Variables:
 1. CALCULATOR_LOG_DIR: Directory for log (Default = logs)
 2. CALCULATOR_HISTORY_DIR: Directory for history files (Default = history)
 
-# File names
+### File names
 3. CSV_CARETAKER_HISTORY_FILE: File name of CSV for history manual save (Default= caretaker_history.csv)
 4. TXT_HISTORY_FILE: JSON file where calculations are saved for by autologging observer (Default = history_log.json)
 5. LOG_HISTORY_FILE: TXT file where event logs are saved (Default = event_log.txt)
 6. CSV_HISTORY_FILE: CSV file where autosave observer saves the each calculation (Defaul = history_log.csv) 
 
-# CSV file columns
+### CSV file columns
 7. CSV_COLUMNS: Column names of CVS files (Default = timestamp,operation,operand1,operand2,result,instance_id)
 
-# History Settings
+### History Settings
 8. CALCULATOR_MAX_HISTORY_SIZE: Max history entries	(Default = 100)
 9. CALCULATOR_AUTO_SAVE: Auto-save history (Default=True)
 
-# Calculation Settings
+### Calculation Settings
 10. CALCULATOR_PRECISION: Decimal places in results (Default = 4)
 11. CALCULATOR_MAX_INPUT_VALUE: Max allowed input (Default = 1000)
 12. CALCULATOR_DEFAULT_ENCODING: File encoding (Default = utf-8)
