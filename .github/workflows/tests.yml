@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - main  # Run tests on any push to the main branch
-      - unite_testing
+      - fix_observer
   pull_request:
     branches:
       - main  # Run tests on any pull request to the main branch
-      - unite_testing
+      - fix_observer
 
 jobs:
   test:
