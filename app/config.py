@@ -6,6 +6,19 @@ from decimal import Decimal
 # Load environment variables from .env
 load_dotenv()
 
+
+def get_env(name, default=None, cast=None):
+    value = os.getenv(name, default)
+    if cast:
+        if cast == bool:
+            value = str(value).lower() in ("1", "true", "yes", "on")
+        else:
+            try:
+                value = cast(value)
+            except Exception as e:
+                raise ValueError(f"Invalid value for {name}: {value}") from e
+    return value
+
 # Base Directories
 CALCULATOR_LOG_DIR = os.getenv("CALCULATOR_LOG_DIR", "logs")
 CALCULATOR_HISTORY_DIR = os.getenv("CALCULATOR_HISTORY_DIR", "history")
