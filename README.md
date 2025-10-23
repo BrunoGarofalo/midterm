@@ -1,4 +1,4 @@
-🧮 Python Calculator
+# 🧮 Python Calculator
 
 Welcome to the Python Calculator!
 
@@ -52,11 +52,11 @@ Test connection:
 
 - ssh -T git@github.com
 
-# 🧩 ***2. Clone the Repository***
+## 🧩 ***2. Clone the Repository***
 - git clone <repository-url>
 - cd <repository-directory>
 
-# 🐍 ***3. Python Environment Setup***
+## 🐍 ***3. Python Environment Setup***
 
 Create and activate a virtual environment:
 
@@ -71,7 +71,7 @@ Install dependencies:
 
 - pip install -r requirements.txt
 
-# 🔧 *** 4. Configuration***
+## 🔧 *** 4. Configuration***
 
 ⚙️ **Variable - Description - Default**
 
@@ -98,7 +98,7 @@ Install dependencies:
 12. CALCULATOR_DEFAULT_ENCODING: File encoding (Default = utf-8)
 
 
-# ▶️ ***5. Running the Calculator***
+## ▶️ ***5. Running the Calculator***
 - python calculator_repl.py
 
 Prompt Example:
@@ -127,7 +127,7 @@ P	Load history from CSV
 Q	Exit
 
 
-# ✨ ***6. Features***
+## ✨ ***6. Features***
 
 🔄 Undo/Redo using the Memento pattern.
 
@@ -142,14 +142,14 @@ Q	Exit
 👁️ Observer Pattern: logging & autosave notifications.
 
 
-# 🧪 ***7. Testing***
+## 🧪 ***7. Testing***
 
 Run unit tests:
 
 - Minimum coverage set to 90%
 - pytest tests/
 
-# 📝 ***8. Notes***
+## 📝 ***8. Notes***
 
 ❌ Clearing history deletes both in-memory and saved files. This is allowed if and only if user validates request
 
@@ -157,7 +157,7 @@ Run unit tests:
 
 📂 Loading history only works if in-memory history is empty. If memory already has data, then the previous history will no be loaded
 
-# 💡 9. ***Example Usage***
+## 💡 9. ***Example Usage***
 👉 Select operation (type 'help' to list commands): G or g for Addition
 Enter first operand: 5
 Enter second operand: 7
