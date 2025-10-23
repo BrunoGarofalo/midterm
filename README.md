@@ -147,7 +147,7 @@ Q	Exit
 
 🔹 **Run unit tests:**
 
-- Minimum coverage set to 90%
+- Minimum coverage set to 90%, can be changed in .github/workflows/tests.yml
 - pytest tests/
 
 ## 📝 ***8. Notes***
