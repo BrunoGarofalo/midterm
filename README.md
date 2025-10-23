@@ -35,7 +35,7 @@ Only once per machine.
 - ssh-add ~/.ssh/id_ed25519
 
 
-**Copy your public key**
+🔹 **Copy your public key**
 
 ***Mac/Linux:***
 
