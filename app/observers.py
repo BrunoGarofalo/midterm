@@ -76,9 +76,6 @@ class AutosaveObserver:
         except Exception as e:
             logger.error("❌ Failed to initialize AutosaveObserver.")
             raise FileAccessError(f"❌ Error initializing AutosaveObserver: {e}")
-        
-    def set_columns(self, columns):
-        self.columns = columns
 
 
     #method that adds the new calculation log to 
