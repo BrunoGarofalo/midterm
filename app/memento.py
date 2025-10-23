@@ -323,7 +323,7 @@ class CareTaker:
             logger.exception(f"❌ Failed to save history to CSV: {e}")
             raise FileAccessError(f"❌ Failed to save history to CSV: {e}") from e
 
-    def delete_saved_history(self, originator: Originator):
+    def delete_saved_history(self, originator):
         """Delete the saved in memory and CSV persistent history - ONLY AFTER USER CONFIRMATION!."""
         try:
             if os.path.exists(self.log_file):
@@ -331,15 +331,19 @@ class CareTaker:
                 # Delete CSV history
                 os.remove(self.log_file)
                 logger.info(f"✅ Deleted saved history file: {self.log_file}")
-
-                # Clear Originator history
-                originator.history.clear()
-                logger.info(f"✅ Deleted in-memory history: {self.log_file}")
-
-                print(f"✅ Saved history succesfully deleted")
-
             else:
                 logger.warning(f"⚠️ No saved history file found at {self.log_file}")
+            
+            # Clear Originator history
+            originator.history.clear()
+            logger.info(f"✅ Deleted in-memory history: {self.log_file}")
+
+            # Clear undo/redo stacks
+            self.stack_undo.clear()
+            self.stack_redo.clear()
+
+            print(f"✅ Saved history succesfully deleted")
+
         except PermissionError as e:
             logger.error(f"❌ Permission denied deleting CSV history: {e}")
             raise
