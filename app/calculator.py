@@ -8,6 +8,19 @@ from app.exceptions import OperationError, ValidationError, CommandError, Histor
 from colorama import init, Fore, Style
 from app.logger import logger
 from dotenv import load_dotenv
+import os
+import uuid
+import pandas as pd
+from app.config import (
+    CALCULATOR_MAX_HISTORY_SIZE, 
+    CALCULATOR_AUTO_SAVE, 
+    CALCULATOR_DEFAULT_ENCODING,
+    CALCULATOR_HISTORY_DIR,
+    CSV_HISTORY_FILE,
+    TXT_HISTORY_FILE
+)
+from app.exceptions import FileAccessError, DataFormatError, HistoryError
+from colorama import init, Fore, Style
 init(autoreset=True) 
 
 ''''
@@ -42,7 +55,8 @@ class Calculator:
     def __init__(self):
         self.originator = Originator()
         self.caretaker = CareTaker()
-        self.subject = Subject() 
+        self.subject = Subject()
+        self.instance_ID =  str(uuid.uuid4())
 
         # Attach observers
         self.logging_observer = LoggingObserver()
@@ -132,3 +146,51 @@ class Calculator:
     def clear_history(self):
         self.originator.delete_history()
         logger.warning("✅ Instance history cleared")
+
+#---------------------clear or load history ----------------------
+def delete_history(self):
+    try:
+        if os.path.exists(self.log_file):
+            os.remove(self.log_file)
+            print(f"✅ Deleted {self.log_file}")
+        else:
+            raise FileNotFoundError(f"⚠️ File not found: {self.log_file}")
+    except PermissionError as e:
+        raise PermissionError(f"❌ Permission denied: cannot delete {self.log_file}") from e
+    except OSError as e:
+        raise OSError(f"❌ Error deleting file {self.log_file}: {e}") from e
+
+
+def load_history(self):
+    try:
+        if not os.path.exists(self.log_file) or os.path.getsize(self.log_file) == 0:
+            logger.warning("❌ AutosaveObserver attempted to load history but folder is missing/empty")
+            print(f"❌ {Fore.MAGENTA} No saved history to load{Style.RESET_ALL}")
+            return []
+        
+        df = pd.read_csv(self.log_file, encoding=CALCULATOR_DEFAULT_ENCODING)
+        if df.empty:
+            logger.warning("❌ AutosaveObserver attempted to load history but file is empty")
+            print(f"❌{Fore.MAGENTA} History file is empty{Style.RESET_ALL}")
+            return []
+
+        loaded_calculations = []
+
+        for _, row in df.iterrows():
+            operation_record = f"{row["timestamp"]}|{row["operation"]}|{row["operand1"]}|{row["operand2"]}|{row["result"]}"
+            loaded_calculations.append(operation_record)
+
+        logger.info(f"✅ AutosaveObserver loaded {len(loaded_calculations)} history entries from {self.log_file}")
+        return loaded_calculations
+    
+    except pd.errors.EmptyDataError:
+        logger.warning("❌ AutosaveObserver encountered an empty CSV file.")
+        raise DataFormatError("❌ CSV file is empty or corrupt.")
+    
+    except FileNotFoundError:
+        logger.error(f"❌ History file not found: {self.log_file}")
+        raise FileAccessError("❌ History file not found.")
+    
+    except Exception as e:
+        logger.exception("❌ Error loading history file.")
+        raise FileAccessError(f"❌ Error loading history file: {e}")

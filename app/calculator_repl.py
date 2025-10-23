@@ -102,11 +102,11 @@ def main():
                 # Perform calculation
                 result = operation_obj.calculate(operand_a, operand_b)
                 timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                log_message = f"{timestamp}|{operation_obj.__class__.__name__}|{operand_a}|{operand_b}|{result}"
+                log_message = f"{timestamp},{operation_obj.__class__.__name__},{operand_a},{operand_b},{result},{calc.instance_ID}"
 
                 # Update calculator state and observers
                 calc.add_operation(log_message)
-                # calc.notify_observers(log_message)
+                calc.notify_observers(log_message)
 
 
                 print(f"{Fore.GREEN}✅ Result of {op_code} with operands {operand_a} and {operand_b} = {result}{Style.RESET_ALL}")
