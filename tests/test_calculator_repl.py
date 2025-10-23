@@ -56,7 +56,7 @@ def test_help_command_shows_commands(mock_calc):
 @pytest.mark.parametrize(
     "command, method_name, op_code",
     [
-        ("Q", "delete_history", "exit"),  # exit
+        ("Q", None, "exit"),  # exit
         ("L", "delete_history", "clear"),  # clear
         ("O", "save_history", "save"),     # save
         ("P", "load_history", "load"),     # load
@@ -66,7 +66,13 @@ def test_help_command_shows_commands(mock_calc):
 def test_repl_commands_call_methods(mock_calc, command, method_name, op_code):
     mock_calc.get_operation_code.return_value = op_code
     run_repl_threaded(mock_calc, [command])
-    getattr(mock_calc, method_name).assert_called_once()
+
+    if method_name:
+        # Verify that the corresponding method is called
+        getattr(mock_calc, method_name).assert_called_once()
+    else:
+        # If method_name is None (like exit), assert delete_history is NOT called
+        assert not hasattr(mock_calc, "delete_history") or not mock_calc.delete_history.called
 
 
 def test_undo_and_redo(mock_calc):
