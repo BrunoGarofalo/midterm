@@ -13,7 +13,7 @@ CALCULATOR_HISTORY_DIR = os.getenv("CALCULATOR_HISTORY_DIR", "history")
 # Files
 CSV_HISTORY_FILE = os.getenv("CSV_HISTORY_FILE", "history_log.csv")
 LOG_HISTORY_FILE = os.getenv("LOG_HISTORY_FILE", "event_log.txt")
-TXT_HISTORY_FILE = os.getenv("TXT_HISTORY_FILE", "history_log.jsonl")
+TXT_HISTORY_FILE = os.getenv("TXT_HISTORY_FILE", "history_log.json")
 CSV_CARETAKER_HISTORY_FILE = os.getenv("CSV_CARETAKER_HISTORY_FILE", "caretaker_history.csv")  # memento source of truth
 
 # File columns

@@ -65,10 +65,6 @@ class Calculator:
         self.subject.attach(self.logging_observer )
         self.subject.attach(self.autosave_observer)
 
-
-
-        
-        
     @classmethod
     def show_commands(cls):
         """Return a formatted string of all available commands."""
@@ -102,12 +98,12 @@ class Calculator:
         self.notify_observers(message)
 
     def undo(self):
-        logger.info("Undo requested by user")
+        logger.info("⚠️ Undo requested by user")
         return self.caretaker.undo_memento(self.originator)
 
 
     def redo(self):
-        logger.info("Redo requested by user")
+        logger.info("⚠️ Redo requested by user")
         return self.caretaker.redo_memento(self.originator)
 
     def show_history(self):
@@ -122,75 +118,56 @@ class Calculator:
         logger.info("✅ History displayed")
 
     def delete_history(self):
-        self.originator.history.clear()
+        while True:
+            prompt = (
+                    f"{Fore.RED}⚠️ Are you sure you want to delete the calculator history? "
+                    f"All memory will be lost!{Style.RESET_ALL} "
+                    f"{Fore.RED}Y{Style.RESET_ALL}/{Fore.RED}N{Style.RESET_ALL}: "
+                )
+            try:
+                user_input = input(prompt).strip().upper()
 
-        # Optionally clear observers as well
-        self.logging_observer.delete_history()
-        # self.autosave_observer.delete_history()
+            except EOFError:
+                logger.warning("❌ No input received; aborting history deletion")
+                return
+            
+            # Ask user to confirm action
+            if user_input in ("Y", "YES"):
+
+                # Delete CSV file
+                self.caretaker.delete_saved_history(self.originator)
+                logger.info("✅ User confirmed and deleted both in-memory and saved history.")
+                break
+
+            elif user_input in ("N", "NO"):
+                print(f"✅ History deletion aborted by user")
+                logger.info("✅ User aborted history deletion request")
+                break
+            else:
+                print(f"⚠️ {Fore.YELLOW} Please enter either Y or N")
+                logger.info(f"❌ User entered wrong input {user_input} for data delete request")
+                
+
+
+
 
     # ----------------- Observers -----------------
     def notify_observers(self, final_message: str):
         self.subject.notify(final_message)
 
 
-    def save_history(self):
-        self.logging_observer.save_history(self.originator.history)
-        logger.info("✅ History saved manually to history_log.txt")
-
     def load_history(self):
-        loaded = self.autosave_observer.load_history()
-        self.originator.get_loaded_history(loaded)
-        self.caretaker.save_memento(self.originator.create_memento())
-        logger.info("✅ App history loaded from history_log.csv")
+        if len(self.originator.history) >0:
+            logger.warning("❌ User attempted to override existing history, operation aborted")
+            raise CommandError("❌ existing history cannot be overridden; can load previous history only if no current history exists")
+        else:
+            self.caretaker.get_loaded_history(self.originator)
+
+    def save_history(self):
+        self.caretaker.save_history_to_csv(self.originator)
 
     def clear_history(self):
         self.originator.delete_history()
         logger.warning("✅ Instance history cleared")
 
-#---------------------clear or load history ----------------------
-def delete_history(self):
-    try:
-        if os.path.exists(self.log_file):
-            os.remove(self.log_file)
-            print(f"✅ Deleted {self.log_file}")
-        else:
-            raise FileNotFoundError(f"⚠️ File not found: {self.log_file}")
-    except PermissionError as e:
-        raise PermissionError(f"❌ Permission denied: cannot delete {self.log_file}") from e
-    except OSError as e:
-        raise OSError(f"❌ Error deleting file {self.log_file}: {e}") from e
 
-
-def load_history(self):
-    try:
-        if not os.path.exists(self.log_file) or os.path.getsize(self.log_file) == 0:
-            logger.warning("❌ AutosaveObserver attempted to load history but folder is missing/empty")
-            print(f"❌ {Fore.MAGENTA} No saved history to load{Style.RESET_ALL}")
-            return []
-        
-        df = pd.read_csv(self.log_file, encoding=CALCULATOR_DEFAULT_ENCODING)
-        if df.empty:
-            logger.warning("❌ AutosaveObserver attempted to load history but file is empty")
-            print(f"❌{Fore.MAGENTA} History file is empty{Style.RESET_ALL}")
-            return []
-
-        loaded_calculations = []
-
-        for _, row in df.iterrows():
-            operation_record = f"{row["timestamp"]}|{row["operation"]}|{row["operand1"]}|{row["operand2"]}|{row["result"]}"
-            loaded_calculations.append(operation_record)
-
-        logger.info(f"✅ AutosaveObserver loaded {len(loaded_calculations)} history entries from {self.log_file}")
-        return loaded_calculations
-    
-    except pd.errors.EmptyDataError:
-        logger.warning("❌ AutosaveObserver encountered an empty CSV file.")
-        raise DataFormatError("❌ CSV file is empty or corrupt.")
-    
-    except FileNotFoundError:
-        logger.error(f"❌ History file not found: {self.log_file}")
-        raise FileAccessError("❌ History file not found.")
-    
-    except Exception as e:
-        logger.exception("❌ Error loading history file.")
-        raise FileAccessError(f"❌ Error loading history file: {e}")

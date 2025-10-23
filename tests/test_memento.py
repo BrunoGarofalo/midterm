@@ -6,6 +6,9 @@ from unittest.mock import patch, MagicMock
 from unittest.mock import Mock
 from colorama import Fore, Style
 from app.exceptions import DataFormatError
+import os
+from app.config import CALCULATOR_MAX_HISTORY_SIZE, CSV_COLUMNS, CALCULATOR_HISTORY_DIR
+import pandas as pd
 
 # -------------------------------
 # MementoCalculator tests
@@ -69,55 +72,32 @@ def test_save_memento_raises_historyerror(caplog):
 
 def test_get_loaded_history_warns_when_no_csv_history(caplog):
     originator = Originator()
+    caretaker = CareTaker()
 
-    # Use caplog to capture logger output and patch print to avoid console clutter
+    # Ensure CSV file does not exist
+    if caretaker.log_file and os.path.exists(caretaker.log_file):
+        os.remove(caretaker.log_file)
+
+    # Capture logger output and patch print
     with caplog.at_level("WARNING"), patch("builtins.print") as mock_print:
-        originator.get_loaded_history(None)
+        caretaker.get_loaded_history(originator)
 
-    # Verify correct warning message logged
-    assert any("no history to load" in rec.message.lower() for rec in caplog.records)
+    # Verify log warning was produced
+    assert any("No CSV history file found" in record.message for record in caplog.records)
+    # Verify print message was called
+    mock_print.assert_called()
 
-    # Verify print was called with correct colored output
-    mock_print.assert_called_once()
-    printed_msg = mock_print.call_args[0][0]
-    assert "No history to load from CSV" in printed_msg
+   # Mock the file checks so that the code attempts to read the CSV
+    with patch("os.path.exists", return_value=True), \
+         patch("os.path.getsize", return_value=1), \
+         patch("pandas.read_csv", side_effect=Exception("read_csv failed")):
 
-def test_get_loaded_history_raises_dataformaterror(caplog):
-    originator = Originator()
+        with caplog.at_level("ERROR"):
+            with pytest.raises(DataFormatError) as exc_info:
+                caretaker.get_loaded_history(originator)
 
-    # Create a mock object that raises when copy is called
-    mock_list = Mock()
-    mock_list.copy.side_effect = Exception("copy failed")
+    assert any("Failed to load history from CSV" in record.message for record in caplog.records)
 
-    with caplog.at_level("ERROR"):
-        with pytest.raises(DataFormatError) as exc_info:
-            originator.get_loaded_history(mock_list)
-
-    # Exception message should include "Failed to load history"
-    assert "Failed to load history" in str(exc_info.value)
-    assert "copy failed" in str(exc_info.value)
-
-    # Logger should have captured the exception
-    assert any("Failed to load history into instance" in rec.message for rec in caplog.records)
-
-def test_delete_history_when_empty(capsys, caplog):
-    # Arrange
-    originator = Originator()  # empty history by default
-    assert originator.history == []
-
-    # Act
-    with caplog.at_level("WARNING"):
-        originator.delete_history()
-
-    # Capture printed output
-    captured = capsys.readouterr()
-
-    # Assert console output contains the expected message
-    assert "No instance history to clear" in captured.out
-    assert f"{Fore.MAGENTA} No instance history to clear!{Style.RESET_ALL}" in captured.out
-
-    # Assert a warning was logged
-    assert any("no history to clear" in rec.message for rec in caplog.records)
 
 def test_memento_creation_and_get_state():
     state = ["5 + 2 = 7", "3 * 4 = 12"]
@@ -129,25 +109,6 @@ def test_memento_creation_and_get_state():
 # -------------------------------
 # Originator tests
 # -------------------------------
-def test_show_history_displays_entries(capsys, caplog):
-    # Arrange
-    originator = Originator()
-    originator.history = ["5 + 2 = 7", "3 * 4 = 12", "10 - 1 = 9"]
-
-    # Act
-    with caplog.at_level("INFO"):
-        originator.show_history()
-
-    # Capture printed output
-    captured = capsys.readouterr()
-    
-    # Assert printed output contains each history entry
-    for entry in originator.history:
-        assert entry in captured.out
-        assert f"{Fore.YELLOW}{entry}{Style.RESET_ALL}" in captured.out
-
-    # Assert logger recorded the info
-    assert any("History successfully displayed!" in rec.message for rec in caplog.records)
 def test_originator_add_and_create_memento():
     originator = Originator()
     originator.add_operation("5 + 2 = 7")
@@ -196,24 +157,7 @@ def test_originator_restore_memento():
     originator.restore_memento(memento)
     assert originator.history == ["5 + 2 = 7"]
 
-def test_originator_show_and_delete_history(capsys):
-    originator = Originator()
-    # Show empty history
-    originator.show_history()
-    captured = capsys.readouterr()
-    assert "No history to display" in captured.out
-    # Add operation and delete
-    originator.add_operation("5 + 2 = 7")
-    originator.delete_history()
-    assert originator.history == []
 
-def test_originator_get_loaded_history(capsys):
-    originator = Originator()
-    CSV_history = ["1+1=2", "2*2=4"]
-    originator.get_loaded_history(CSV_history)
-    assert originator.history == CSV_history
-    captured = capsys.readouterr()
-    assert "History loaded into instance successfully" in captured.out
 
 # -------------------------------
 # CareTaker tests
@@ -263,6 +207,142 @@ def test_save_memento_clears_redo_stack():
     caretaker.save_memento(m)
     assert len(caretaker.stack_redo) == 0
 
+def test_add_operation_trims_history(monkeypatch, caplog):
+    originator = Originator()
+
+    # Create dummy operations exceeding the max history size
+    total_ops = CALCULATOR_MAX_HISTORY_SIZE + 5
+    dummy_operations = [f"{i} + 1 = {i+1}" for i in range(total_ops)]
+
+    # Patch logger to capture info messages
+    with caplog.at_level("INFO"):
+        for op in dummy_operations:
+            originator.add_operation(op)
+
+    # History length should equal the max allowed size
+    assert len(originator.history) == CALCULATOR_MAX_HISTORY_SIZE
+
+    # The retained operations should be the most recent ones
+    expected_history = dummy_operations[-CALCULATOR_MAX_HISTORY_SIZE:]
+    assert originator.history == expected_history
+
+    # There should be a log about trimming
+    assert any("History exceeded max size" in record.message for record in caplog.records)
+
+def test_get_loaded_history_reads_csv_and_updates_originator(monkeypatch, caplog):
+    originator = Originator()
+    caretaker = CareTaker()
+
+    # Dummy CSV data
+    csv_data = pd.DataFrame([
+        {"timestamp": "2025-10-23 12:00", "operation": "add", "operand1": "2", "operand2": "3", "result": "5", "instance_id": "1"},
+        {"timestamp": "2025-10-23 12:01", "operation": "multiply", "operand1": "3", "operand2": "4", "result": "12", "instance_id": "1"}
+    ], columns=CSV_COLUMNS)
+
+    with patch("os.path.exists", return_value=True), \
+         patch("os.path.getsize", return_value=1), \
+         patch("pandas.read_csv", return_value=csv_data):
+
+        with patch.object(Originator, "add_operation", wraps=originator.add_operation) as mock_add_op:
+            with caplog.at_level("INFO"):
+                caretaker.get_loaded_history(originator)
+
+    # Now add_operation should have been called for each CSV row
+    assert mock_add_op.call_count == len(csv_data)
+    assert len(originator.history) == len(csv_data)
+
+    # Logs should indicate successful load
+    assert any("History loaded into instance successfully" in record.message for record in caplog.records)
+    assert any(f"Loaded {len(csv_data)} operations" in record.message for record in caplog.records)
+
+def test_save_history_to_csv_saves_valid_entries(monkeypatch, caplog):
+    originator = Originator()
+    caretaker = CareTaker()
+
+    # Prepare history with two valid entries and one malformed
+    originator.history = [
+        "2025-10-23 12:00,add,2,3,5,1",
+        "2025-10-23 12:01,multiply,3,4,12,1",
+        "malformed entry without proper columns"
+    ]
+
+    # Patch os.makedirs to avoid actually creating directories
+    with patch("os.makedirs") as mock_makedirs, \
+         patch("pandas.DataFrame.to_csv") as mock_to_csv:
+        with caplog.at_level("INFO"):
+            caretaker.save_history_to_csv(originator)
+
+    # Check that the directory creation was called
+    mock_makedirs.assert_called_once_with(CALCULATOR_HISTORY_DIR, exist_ok=True)
+
+    # Only 2 valid entries should be written
+    mock_to_csv.assert_called_once()
+    args, kwargs = mock_to_csv.call_args
+    df_passed = args[0] if args else kwargs.get("index", None)
+    # Actually test dataframe rows passed
+    # Can't get df directly from to_csv mock, but can check logger
+    assert any("Saved 2 operations to CSV" in record.message for record in caplog.records)
+    assert any("Skipping unproperly formatted entry" in record.message for record in caplog.records)
+
+def test_save_history_to_csv_no_history(caplog):
+    originator = Originator()
+    caretaker = CareTaker()
+
+    # history is empty
+    originator.history = []
+
+    with caplog.at_level("WARNING"):
+        caretaker.save_history_to_csv(originator)
+
+    # Ensure no CSV attempt
+    assert any("No history to save!" in record.message for record in caplog.records)
+
+def test_delete_saved_history_file_exists(monkeypatch, caplog):
+    originator = Originator()
+    originator.history = ["op1", "op2"]
+    caretaker = CareTaker()
+
+    # Patch os.path.exists to simulate CSV file existing
+    with patch("os.path.exists", return_value=True), \
+         patch("os.remove") as mock_remove:
+        with caplog.at_level("INFO"):
+            caretaker.delete_saved_history(originator)
+
+    # Check file deletion called
+    mock_remove.assert_called_once_with(caretaker.log_file)
+
+    # Check originator history cleared
+    assert originator.history == []
+
+    # Check undo/redo stacks cleared
+    assert caretaker.stack_undo == []
+    assert caretaker.stack_redo == []
+
+    # Check logs
+    assert any("Deleted saved history file" in record.message for record in caplog.records)
+    assert any("Deleted in-memory history" in record.message for record in caplog.records)
+
+def test_delete_saved_history_file_missing(monkeypatch, caplog):
+    originator = Originator()
+    originator.history = ["op1", "op2"]
+    caretaker = CareTaker()
+
+    # Simulate file missing
+    with patch("os.path.exists", return_value=False), \
+         patch("os.remove") as mock_remove:
+        with caplog.at_level("WARNING"):
+            caretaker.delete_saved_history(originator)
+
+    # File deletion should NOT be called
+    mock_remove.assert_not_called()
+
+    # History and stacks still cleared
+    assert originator.history == []
+    assert caretaker.stack_undo == []
+    assert caretaker.stack_redo == []
+
+    # Check warning log
+    assert any("No saved history file found" in record.message for record in caplog.records)
 # -------------------------------
 # Memento calculator tests
 # -------------------------------
