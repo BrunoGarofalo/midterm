@@ -61,9 +61,9 @@ Test connection:
 Create and activate a virtual environment:
 
 - python -m venv venv
-# Mac/Linux
+### Mac/Linux
 - source venv/bin/activate
-# Windows
+### Windows
 - venv\Scripts\activate
 
 
@@ -77,7 +77,7 @@ Variables:
 
 ⚙️ **Variable - Description - Default**
 
-# Base Directories
+### Base Directories
 1. CALCULATOR_LOG_DIR: Directory for log (Default = logs)
 2. CALCULATOR_HISTORY_DIR: Directory for history files (Default = history)
 
