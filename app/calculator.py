@@ -95,7 +95,6 @@ class Calculator:
     def add_operation(self, message: str):
         self.caretaker.save_memento(self.originator.create_memento())
         self.originator.add_operation(message)
-        self.notify_observers(message)
 
     def undo(self):
         logger.info("⚠️ Undo requested by user")
