@@ -54,8 +54,8 @@ Only once per machine.
 - ssh -T git@github.com
 
 ## 🧩 ***2. Clone the Repository***
-- git clone <repository-url>
-- cd <repository-directory>
+- git clone < repository-url >
+- cd < repository-directory >
 
 ## 🐍 ***3. Python Environment Setup***
 
