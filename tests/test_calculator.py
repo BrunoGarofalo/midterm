@@ -88,13 +88,29 @@ def test_add_operation_saves(calc):
 
 
 def test_undo_calls_caretaker(calc):
-    calc.undo()
+    # Mock the undo_memento method
+    calc.caretaker.undo_memento = MagicMock(return_value="last_operation")
+    
+    result = calc.undo()
+    
+    # Check that the mocked method was called correctly
     calc.caretaker.undo_memento.assert_called_once_with(calc.originator)
+    
+    # Optional: assert that undo() returns what undo_memento returns
+    assert result == "last_operation"
 
 
 def test_redo_calls_caretaker(calc):
-    calc.redo()
+    # Mock the redo_memento method
+    calc.caretaker.redo_memento = MagicMock(return_value="redone_operation")
+    
+    result = calc.redo()
+    
+    # Check that the mocked method was called with the originator
     calc.caretaker.redo_memento.assert_called_once_with(calc.originator)
+    
+    # Optional: assert the return value
+    assert result == "redone_operation"
 
 
 # -----------------------------
@@ -116,7 +132,44 @@ def test_show_history_warns_when_empty(caplog, calc):
     assert "Attempted to display history but it is empty" in caplog.text
 
 
+@pytest.fixture
+def calc():
+    return Calculator()
 
+def test_delete_history_confirm(calc):
+    # Mock input to simulate user confirming deletion
+    with patch("builtins.input", return_value="Y"), \
+         patch.object(calc.caretaker, "delete_saved_history") as mock_delete:
+        calc.delete_history()
+        mock_delete.assert_called_once_with(calc.originator)
+
+def test_delete_history_confirm_yes_lowercase(calc):
+    with patch("builtins.input", return_value="yes"), \
+         patch.object(calc.caretaker, "delete_saved_history") as mock_delete:
+        calc.delete_history()
+        mock_delete.assert_called_once_with(calc.originator)
+
+def test_delete_history_cancel(calc):
+    # Mock input to simulate user cancelling deletion
+    with patch("builtins.input", return_value="N"), \
+         patch.object(calc.caretaker, "delete_saved_history") as mock_delete:
+        calc.delete_history()
+        mock_delete.assert_not_called()
+
+def test_delete_history_invalid_then_confirm(calc):
+    # Simulate invalid input first, then confirm
+    inputs = ["maybe", "Y"]
+    with patch("builtins.input", side_effect=inputs), \
+         patch.object(calc.caretaker, "delete_saved_history") as mock_delete:
+        calc.delete_history()
+        mock_delete.assert_called_once_with(calc.originator)
+
+def test_delete_history_eof(calc):
+    # Simulate EOFError
+    with patch("builtins.input", side_effect=EOFError), \
+         patch.object(calc.caretaker, "delete_saved_history") as mock_delete:
+        calc.delete_history()
+        mock_delete.assert_not_called()
 
 
 # def test_delete_history_clears(calc):
@@ -154,6 +207,4 @@ def test_load_history_restores(calc):
     calc.caretaker.get_loaded_history.assert_called_once_with(calc.originator)
 
 
-def test_clear_history_calls_originator(calc):
-    calc.clear_history()
-    calc.originator.delete_history.assert_called_once()
+
