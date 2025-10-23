@@ -161,9 +161,9 @@ Q	Exit
 ## 💡 9. ***Example Usage***
 👉 Select operation (type 'help' to list commands): G or g for Addition
 
-Enter first operand: 5
+- Enter first operand: 5
 
-Enter second operand: 7
+- Enter second operand: 7
 
 ✅ Result of add with operands 5 and 7 = 12.0000
 
