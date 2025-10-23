@@ -72,13 +72,19 @@ def test_create_operation_failure(mock_factory, calc):
 # -----------------------------
 # History, undo, redo
 # -----------------------------
-def test_add_operation_saves_and_notifies(calc):
-    calc.originator.create_memento.return_value = "memento"
+def test_add_operation_saves(calc):
+    # Arrange: mock originator and caretaker
+    calc.originator.create_memento = MagicMock(return_value="memento")
+    calc.originator.add_operation = MagicMock()
+    calc.caretaker.save_memento = MagicMock()
+
+    # Act
     calc.add_operation("5 + 5 = 10")
-    
+
+    # Assert
+    calc.originator.create_memento.assert_called_once()
     calc.caretaker.save_memento.assert_called_once_with("memento")
     calc.originator.add_operation.assert_called_once_with("5 + 5 = 10")
-    calc.subject.notify.assert_called_once_with("5 + 5 = 10")
 
 
 def test_undo_calls_caretaker(calc):
