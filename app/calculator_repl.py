@@ -49,9 +49,8 @@ def main():
 
                 # ------------------ EXIT ------------------
                 if op_code == "exit":
-                    calc.delete_history()
-                    logger.info("Application closed!")
-                    print("Application closing. Goodbye!!")
+                    logger.info("👋  Application closed!")
+                    print("Application closing. Goodbye!! 👋 ")
                     break
 
                 # ------------------ SAVE ------------------
@@ -67,7 +66,6 @@ def main():
                 # ------------------ CLEAR HISTORY ------------------
                 if op_code == "clear":
                     calc.delete_history()
-                    print(f"{Fore.YELLOW}✅ History cleared.{Style.RESET_ALL}")
                     continue
 
                 # ------------------ UNDO ------------------
@@ -87,7 +85,7 @@ def main():
                 # ------------------ LOAD ------------------
                 if op_code == "load":
                     calc.load_history()
-                    print(f"{Fore.GREEN}✅ History loaded successfully.{Style.RESET_ALL}")
+                    calc.show_history()
                     continue
 
                 # ------------------ CALCULATION ------------------

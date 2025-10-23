@@ -4,6 +4,8 @@ import os
 from app.logger import logger
 from app.exceptions import HistoryError, FileAccessError, DataFormatError
 from colorama import init, Fore, Style
+
+from app.config import CSV_CARETAKER_HISTORY_FILE, CALCULATOR_HISTORY_DIR, CSV_COLUMNS, CALCULATOR_MAX_HISTORY_SIZE
 init(autoreset=True) 
 
 class MementoCalculator:
@@ -15,10 +17,10 @@ class MementoCalculator:
             '''self._state holds a snapshot of the entire history up to the moment the memento is created
             _state: [5+2=7, 3*4=12, 10-1=9]   <-- snapshot of history at this point'''
             self._state = deepcopy(state)
-            logger.info("Memento succesfully created")
+            logger.info("✅ Memento succesfully created")
         
         except Exception as e:
-            logger.exception(f"❌ Failed to create memento: {e}")
+            logger.error(f"❌ Failed to create memento: {e}")
             raise HistoryError(f"❌ Failed to create memento: {e}") from e
 
     def get_state(self):
@@ -35,12 +37,13 @@ class MementoCalculator:
         try:
             return deepcopy(self._state)
         except Exception as e:
-            logger.exception(f"❌ Failed to get memento state: {e}")
+            logger.error(f"❌ Failed to get memento state: {e}")
             raise HistoryError(f"❌ Failed to get memento state: {e}") from e
     
 class Originator: 
     #the object whose state we want to track, holds the current history and creates or restores mementos
     def __init__(self):
+        #self.history holds a list of mementos, M1, M2, M3,...
         self.history = []
 
     def create_memento(self):
@@ -59,7 +62,7 @@ class Originator:
         
         except HistoryError as e:
             logger.error(f"❌ Cannot create memento: {e}")
-            raise
+            raise HistoryError(f"❌ Failed to create memento {e}") from e
     
     def add_operation(self, message, caretaker=None):
         #saves new operation to temporary history, IE: "12 - 2 = 10"
@@ -72,8 +75,15 @@ class Originator:
             self.history.append(message)
             logger.info(f"✅ Operation added to history: {message}")
 
+            # Trim history if it exceeds max size
+            if len(self.history) > CALCULATOR_MAX_HISTORY_SIZE:
+                excess = len(self.history) - CALCULATOR_MAX_HISTORY_SIZE
+                # keep only the most recent entries
+                self.history = self.history[excess:]  
+                logger.info(f"⚠️ History exceeded max size; removed oldest {excess} operations")
+
         except Exception as e:
-            logger.exception(f"❌ Failed to add operation to history: {e}")
+            logger.error(f"❌ Failed to add operation to history: {e}")
             raise HistoryError(f"❌ Failed to add operation: {e}") from e
     
     def restore_memento(self, memento):
@@ -89,43 +99,11 @@ class Originator:
             logger.info(f"✅ History restored from memento. Previous: {old_history}, New: {self.history}")
 
         except Exception as e:
-            logger.exception(f"❌ Failed to restore memento: {e}")
+            logger.error(f"❌ Failed to restore memento: {e}")
             raise HistoryError(f"❌ Failed to restore memento: {e}") from e
 
-    def show_history(self):
-        if len(self.history) == 0:
-            logger.warning(f"Warning: request history, no history to display!")
-            print(f"❌ {Fore.MAGENTA} No history to display!{Style.RESET_ALL}")
-        else:
-            print("\n👉 Full History:")
-            for entry in self.history:
-                print(f"{Fore.YELLOW}{entry}{Style.RESET_ALL}")
-            logger.info(f"History successfully displayed!")
 
 
-    def delete_history(self):
-        if len(self.history) == 0:
-            logger.warning(f"❌ Warning: request to clear history, no history to clear!")
-            print(f"❌{Fore.MAGENTA} No instance history to clear!{Style.RESET_ALL}")
-        else:
-            self.history = []
-            logger.warning(f"✅ Instance history succesfully deleted")
-            print(f"✅ {Fore.GREEN} Instance history succesfully deleted!{Style.RESET_ALL}")
-
-    def get_loaded_history(self, CSV_history):
-        if CSV_history:
-            try:
-                # CSV_history is a list of operation messages
-                self.history = CSV_history.copy()  # to avoid accidental mutation 
-                logger.info(f"Warning: History loaded into instance successfully")
-                print(f"✅{Fore.GREEN}History loaded into instance successfully.{Style.RESET_ALL}")
-
-            except Exception as e:
-                logger.exception(f"❌ Failed to load history into instance: {e}")
-                raise DataFormatError(f"❌ Failed to load history: {e}") from e 
-        else:
-            logger.warning(f"Warning: request to load history from CSV, no history to load!")
-            print(f"❌ {Fore.MAGENTA}No history to load from CSV.{Style.RESET_ALL}")
     
 
 
@@ -150,8 +128,19 @@ class CareTaker:
         redo lets you reapply that change. Without a redo stack, once you undo, the undone state is lost.
         '''
         self.stack_redo = []
+        
+        try:
 
+            # Ensure the history directory exists
+            os.makedirs(CALCULATOR_HISTORY_DIR, exist_ok=True)
+            self.log_file = os.path.join(CALCULATOR_HISTORY_DIR, CSV_CARETAKER_HISTORY_FILE)
+        
+        except Exception as e:
+            logger.error(f"❌ Failed to initialize Caretaker history CSV path  {e}")
+            raise FileAccessError(f"❌ Failed to initialize Caretaker history CSV path: {e}")
 
+    def recompose_calculation(self, row):
+        return f"{row['timestamp']},{row['operation']},{row['operand1']},{row['operand2']},{row['result']},{row['instance_id']}"
 
     def save_memento(self, memento):
         try:
@@ -258,7 +247,102 @@ class CareTaker:
         except Exception as e:
             logger.exception(f"❌ Failed to perform redo: {e}")
             raise HistoryError(f"❌ Redo failed: {e}") from e
+        
+    def get_loaded_history(self, originator):
+        if not os.path.exists(self.log_file) or os.path.getsize(self.log_file) == 0:
+            logger.warning("❌ No CSV history file found to load!")
+            print(f"❌ {Fore.MAGENTA}No history file to load.{Style.RESET_ALL}")
+            return
+        
+        if CSV_CARETAKER_HISTORY_FILE:
+            try:
+                # CSV_CARETAKER_HISTORY_FILE is a list of operation messages
+                history_df = pd.read_csv(self.log_file, usecols=CSV_COLUMNS)
+                operations = history_df.to_dict(orient="records")
+
+                # Clear current undo/redo stacks
+                self.stack_undo.clear()
+                self.stack_redo.clear()
+
+                # Reset originator history
+                originator.history.clear()
+
+                logger.info(f"✅ Warning: History loaded into instance successfully")
+                print(f"✅{Fore.GREEN}History loaded into instance successfully.{Style.RESET_ALL}")
+
+                # Add each operation and create a memento
+                for op in operations:
+                    originator.add_operation(self.recompose_calculation(op), caretaker=self)
+
+                logger.info(f"✅ Loaded {len(operations)} operations from {self.log_file}")
+                print(f"✅ {Fore.GREEN}Loaded {len(operations)} operations into history.{Style.RESET_ALL}")
+
+            except FileAccessError as e:
+                raise e
+            except Exception as e:
+                logger.exception(f"❌ Failed to load history from CSV: {e}")
+                raise DataFormatError(f"❌ Failed to load history: {e}") from e
+        else:
+            logger.warning(f"Warning: request to load history from CSV, no history to load!")
+            print(f"❌ {Fore.MAGENTA}No history to load from CSV.{Style.RESET_ALL}")
 
 
+    def save_history_to_csv(self, originator):
+        if not originator.history:
+            logger.warning("❌ No history to save!")
+            print(f"❌ {Fore.MAGENTA}No history to save.{Style.RESET_ALL}")
+            return
 
-    
+        try:
+            # Trim history to max size before saving
+            history_to_save = originator.history[-CALCULATOR_MAX_HISTORY_SIZE:]
+
+            # Build a list of dictionaries for CSV export
+            csv_rows = []
+            for entry in history_to_save:
+                #  entry is a string like "timestamp,operation,operand1,operand2,result,instance_id"
+                parts = entry.split(",")
+                if len(parts) != len(CSV_COLUMNS):
+                    logger.warning(f"❌ Skipping unproperly formatted entry: {entry}")
+                    continue
+                row_dict = dict(zip(CSV_COLUMNS, parts))
+                csv_rows.append(row_dict)
+
+            # Convert to DataFrame
+            df = pd.DataFrame(csv_rows, columns=CSV_COLUMNS)
+
+            # Ensure directory exists
+            os.makedirs(CALCULATOR_HISTORY_DIR, exist_ok=True)
+
+            # Save to CSV
+            df.to_csv(self.log_file, index=False)
+            logger.info(f"✅ Saved {len(csv_rows)} operations to CSV: {self.log_file}")
+            print(f"✅ {Fore.GREEN}Saved {len(csv_rows)} operations to CSV.{Style.RESET_ALL}")
+
+        except Exception as e:
+            logger.exception(f"❌ Failed to save history to CSV: {e}")
+            raise FileAccessError(f"❌ Failed to save history to CSV: {e}") from e
+
+    def delete_saved_history(self, originator: Originator):
+        """Delete the saved in memory and CSV persistent history - ONLY AFTER USER CONFIRMATION!."""
+        try:
+            if os.path.exists(self.log_file):
+
+                # Delete CSV history
+                os.remove(self.log_file)
+                logger.info(f"✅ Deleted saved history file: {self.log_file}")
+
+                # Clear Originator history
+                originator.history.clear()
+                logger.info(f"✅ Deleted in-memory history: {self.log_file}")
+
+                print(f"✅ Saved history succesfully deleted")
+
+            else:
+                logger.warning(f"⚠️ No saved history file found at {self.log_file}")
+        except PermissionError as e:
+            logger.error(f"❌ Permission denied deleting CSV history: {e}")
+            raise
+        except OSError as e:
+            logger.error(f"❌ Error deleting CSV history: {e}")
+            raise
