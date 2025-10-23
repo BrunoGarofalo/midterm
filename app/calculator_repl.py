@@ -10,17 +10,7 @@ from app.logger import logger
 init(autoreset=True)
 
 ''''
-who should delete the history? the logging observer or the originator in the memento?
-Should the history be cleared when the instance ends? both the instance history and in the txt file?
-Should the redone operation be recalculated? meaning the operands should be re entered?
-load – Load calculation history from file using pandas. is this ALL history, from all instances?
-save – Manually save calculation history to file using pandas. is this just the instance history? does it replace the
-should the logging observer save the history only when prompted?
-Manual save is supposed to save to a CSV? would that override the history saved by the autosave observer?
-Move check decimals into input_validation.py
-to show history need to check if history is available first
 need to validate global variables
-data should be saved without exceeding the CALCULATOR_MAX_HISTORY_SIZE
 '''
 
 def main():
