@@ -1,180 +1,602 @@
-
-2025-10-18 17:39:02 [INFO] User selected command: R - Exit the program
-2025-10-18 17:39:02 [INFO] Determined operation code: exit for command R
-2025-10-18 17:39:02 [WARNING] Instance history succesfully deleted
-2025-10-18 17:39:02 [INFO] Application closed!
-2025-10-18 17:48:00 [INFO] Calculator application started
-2025-10-18 17:48:00 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
-2025-10-18 17:48:29 [INFO] User selected command: A - Percentage
-2025-10-18 17:48:29 [INFO] Determined operation code: percentage for command A
-2025-10-18 17:48:33 [INFO] Percentage performed: 3.0000 % 5.0000 = 0.6000
-2025-10-18 17:48:33 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
-2025-10-18 17:48:33 [INFO] Operation added to history: 2025-10-18 17:48:33|Percentage|3|5|0.6000 
-2025-10-18 17:48:33 [INFO] AutosaveObserver auto-saved operation: 2025-10-18 17:48:33|Percentage|3|5|0.6000 
-2025-10-18 17:48:33 [INFO] AutosaveObserver updated with operation: 2025-10-18 17:48:33|Percentage|3|5|0.6000 
-2025-10-18 17:48:33 [INFO] Calculation successfully completed: 2025-10-18 17:48:33|Percentage|3|5|0.6000 
-2025-10-18 17:48:49 [INFO] User selected command: C - Multiplication
-2025-10-18 17:48:49 [INFO] Determined operation code: multiplication for command C
-2025-10-18 17:48:52 [INFO] Multiplication performed: 3.0000 * 4.0000 = 12.0000
-2025-10-18 17:48:52 [INFO] Memento saved. Undo stack size: 2; Redo stack cleared
-2025-10-18 17:48:52 [INFO] Operation added to history: 2025-10-18 17:48:52|Multiplication|3|4|12.0000 
-2025-10-18 17:48:52 [INFO] AutosaveObserver auto-saved operation: 2025-10-18 17:48:52|Multiplication|3|4|12.0000 
-2025-10-18 17:48:52 [INFO] AutosaveObserver updated with operation: 2025-10-18 17:48:52|Multiplication|3|4|12.0000 
-2025-10-18 17:48:52 [INFO] Calculation successfully completed: 2025-10-18 17:48:52|Multiplication|3|4|12.0000 
-2025-10-18 17:48:57 [INFO] User selected command: K - Display history
-2025-10-18 17:48:57 [INFO] Determined operation code: hist for command K
-2025-10-18 17:48:57 [INFO] History successfully displayed!
-2025-10-18 17:48:57 [INFO] History displayed
-2025-10-18 17:49:24 [INFO] User selected command: O - Save calculation history
-2025-10-18 17:49:24 [INFO] Determined operation code: save for command O
-2025-10-18 17:49:24 [INFO] Full history saved to history/history_log.txt
-2025-10-18 17:49:24 [INFO] History saved manually to history_log.txt
-2025-10-18 18:00:22 [INFO] User selected command: R - Exit the program
-2025-10-18 18:00:22 [INFO] Determined operation code: exit for command R
-2025-10-18 18:00:22 [WARNING] Instance history succesfully deleted
-2025-10-18 18:00:22 [INFO] Application closed!
-2025-10-18 18:00:35 [INFO] Calculator application started
-2025-10-18 18:00:35 [INFO] AutosaveObserver initialized new file: history/history_log.csv
-2025-10-18 18:00:52 [INFO] User selected command: A - Percentage
-2025-10-18 18:00:52 [INFO] Determined operation code: percentage for command A
-2025-10-18 18:00:54 [INFO] Percentage performed: 2.0000 % 2.0000 = 1.0000
-2025-10-18 18:00:54 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
-2025-10-18 18:00:54 [INFO] Operation added to history: 2025-10-18 18:00:54|Percentage|2|2|1.0000 
-2025-10-18 18:00:54 [INFO] AutosaveObserver auto-saved operation: 2025-10-18 18:00:54|Percentage|2|2|1.0000 
-2025-10-18 18:00:54 [INFO] AutosaveObserver updated with operation: 2025-10-18 18:00:54|Percentage|2|2|1.0000 
-2025-10-18 18:00:54 [INFO] Calculation successfully completed: 2025-10-18 18:00:54|Percentage|2|2|1.0000 
-2025-10-18 18:02:26 [INFO] User selected command: K - Display history
-2025-10-18 18:02:26 [INFO] Determined operation code: hist for command K
-2025-10-18 18:02:26 [INFO] History successfully displayed!
-2025-10-18 18:02:26 [INFO] History displayed
-2025-10-18 18:02:31 [INFO] User selected command: O - Save calculation history
-2025-10-18 18:02:31 [INFO] Determined operation code: save for command O
-2025-10-18 18:02:31 [INFO] Full history saved to history/history_log.txt
-2025-10-18 18:02:31 [INFO] History saved manually to history_log.txt
-2025-10-18 18:03:24 [INFO] User selected command: R - Exit the program
-2025-10-18 18:03:24 [INFO] Determined operation code: exit for command R
-2025-10-18 18:03:24 [WARNING] Instance history succesfully deleted
-2025-10-18 18:03:24 [INFO] Application closed!
-2025-10-18 18:06:35 [INFO] Calculator application started
-2025-10-18 18:06:35 [INFO] AutosaveObserver initialized new file: history/history_log.csv
-2025-10-18 18:06:44 [INFO] User selected command: A - Percentage
-2025-10-18 18:06:44 [INFO] Determined operation code: percentage for command A
-2025-10-18 18:06:47 [INFO] Percentage performed: 6.0000 % 2.0000 = 3.0000
-2025-10-18 18:06:47 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
-2025-10-18 18:06:47 [INFO] Operation added to history: 2025-10-18 18:06:47|Percentage|6|2|3.0000 
-2025-10-18 18:06:47 [INFO] AutosaveObserver auto-saved operation: 2025-10-18 18:06:47|Percentage|6|2|3.0000 
-2025-10-18 18:06:47 [INFO] AutosaveObserver updated with operation: 2025-10-18 18:06:47|Percentage|6|2|3.0000 
-2025-10-18 18:06:47 [INFO] Calculation successfully completed: 2025-10-18 18:06:47|Percentage|6|2|3.0000 
-2025-10-18 18:06:56 [INFO] User selected command: O - Save calculation history
-2025-10-18 18:06:56 [INFO] Determined operation code: save for command O
-2025-10-18 18:06:56 [INFO] Full history saved to history/history_log.txt
-2025-10-18 18:06:56 [INFO] History saved manually to history_log.txt
-2025-10-18 18:07:00 [INFO] User selected command: K - Display history
-2025-10-18 18:07:00 [INFO] Determined operation code: hist for command K
-2025-10-18 18:07:00 [INFO] History successfully displayed!
-2025-10-18 18:07:00 [INFO] History displayed
-2025-10-18 18:07:02 [INFO] User selected command: R - Exit the program
-2025-10-18 18:07:02 [INFO] Determined operation code: exit for command R
-2025-10-18 18:07:02 [WARNING] Instance history succesfully deleted
-2025-10-18 18:07:02 [INFO] Application closed!
-2025-10-18 18:22:16 [INFO] Calculator application started
-2025-10-18 18:22:16 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
-2025-10-18 18:22:36 [INFO] Display command linst
-2025-10-18 18:23:03 [ERROR] Value error: Command Percentage not allowed
-2025-10-18 18:23:03 [ERROR] Calculation error: ❌ Command Percentage not allowed, commands allowed: ['Percentage', 'Multiplication', 'Modulo', 'Root', 'Absolute Difference', 'Integer Division', 'Power'] 
-2025-10-18 18:29:24 [ERROR] Value error: Command Percentage not allowed
-2025-10-18 18:29:24 [ERROR] Calculation error: ❌ Command Percentage not allowed, commands allowed: ['Percentage', 'Multiplication', 'Modulo', 'Root', 'Absolute Difference', 'Integer Division', 'Power'] 
-2025-10-18 18:29:32 [INFO] Calculator application started
-2025-10-18 18:29:32 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
-2025-10-18 18:30:08 [ERROR] Value error: Command Percentage not allowed
-2025-10-18 18:30:08 [ERROR] Calculation error: ❌ Command Percentage not allowed, commands allowed: ['Percentage', 'Multiplication', 'Modulo', 'Root', 'Absolute Difference', 'Integer Division', 'Power'] 
-2025-10-18 18:30:53 [INFO] Calculator application started
-2025-10-18 18:30:53 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
-2025-10-18 18:30:55 [ERROR] Value error: Command Percentage not allowed
-2025-10-18 18:30:55 [ERROR] Calculation error: ❌ Command Percentage not allowed, commands allowed: ['Percentage', 'Multiplication', 'Modulo', 'Root', 'Absolute Difference', 'Integer Division', 'Power'] 
-2025-10-18 18:32:01 [INFO] Calculator application started
-2025-10-18 18:32:01 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
-2025-10-18 18:32:20 [INFO] Calculator application started
-2025-10-18 18:32:20 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
-2025-10-18 18:32:52 [INFO] Calculator application started
-2025-10-18 18:32:52 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
-2025-10-18 18:33:43 [INFO] Calculator application started
-2025-10-18 18:33:43 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
-2025-10-18 18:33:47 [WARNING] Invalid command entered by user: a
-2025-10-18 18:34:36 [INFO] Calculator application started
-2025-10-18 18:34:36 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
-2025-10-18 18:34:39 [ERROR] Value error: Command Percentage not allowed
-2025-10-18 18:34:39 [ERROR] Calculation error: ❌ Command Percentage not allowed, commands allowed: ['Percentage', 'Multiplication', 'Modulo', 'Root', 'Absolute Difference', 'Integer Division', 'Power'] 
-2025-10-18 18:35:02 [INFO] Calculator application started
-2025-10-18 18:35:02 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
-2025-10-18 18:35:19 [INFO] Percentage performed: 100.0000 % 2.0000 = 50.0000
-2025-10-18 18:35:19 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
-2025-10-18 18:35:19 [INFO] Operation added to history: 2025-10-18 18:35:19|Percentage|100|2|50.0000 
-2025-10-18 18:35:19 [INFO] AutosaveObserver auto-saved operation: 2025-10-18 18:35:19|Percentage|100|2|50.0000 
-2025-10-18 18:35:19 [INFO] AutosaveObserver updated with operation: 2025-10-18 18:35:19|Percentage|100|2|50.0000 
-2025-10-18 18:35:19 [INFO] Calculation successfully completed: 2025-10-18 18:35:19|Percentage|100|2|50.0000 
-2025-10-18 18:35:24 [WARNING] Invalid command entered by user: HELP
-2025-10-18 18:35:45 [WARNING] Invalid command entered by user: HELP
-2025-10-18 18:35:52 [INFO] Calculator application started
-2025-10-18 18:35:52 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
-2025-10-18 18:36:26 [INFO] Multiplication performed: 3.0000 * 4.0000 = 12.0000
-2025-10-18 18:36:26 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
-2025-10-18 18:36:26 [INFO] Operation added to history: 2025-10-18 18:36:26|Multiplication|3|4|12.0000 
-2025-10-18 18:36:26 [INFO] AutosaveObserver auto-saved operation: 2025-10-18 18:36:26|Multiplication|3|4|12.0000 
-2025-10-18 18:36:26 [INFO] AutosaveObserver updated with operation: 2025-10-18 18:36:26|Multiplication|3|4|12.0000 
-2025-10-18 18:36:26 [INFO] Calculation successfully completed: 2025-10-18 18:36:26|Multiplication|3|4|12.0000 
-2025-10-18 18:36:45 [INFO] Full history saved to history/history_log.txt
-2025-10-18 18:36:45 [INFO] History saved manually to history_log.txt
-2025-10-18 18:36:55 [INFO] History successfully displayed!
-2025-10-18 18:36:55 [INFO] History displayed
-2025-10-18 18:37:01 [INFO] Multiplication performed: 4.0000 * 3.0000 = 12.0000
-2025-10-18 18:37:01 [INFO] Memento saved. Undo stack size: 2; Redo stack cleared
-2025-10-18 18:37:01 [INFO] Operation added to history: 2025-10-18 18:37:01|Multiplication|4|3|12.0000 
-2025-10-18 18:37:01 [INFO] AutosaveObserver auto-saved operation: 2025-10-18 18:37:01|Multiplication|4|3|12.0000 
-2025-10-18 18:37:01 [INFO] AutosaveObserver updated with operation: 2025-10-18 18:37:01|Multiplication|4|3|12.0000 
-2025-10-18 18:37:01 [INFO] Calculation successfully completed: 2025-10-18 18:37:01|Multiplication|4|3|12.0000 
-2025-10-18 18:37:05 [INFO] IntegerDivision performed: 3.0000 // 6.0000 = 0
-2025-10-18 18:37:05 [INFO] Memento saved. Undo stack size: 3; Redo stack cleared
-2025-10-18 18:37:05 [INFO] Operation added to history: 2025-10-18 18:37:05|IntegerDivision|3|6|0 
-2025-10-18 18:37:05 [INFO] AutosaveObserver auto-saved operation: 2025-10-18 18:37:05|IntegerDivision|3|6|0 
-2025-10-18 18:37:05 [INFO] AutosaveObserver updated with operation: 2025-10-18 18:37:05|IntegerDivision|3|6|0 
-2025-10-18 18:37:05 [INFO] Calculation successfully completed: 2025-10-18 18:37:05|IntegerDivision|3|6|0 
-2025-10-18 18:37:11 [INFO] History successfully displayed!
-2025-10-18 18:37:11 [INFO] History displayed
-2025-10-18 18:37:21 [INFO] Full history saved to history/history_log.txt
-2025-10-18 18:37:21 [INFO] History saved manually to history_log.txt
-2025-10-18 18:37:38 [WARNING] Instance history succesfully deleted
-2025-10-18 18:37:38 [INFO] Application closed!
-2025-10-19 07:22:22 [INFO] Calculator application started
-2025-10-19 07:22:23 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
-2025-10-19 07:22:29 [INFO] User selected operation: help
-2025-10-19 07:22:29 [ERROR] Calculation error: name 'Help' is not defined
-2025-10-19 07:22:29 [ERROR] Operation error: Failed to create operation object: name 'Help' is not defined
-2025-10-19 07:48:32 [INFO] User selected operation: percentage
-2025-10-19 07:48:35 [INFO] Percentage performed: 2.0000 % 5.0000 = 0.4000
-2025-10-19 07:48:35 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
-2025-10-19 07:48:35 [INFO] Operation added to history: 2025-10-19 07:48:35|Percentage|2|5|0.4000 
-2025-10-19 07:48:35 [INFO] AutosaveObserver auto-saved operation: 2025-10-19 07:48:35|Percentage|2|5|0.4000 
-2025-10-19 07:48:35 [INFO] AutosaveObserver updated with operation: 2025-10-19 07:48:35|Percentage|2|5|0.4000 
-2025-10-19 07:48:35 [INFO] Calculation successfully completed: 2025-10-19 07:48:35|Percentage|2|5|0.4000 
-2025-10-19 07:48:40 [INFO] User selected operation: exit
-2025-10-19 07:48:40 [WARNING] Instance history succesfully deleted
-2025-10-19 07:48:40 [INFO] Application closed!
-2025-10-19 07:48:50 [INFO] Calculator application started
-2025-10-19 07:48:50 [INFO] ✅ LoggingObserver initialized with log file: history/history_log.txt
-2025-10-19 07:48:50 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
-2025-10-19 07:48:55 [WARNING] ⌨️ Command error: ❌ Command 'Z' not recognized. Type 'help' for the list.
-2025-10-19 07:49:03 [INFO] User selected operation: percentage
-2025-10-19 07:49:14 [INFO] Percentage performed: 1.0000 % 2.0000 = 0.5000
-2025-10-19 07:49:14 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
-2025-10-19 07:49:14 [INFO] Operation added to history: 2025-10-19 07:49:14|Percentage|1|2|0.5000 
-2025-10-19 07:49:14 [INFO] ✅ AutosaveObserver auto-saved operation: 2025-10-19 07:49:14|Percentage|1|2|0.5000 
-2025-10-19 07:49:14 [INFO] ✅ AutosaveObserver updated with operation: 2025-10-19 07:49:14|Percentage|1|2|0.5000 
-2025-10-19 07:49:14 [INFO] Calculation successfully completed: 2025-10-19 07:49:14|Percentage|1|2|0.5000 
-2025-10-19 08:07:53 [INFO] User selected operation: exit
-2025-10-19 08:07:53 [WARNING] Instance history succesfully deleted
-2025-10-19 08:07:53 [INFO] Application closed!
-2025-10-19 08:09:42 [INFO] Calculator application started
-2025-10-19 08:09:42 [INFO] ✅ LoggingObserver initialized with log file: history/history_log.txt
-2025-10-19 08:09:42 [INFO] AutosaveObserver loaded existing file: history/history_log.csv
-2025-10-19 08:09:55 [WARNING] ⌨️ Command error: ❌ Command 'Z' not recognized. Type 'help' for the list.
+2025-10-23 11:51:04 [INFO] ✅ LoggingObserver initialized with log file: history/history_log.txt
+2025-10-23 11:51:04 [INFO] ✅ AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-23 11:51:08 [INFO] user input entered K
+2025-10-23 11:51:08 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 11:51:08 [WARNING] Attempted to display history but it is empty
+2025-10-23 11:51:08 [INFO] ✅ History displayed
+2025-10-23 11:51:10 [INFO] user input entered A
+2025-10-23 11:51:10 [INFO] ✅ Determined operation code 'Percentage' for command 'A'
+2025-10-23 11:51:14 [WARNING] ❌ Value too large: 333333333333333
+2025-10-23 11:51:17 [INFO] ✅ Percentage performed: 33.0000 % 3.0000 = 1100.0000
+2025-10-23 11:51:17 [INFO] ✅ Memento succesfully created
+2025-10-23 11:51:17 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
+2025-10-23 11:51:17 [INFO] ✅ Operation added to history: 2025-10-23 11:51:17,Percentage,33,3,1100.0000,394a205e-e12b-4020-a423-94bedd54dc97
+2025-10-23 11:51:17 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 11:51:17 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 11:51:17', 'operation': 'Percentage', 'operand1': '33', 'operand2': '3', 'result': '1100.0000', 'instance_id': '394a205e-e12b-4020-a423-94bedd54dc97'}
+2025-10-23 11:51:17 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 11:51:17 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 11:51:17', 'operation': 'Percentage', 'operand1': '33', 'operand2': '3', 'result': '1100.0000', 'instance_id': '394a205e-e12b-4020-a423-94bedd54dc97'}
+2025-10-23 11:51:27 [INFO] user input entered K
+2025-10-23 11:51:27 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 11:51:27 [INFO] ✅ History displayed
+2025-10-23 11:51:37 [INFO] user input entered B
+2025-10-23 11:51:37 [INFO] ✅ Determined operation code 'Modulo' for command 'B'
+2025-10-23 11:51:39 [INFO] ✅ Modulo performed: 4.0000 % 5.0000 = 4.0000
+2025-10-23 11:51:39 [INFO] ✅ Memento succesfully created
+2025-10-23 11:51:39 [INFO] Memento saved. Undo stack size: 2; Redo stack cleared
+2025-10-23 11:51:39 [INFO] ✅ Operation added to history: 2025-10-23 11:51:39,Modulo,4,5,4.0000,394a205e-e12b-4020-a423-94bedd54dc97
+2025-10-23 11:51:39 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 11:51:39 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 11:51:39', 'operation': 'Modulo', 'operand1': '4', 'operand2': '5', 'result': '4.0000', 'instance_id': '394a205e-e12b-4020-a423-94bedd54dc97'}
+2025-10-23 11:51:39 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 11:51:39 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 11:51:39', 'operation': 'Modulo', 'operand1': '4', 'operand2': '5', 'result': '4.0000', 'instance_id': '394a205e-e12b-4020-a423-94bedd54dc97'}
+2025-10-23 11:51:42 [INFO] user input entered K
+2025-10-23 11:51:42 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 11:51:42 [INFO] ✅ History displayed
+2025-10-23 11:51:55 [INFO] user input entered HELP
+2025-10-23 11:52:03 [INFO] user input entered M
+2025-10-23 11:52:03 [INFO] ✅ Determined operation code 'undo' for command 'M'
+2025-10-23 11:52:03 [INFO] Undo requested by user
+2025-10-23 11:52:03 [INFO] ✅ Memento succesfully created
+2025-10-23 11:52:03 [INFO] ✅ History restored from memento. Previous: ['2025-10-23 11:51:17,Percentage,33,3,1100.0000,394a205e-e12b-4020-a423-94bedd54dc97', '2025-10-23 11:51:39,Modulo,4,5,4.0000,394a205e-e12b-4020-a423-94bedd54dc97'], New: ['2025-10-23 11:51:17,Percentage,33,3,1100.0000,394a205e-e12b-4020-a423-94bedd54dc97']
+2025-10-23 11:52:06 [INFO] user input entered K
+2025-10-23 11:52:06 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 11:52:06 [INFO] ✅ History displayed
+2025-10-23 11:52:33 [INFO] user input entered N
+2025-10-23 11:52:33 [INFO] ✅ Determined operation code 'redo' for command 'N'
+2025-10-23 11:52:33 [INFO] Redo requested by user
+2025-10-23 11:52:33 [INFO] ✅ Memento succesfully created
+2025-10-23 11:52:33 [INFO] ✅ History restored from memento. Previous: ['2025-10-23 11:51:17,Percentage,33,3,1100.0000,394a205e-e12b-4020-a423-94bedd54dc97'], New: ['2025-10-23 11:51:17,Percentage,33,3,1100.0000,394a205e-e12b-4020-a423-94bedd54dc97', '2025-10-23 11:51:39,Modulo,4,5,4.0000,394a205e-e12b-4020-a423-94bedd54dc97']
+2025-10-23 11:52:33 [INFO] Redo performed. Operation redone: 2025-10-23 11:51:39,Modulo,4,5,4.0000,394a205e-e12b-4020-a423-94bedd54dc97
+2025-10-23 11:52:36 [INFO] user input entered K
+2025-10-23 11:52:36 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 11:52:36 [INFO] ✅ History displayed
+2025-10-23 11:52:40 [INFO] user input entered N
+2025-10-23 11:52:40 [INFO] ✅ Determined operation code 'redo' for command 'N'
+2025-10-23 11:52:40 [INFO] Redo requested by user
+2025-10-23 11:52:40 [WARNING] ❌ Red requested but no operation to redo
+2025-10-23 11:52:51 [INFO] user input entered P
+2025-10-23 11:52:51 [INFO] ✅ Determined operation code 'load' for command 'P'
+2025-10-23 11:52:51 [WARNING] ❌ User attempted to override existing history, operation aborted
+2025-10-23 11:53:03 [INFO] user input entered L
+2025-10-23 11:53:03 [INFO] ✅ Determined operation code 'clear' for command 'L'
+2025-10-23 11:54:35 [INFO] ✅ User aborted history deletion request
+2025-10-23 11:55:19 [INFO] ✅ LoggingObserver initialized with log file: history/history_log.txt
+2025-10-23 11:55:19 [INFO] ✅ AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-23 11:55:22 [INFO] user input entered K
+2025-10-23 11:55:22 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 11:55:22 [WARNING] Attempted to display history but it is empty
+2025-10-23 11:55:22 [INFO] ✅ History displayed
+2025-10-23 11:55:24 [INFO] user input entered A
+2025-10-23 11:55:24 [INFO] ✅ Determined operation code 'Percentage' for command 'A'
+2025-10-23 11:55:25 [INFO] ✅ Percentage performed: 3.0000 % 2.0000 = 150.0000
+2025-10-23 11:55:25 [INFO] ✅ Memento succesfully created
+2025-10-23 11:55:25 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
+2025-10-23 11:55:25 [INFO] ✅ Operation added to history: 2025-10-23 11:55:25,Percentage,3,2,150.0000,3c37d587-5db5-436f-8cee-9f42f35a579d
+2025-10-23 11:55:25 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 11:55:25 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 11:55:25', 'operation': 'Percentage', 'operand1': '3', 'operand2': '2', 'result': '150.0000', 'instance_id': '3c37d587-5db5-436f-8cee-9f42f35a579d'}
+2025-10-23 11:55:25 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 11:55:25 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 11:55:25', 'operation': 'Percentage', 'operand1': '3', 'operand2': '2', 'result': '150.0000', 'instance_id': '3c37d587-5db5-436f-8cee-9f42f35a579d'}
+2025-10-23 11:55:26 [INFO] user input entered B
+2025-10-23 11:55:26 [INFO] ✅ Determined operation code 'Modulo' for command 'B'
+2025-10-23 11:55:27 [INFO] ✅ Modulo performed: 5.0000 % 4.0000 = 1.0000
+2025-10-23 11:55:27 [INFO] ✅ Memento succesfully created
+2025-10-23 11:55:27 [INFO] Memento saved. Undo stack size: 2; Redo stack cleared
+2025-10-23 11:55:27 [INFO] ✅ Operation added to history: 2025-10-23 11:55:27,Modulo,5,4,1.0000,3c37d587-5db5-436f-8cee-9f42f35a579d
+2025-10-23 11:55:27 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 11:55:27 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 11:55:27', 'operation': 'Modulo', 'operand1': '5', 'operand2': '4', 'result': '1.0000', 'instance_id': '3c37d587-5db5-436f-8cee-9f42f35a579d'}
+2025-10-23 11:55:27 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 11:55:27 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 11:55:27', 'operation': 'Modulo', 'operand1': '5', 'operand2': '4', 'result': '1.0000', 'instance_id': '3c37d587-5db5-436f-8cee-9f42f35a579d'}
+2025-10-23 11:55:28 [INFO] user input entered C
+2025-10-23 11:55:28 [INFO] ✅ Determined operation code 'Multiplication' for command 'C'
+2025-10-23 11:55:30 [INFO] ✅ Multiplication performed: 6.0000 * 7.0000 = 42.0000
+2025-10-23 11:55:30 [INFO] ✅ Memento succesfully created
+2025-10-23 11:55:30 [INFO] Memento saved. Undo stack size: 3; Redo stack cleared
+2025-10-23 11:55:30 [INFO] ✅ Operation added to history: 2025-10-23 11:55:30,Multiplication,6,7,42.0000,3c37d587-5db5-436f-8cee-9f42f35a579d
+2025-10-23 11:55:30 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 11:55:30 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 11:55:30', 'operation': 'Multiplication', 'operand1': '6', 'operand2': '7', 'result': '42.0000', 'instance_id': '3c37d587-5db5-436f-8cee-9f42f35a579d'}
+2025-10-23 11:55:30 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 11:55:30 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 11:55:30', 'operation': 'Multiplication', 'operand1': '6', 'operand2': '7', 'result': '42.0000', 'instance_id': '3c37d587-5db5-436f-8cee-9f42f35a579d'}
+2025-10-23 11:55:31 [INFO] user input entered F
+2025-10-23 11:55:31 [INFO] ✅ Determined operation code 'IntDiff' for command 'F'
+2025-10-23 11:55:32 [INFO] ✅ IntegerDivision performed: 4.0000 // 4.0000 = 1
+2025-10-23 11:55:32 [INFO] ✅ Memento succesfully created
+2025-10-23 11:55:32 [INFO] Memento saved. Undo stack size: 4; Redo stack cleared
+2025-10-23 11:55:32 [INFO] ✅ Operation added to history: 2025-10-23 11:55:32,IntegerDivision,4,4,1,3c37d587-5db5-436f-8cee-9f42f35a579d
+2025-10-23 11:55:33 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 11:55:33 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 11:55:32', 'operation': 'IntegerDivision', 'operand1': '4', 'operand2': '4', 'result': '1', 'instance_id': '3c37d587-5db5-436f-8cee-9f42f35a579d'}
+2025-10-23 11:55:33 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 11:55:33 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 11:55:32', 'operation': 'IntegerDivision', 'operand1': '4', 'operand2': '4', 'result': '1', 'instance_id': '3c37d587-5db5-436f-8cee-9f42f35a579d'}
+2025-10-23 11:55:34 [INFO] user input entered K
+2025-10-23 11:55:34 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 11:55:34 [INFO] ✅ History displayed
+2025-10-23 11:55:45 [INFO] user input entered HELP
+2025-10-23 11:55:51 [INFO] user input entered L
+2025-10-23 11:55:51 [INFO] ✅ Determined operation code 'clear' for command 'L'
+2025-10-23 11:55:54 [INFO] ✅ User aborted history deletion request
+2025-10-23 11:56:35 [INFO] user input entered O
+2025-10-23 11:56:35 [INFO] ✅ Determined operation code 'save' for command 'O'
+2025-10-23 11:56:35 [INFO] ✅ Saved 4 operations to CSV: history/caretaker_history.csv
+2025-10-23 11:56:50 [INFO] user input entered P
+2025-10-23 11:56:50 [INFO] ✅ Determined operation code 'load' for command 'P'
+2025-10-23 11:56:50 [WARNING] ❌ User attempted to override existing history, operation aborted
+2025-10-23 11:56:58 [INFO] user input entered K
+2025-10-23 11:56:58 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 11:56:58 [INFO] ✅ History displayed
+2025-10-23 11:57:08 [INFO] user input entered EXIT
+2025-10-23 11:57:08 [WARNING] ❌ Invalid operation key: EXIT
+2025-10-23 11:57:12 [INFO] user input entered Q
+2025-10-23 11:57:12 [INFO] ✅ Determined operation code 'exit' for command 'Q'
+2025-10-23 11:57:15 [INFO] ✅ User aborted history deletion request
+2025-10-23 11:57:15 [INFO] Application closed!
+2025-10-23 11:58:03 [INFO] ✅ LoggingObserver initialized with log file: history/history_log.txt
+2025-10-23 11:58:03 [INFO] ✅ AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-23 11:58:05 [INFO] user input entered K
+2025-10-23 11:58:05 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 11:58:05 [WARNING] Attempted to display history but it is empty
+2025-10-23 11:58:05 [INFO] ✅ History displayed
+2025-10-23 11:58:09 [INFO] user input entered HELP
+2025-10-23 11:58:14 [INFO] user input entered P
+2025-10-23 11:58:14 [INFO] ✅ Determined operation code 'load' for command 'P'
+2025-10-23 11:58:14 [INFO] ✅ Warning: History loaded into instance successfully
+2025-10-23 11:58:14 [INFO] ✅ Memento succesfully created
+2025-10-23 11:58:14 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
+2025-10-23 11:58:14 [INFO] ✅ Operation added to history: 2025-10-23 11:55:25,Percentage,3,2,150.0,3c37d587-5db5-436f-8cee-9f42f35a579d
+2025-10-23 11:58:14 [INFO] ✅ Memento succesfully created
+2025-10-23 11:58:14 [INFO] Memento saved. Undo stack size: 2; Redo stack cleared
+2025-10-23 11:58:14 [INFO] ✅ Operation added to history: 2025-10-23 11:55:27,Modulo,5,4,1.0,3c37d587-5db5-436f-8cee-9f42f35a579d
+2025-10-23 11:58:14 [INFO] ✅ Memento succesfully created
+2025-10-23 11:58:14 [INFO] Memento saved. Undo stack size: 3; Redo stack cleared
+2025-10-23 11:58:14 [INFO] ✅ Operation added to history: 2025-10-23 11:55:30,Multiplication,6,7,42.0,3c37d587-5db5-436f-8cee-9f42f35a579d
+2025-10-23 11:58:14 [INFO] ✅ Memento succesfully created
+2025-10-23 11:58:14 [INFO] Memento saved. Undo stack size: 4; Redo stack cleared
+2025-10-23 11:58:14 [INFO] ✅ Operation added to history: 2025-10-23 11:55:32,IntegerDivision,4,4,1.0,3c37d587-5db5-436f-8cee-9f42f35a579d
+2025-10-23 11:58:14 [INFO] ✅ Loaded 4 operations from history/caretaker_history.csv
+2025-10-23 11:58:38 [INFO] user input entered K
+2025-10-23 11:58:38 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 11:58:38 [INFO] ✅ History displayed
+2025-10-23 11:58:43 [INFO] user input entered HELP
+2025-10-23 11:58:46 [INFO] user input entered M
+2025-10-23 11:58:46 [INFO] ✅ Determined operation code 'undo' for command 'M'
+2025-10-23 11:58:46 [INFO] Undo requested by user
+2025-10-23 11:58:46 [INFO] ✅ Memento succesfully created
+2025-10-23 11:58:46 [INFO] ✅ History restored from memento. Previous: ['2025-10-23 11:55:25,Percentage,3,2,150.0,3c37d587-5db5-436f-8cee-9f42f35a579d', '2025-10-23 11:55:27,Modulo,5,4,1.0,3c37d587-5db5-436f-8cee-9f42f35a579d', '2025-10-23 11:55:30,Multiplication,6,7,42.0,3c37d587-5db5-436f-8cee-9f42f35a579d', '2025-10-23 11:55:32,IntegerDivision,4,4,1.0,3c37d587-5db5-436f-8cee-9f42f35a579d'], New: ['2025-10-23 11:55:25,Percentage,3,2,150.0,3c37d587-5db5-436f-8cee-9f42f35a579d', '2025-10-23 11:55:27,Modulo,5,4,1.0,3c37d587-5db5-436f-8cee-9f42f35a579d', '2025-10-23 11:55:30,Multiplication,6,7,42.0,3c37d587-5db5-436f-8cee-9f42f35a579d']
+2025-10-23 11:58:49 [INFO] user input entered K
+2025-10-23 11:58:49 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 11:58:49 [INFO] ✅ History displayed
+2025-10-23 11:58:53 [INFO] user input entered N
+2025-10-23 11:58:53 [INFO] ✅ Determined operation code 'redo' for command 'N'
+2025-10-23 11:58:53 [INFO] Redo requested by user
+2025-10-23 11:58:53 [INFO] ✅ Memento succesfully created
+2025-10-23 11:58:53 [INFO] ✅ History restored from memento. Previous: ['2025-10-23 11:55:25,Percentage,3,2,150.0,3c37d587-5db5-436f-8cee-9f42f35a579d', '2025-10-23 11:55:27,Modulo,5,4,1.0,3c37d587-5db5-436f-8cee-9f42f35a579d', '2025-10-23 11:55:30,Multiplication,6,7,42.0,3c37d587-5db5-436f-8cee-9f42f35a579d'], New: ['2025-10-23 11:55:25,Percentage,3,2,150.0,3c37d587-5db5-436f-8cee-9f42f35a579d', '2025-10-23 11:55:27,Modulo,5,4,1.0,3c37d587-5db5-436f-8cee-9f42f35a579d', '2025-10-23 11:55:30,Multiplication,6,7,42.0,3c37d587-5db5-436f-8cee-9f42f35a579d', '2025-10-23 11:55:32,IntegerDivision,4,4,1.0,3c37d587-5db5-436f-8cee-9f42f35a579d']
+2025-10-23 11:58:53 [INFO] Redo performed. Operation redone: 2025-10-23 11:55:32,IntegerDivision,4,4,1.0,3c37d587-5db5-436f-8cee-9f42f35a579d
+2025-10-23 11:58:56 [INFO] user input entered K
+2025-10-23 11:58:56 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 11:58:56 [INFO] ✅ History displayed
+2025-10-23 11:59:02 [INFO] user input entered L
+2025-10-23 11:59:02 [INFO] ✅ Determined operation code 'clear' for command 'L'
+2025-10-23 11:59:05 [INFO] ✅ User aborted history deletion request
+2025-10-23 11:59:09 [INFO] user input entered L
+2025-10-23 11:59:09 [INFO] ✅ Determined operation code 'clear' for command 'L'
+2025-10-23 11:59:12 [INFO] ✅ Deleted saved history file: history/caretaker_history.csv
+2025-10-23 11:59:12 [INFO] ✅ Deleted in-memory history: history/caretaker_history.csv
+2025-10-23 11:59:12 [INFO] ✅ User confirmed and deleted both in-memory and saved history.
+2025-10-23 11:59:14 [INFO] user input entered K
+2025-10-23 11:59:14 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 11:59:14 [WARNING] Attempted to display history but it is empty
+2025-10-23 11:59:14 [INFO] ✅ History displayed
+2025-10-23 11:59:32 [INFO] user input entered HELP
+2025-10-23 12:00:13 [INFO] user input entered Q
+2025-10-23 12:00:13 [INFO] ✅ Determined operation code 'exit' for command 'Q'
+2025-10-23 12:00:23 [INFO] ✅ User aborted history deletion request
+2025-10-23 12:00:23 [INFO] Application closed!
+2025-10-23 12:01:12 [INFO] ✅ LoggingObserver initialized with log file: history/history_log.txt
+2025-10-23 12:01:12 [INFO] ✅ AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-23 12:01:17 [INFO] user input entered K
+2025-10-23 12:01:17 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 12:01:17 [WARNING] Attempted to display history but it is empty
+2025-10-23 12:01:17 [INFO] ✅ History displayed
+2025-10-23 12:01:22 [INFO] user input entered P
+2025-10-23 12:01:22 [INFO] ✅ Determined operation code 'load' for command 'P'
+2025-10-23 12:01:22 [WARNING] ❌ No CSV history file found to load!
+2025-10-23 12:01:25 [INFO] user input entered A
+2025-10-23 12:01:25 [INFO] ✅ Determined operation code 'Percentage' for command 'A'
+2025-10-23 12:01:27 [INFO] ✅ Percentage performed: 3.0000 % 4.0000 = 75.0000
+2025-10-23 12:01:27 [INFO] ✅ Memento succesfully created
+2025-10-23 12:01:27 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
+2025-10-23 12:01:27 [INFO] ✅ Operation added to history: 2025-10-23 12:01:27,Percentage,3,4,75.0000,5c5f43d1-1266-446d-a690-797768792787
+2025-10-23 12:01:27 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 12:01:27 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 12:01:27', 'operation': 'Percentage', 'operand1': '3', 'operand2': '4', 'result': '75.0000', 'instance_id': '5c5f43d1-1266-446d-a690-797768792787'}
+2025-10-23 12:01:27 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 12:01:27 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 12:01:27', 'operation': 'Percentage', 'operand1': '3', 'operand2': '4', 'result': '75.0000', 'instance_id': '5c5f43d1-1266-446d-a690-797768792787'}
+2025-10-23 12:01:29 [INFO] user input entered C
+2025-10-23 12:01:29 [INFO] ✅ Determined operation code 'Multiplication' for command 'C'
+2025-10-23 12:01:30 [INFO] ✅ Multiplication performed: 5.0000 * 6.0000 = 30.0000
+2025-10-23 12:01:30 [INFO] ✅ Memento succesfully created
+2025-10-23 12:01:30 [INFO] Memento saved. Undo stack size: 2; Redo stack cleared
+2025-10-23 12:01:30 [INFO] ✅ Operation added to history: 2025-10-23 12:01:30,Multiplication,5,6,30.0000,5c5f43d1-1266-446d-a690-797768792787
+2025-10-23 12:01:30 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 12:01:30 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 12:01:30', 'operation': 'Multiplication', 'operand1': '5', 'operand2': '6', 'result': '30.0000', 'instance_id': '5c5f43d1-1266-446d-a690-797768792787'}
+2025-10-23 12:01:30 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 12:01:30 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 12:01:30', 'operation': 'Multiplication', 'operand1': '5', 'operand2': '6', 'result': '30.0000', 'instance_id': '5c5f43d1-1266-446d-a690-797768792787'}
+2025-10-23 12:01:40 [INFO] user input entered F
+2025-10-23 12:01:40 [INFO] ✅ Determined operation code 'IntDiff' for command 'F'
+2025-10-23 12:01:42 [INFO] ✅ IntegerDivision performed: 33.0000 // 44.0000 = 0
+2025-10-23 12:01:42 [INFO] ✅ Memento succesfully created
+2025-10-23 12:01:42 [INFO] Memento saved. Undo stack size: 3; Redo stack cleared
+2025-10-23 12:01:42 [INFO] ✅ Operation added to history: 2025-10-23 12:01:42,IntegerDivision,33,44,0,5c5f43d1-1266-446d-a690-797768792787
+2025-10-23 12:01:42 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 12:01:42 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 12:01:42', 'operation': 'IntegerDivision', 'operand1': '33', 'operand2': '44', 'result': '0', 'instance_id': '5c5f43d1-1266-446d-a690-797768792787'}
+2025-10-23 12:01:42 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 12:01:42 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 12:01:42', 'operation': 'IntegerDivision', 'operand1': '33', 'operand2': '44', 'result': '0', 'instance_id': '5c5f43d1-1266-446d-a690-797768792787'}
+2025-10-23 12:01:45 [INFO] user input entered HELP
+2025-10-23 12:01:49 [INFO] user input entered O
+2025-10-23 12:01:49 [INFO] ✅ Determined operation code 'save' for command 'O'
+2025-10-23 12:01:49 [INFO] ✅ Saved 3 operations to CSV: history/caretaker_history.csv
+2025-10-23 12:01:51 [INFO] user input entered K
+2025-10-23 12:01:51 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 12:01:51 [INFO] ✅ History displayed
+2025-10-23 12:01:55 [INFO] user input entered EXIT
+2025-10-23 12:01:55 [WARNING] ❌ Invalid operation key: EXIT
+2025-10-23 12:02:00 [INFO] user input entered Q
+2025-10-23 12:02:00 [INFO] ✅ Determined operation code 'exit' for command 'Q'
+2025-10-23 12:02:00 [INFO] 👋  Application closed!
+2025-10-23 12:02:08 [INFO] ✅ LoggingObserver initialized with log file: history/history_log.txt
+2025-10-23 12:02:08 [INFO] ✅ AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-23 12:02:10 [INFO] user input entered K
+2025-10-23 12:02:10 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 12:02:10 [WARNING] Attempted to display history but it is empty
+2025-10-23 12:02:10 [INFO] ✅ History displayed
+2025-10-23 12:02:14 [INFO] user input entered P
+2025-10-23 12:02:14 [INFO] ✅ Determined operation code 'load' for command 'P'
+2025-10-23 12:02:14 [INFO] ✅ Warning: History loaded into instance successfully
+2025-10-23 12:02:14 [INFO] ✅ Memento succesfully created
+2025-10-23 12:02:14 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
+2025-10-23 12:02:14 [INFO] ✅ Operation added to history: 2025-10-23 12:01:27,Percentage,3,4,75.0,5c5f43d1-1266-446d-a690-797768792787
+2025-10-23 12:02:14 [INFO] ✅ Memento succesfully created
+2025-10-23 12:02:14 [INFO] Memento saved. Undo stack size: 2; Redo stack cleared
+2025-10-23 12:02:14 [INFO] ✅ Operation added to history: 2025-10-23 12:01:30,Multiplication,5,6,30.0,5c5f43d1-1266-446d-a690-797768792787
+2025-10-23 12:02:14 [INFO] ✅ Memento succesfully created
+2025-10-23 12:02:14 [INFO] Memento saved. Undo stack size: 3; Redo stack cleared
+2025-10-23 12:02:14 [INFO] ✅ Operation added to history: 2025-10-23 12:01:42,IntegerDivision,33,44,0.0,5c5f43d1-1266-446d-a690-797768792787
+2025-10-23 12:02:14 [INFO] ✅ Loaded 3 operations from history/caretaker_history.csv
+2025-10-23 12:02:14 [INFO] user input entered K
+2025-10-23 12:02:14 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 12:02:14 [INFO] ✅ History displayed
+2025-10-23 12:03:02 [INFO] ✅ LoggingObserver initialized with log file: history/history_log.txt
+2025-10-23 12:03:02 [INFO] ✅ AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-23 12:03:26 [INFO] user input entered K
+2025-10-23 12:03:26 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 12:03:26 [WARNING] Attempted to display history but it is empty
+2025-10-23 12:03:26 [INFO] ✅ History displayed
+2025-10-23 12:03:28 [INFO] user input entered P
+2025-10-23 12:03:28 [INFO] ✅ Determined operation code 'load' for command 'P'
+2025-10-23 12:03:28 [INFO] ✅ Warning: History loaded into instance successfully
+2025-10-23 12:03:28 [INFO] ✅ Memento succesfully created
+2025-10-23 12:03:28 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
+2025-10-23 12:03:28 [INFO] ✅ Operation added to history: 2025-10-23 12:01:27,Percentage,3,4,75.0,5c5f43d1-1266-446d-a690-797768792787
+2025-10-23 12:03:28 [INFO] ✅ Memento succesfully created
+2025-10-23 12:03:28 [INFO] Memento saved. Undo stack size: 2; Redo stack cleared
+2025-10-23 12:03:28 [INFO] ✅ Operation added to history: 2025-10-23 12:01:30,Multiplication,5,6,30.0,5c5f43d1-1266-446d-a690-797768792787
+2025-10-23 12:03:28 [INFO] ✅ Memento succesfully created
+2025-10-23 12:03:28 [INFO] Memento saved. Undo stack size: 3; Redo stack cleared
+2025-10-23 12:03:28 [INFO] ✅ Operation added to history: 2025-10-23 12:01:42,IntegerDivision,33,44,0.0,5c5f43d1-1266-446d-a690-797768792787
+2025-10-23 12:03:28 [INFO] ✅ Loaded 3 operations from history/caretaker_history.csv
+2025-10-23 12:03:28 [INFO] ✅ History displayed
+2025-10-23 12:03:54 [INFO] user input entered D
+2025-10-23 12:03:54 [INFO] ✅ Determined operation code 'Root' for command 'D'
+2025-10-23 12:03:57 [INFO] ✅ Root performed: 44.0000 root 56.0000 = 1.0699
+2025-10-23 12:03:57 [INFO] ✅ Memento succesfully created
+2025-10-23 12:03:57 [INFO] Memento saved. Undo stack size: 4; Redo stack cleared
+2025-10-23 12:03:57 [INFO] ✅ Operation added to history: 2025-10-23 12:03:57,Root,44,56,1.0699,848468a0-e8a0-4746-b65b-af577d464706
+2025-10-23 12:03:57 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 12:03:57 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 12:03:57', 'operation': 'Root', 'operand1': '44', 'operand2': '56', 'result': '1.0699', 'instance_id': '848468a0-e8a0-4746-b65b-af577d464706'}
+2025-10-23 12:03:57 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 12:03:57 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 12:03:57', 'operation': 'Root', 'operand1': '44', 'operand2': '56', 'result': '1.0699', 'instance_id': '848468a0-e8a0-4746-b65b-af577d464706'}
+2025-10-23 12:04:00 [INFO] user input entered K
+2025-10-23 12:04:00 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 12:04:00 [INFO] ✅ History displayed
+2025-10-23 12:04:13 [INFO] user input entered HELP
+2025-10-23 12:05:10 [INFO] user input entered K
+2025-10-23 12:05:10 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 12:05:10 [INFO] ✅ History displayed
+2025-10-23 12:05:17 [INFO] user input entered E
+2025-10-23 12:05:17 [INFO] ✅ Determined operation code 'AbsDiff' for command 'E'
+2025-10-23 12:05:19 [INFO] ✅ Absdifference performed: 33.0000 |a-b| 67.0000 = 34.0000
+2025-10-23 12:05:19 [INFO] ✅ Memento succesfully created
+2025-10-23 12:05:19 [INFO] Memento saved. Undo stack size: 5; Redo stack cleared
+2025-10-23 12:05:19 [INFO] ✅ Operation added to history: 2025-10-23 12:05:19,Absdifference,33,67,34.0000,848468a0-e8a0-4746-b65b-af577d464706
+2025-10-23 12:05:19 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 12:05:19 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 12:05:19', 'operation': 'Absdifference', 'operand1': '33', 'operand2': '67', 'result': '34.0000', 'instance_id': '848468a0-e8a0-4746-b65b-af577d464706'}
+2025-10-23 12:05:19 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 12:05:20 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 12:05:19', 'operation': 'Absdifference', 'operand1': '33', 'operand2': '67', 'result': '34.0000', 'instance_id': '848468a0-e8a0-4746-b65b-af577d464706'}
+2025-10-23 12:05:21 [INFO] user input entered F
+2025-10-23 12:05:21 [INFO] ✅ Determined operation code 'IntDiff' for command 'F'
+2025-10-23 12:05:24 [INFO] ✅ IntegerDivision performed: 44.0000 // 345.0000 = 0
+2025-10-23 12:05:24 [INFO] ✅ Memento succesfully created
+2025-10-23 12:05:24 [INFO] Memento saved. Undo stack size: 6; Redo stack cleared
+2025-10-23 12:05:24 [INFO] ✅ Operation added to history: 2025-10-23 12:05:24,IntegerDivision,44,345,0,848468a0-e8a0-4746-b65b-af577d464706
+2025-10-23 12:05:24 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 12:05:24 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 12:05:24', 'operation': 'IntegerDivision', 'operand1': '44', 'operand2': '345', 'result': '0', 'instance_id': '848468a0-e8a0-4746-b65b-af577d464706'}
+2025-10-23 12:05:24 [INFO] ✅ Logging Observer saved new calculation to history/history_log.txt
+2025-10-23 12:05:24 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 12:05:24', 'operation': 'IntegerDivision', 'operand1': '44', 'operand2': '345', 'result': '0', 'instance_id': '848468a0-e8a0-4746-b65b-af577d464706'}
+2025-10-23 12:05:25 [INFO] user input entered K
+2025-10-23 12:05:25 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 12:05:25 [INFO] ✅ History displayed
+2025-10-23 12:05:30 [INFO] user input entered HELP
+2025-10-23 12:05:34 [INFO] user input entered O
+2025-10-23 12:05:34 [INFO] ✅ Determined operation code 'save' for command 'O'
+2025-10-23 12:05:34 [INFO] ✅ Saved 6 operations to CSV: history/caretaker_history.csv
+2025-10-23 12:05:41 [INFO] user input entered Q
+2025-10-23 12:05:41 [INFO] ✅ Determined operation code 'exit' for command 'Q'
+2025-10-23 12:05:41 [INFO] 👋  Application closed!
+2025-10-23 12:06:04 [INFO] ✅ LoggingObserver initialized with log file: history/history_log.txt
+2025-10-23 12:06:04 [INFO] ✅ AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-23 12:06:05 [INFO] user input entered K
+2025-10-23 12:06:05 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 12:06:05 [WARNING] Attempted to display history but it is empty
+2025-10-23 12:06:05 [INFO] ✅ History displayed
+2025-10-23 12:06:09 [INFO] user input entered P
+2025-10-23 12:06:09 [INFO] ✅ Determined operation code 'load' for command 'P'
+2025-10-23 12:06:09 [INFO] ✅ Warning: History loaded into instance successfully
+2025-10-23 12:06:09 [INFO] ✅ Memento succesfully created
+2025-10-23 12:06:09 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
+2025-10-23 12:06:09 [INFO] ✅ Operation added to history: 2025-10-23 12:01:27,Percentage,3,4,75.0,5c5f43d1-1266-446d-a690-797768792787
+2025-10-23 12:06:09 [INFO] ✅ Memento succesfully created
+2025-10-23 12:06:09 [INFO] Memento saved. Undo stack size: 2; Redo stack cleared
+2025-10-23 12:06:09 [INFO] ✅ Operation added to history: 2025-10-23 12:01:30,Multiplication,5,6,30.0,5c5f43d1-1266-446d-a690-797768792787
+2025-10-23 12:06:09 [INFO] ✅ Memento succesfully created
+2025-10-23 12:06:09 [INFO] Memento saved. Undo stack size: 3; Redo stack cleared
+2025-10-23 12:06:09 [INFO] ✅ Operation added to history: 2025-10-23 12:01:42,IntegerDivision,33,44,0.0,5c5f43d1-1266-446d-a690-797768792787
+2025-10-23 12:06:09 [INFO] ✅ Memento succesfully created
+2025-10-23 12:06:09 [INFO] Memento saved. Undo stack size: 4; Redo stack cleared
+2025-10-23 12:06:09 [INFO] ✅ Operation added to history: 2025-10-23 12:03:57,Root,44,56,1.0699,848468a0-e8a0-4746-b65b-af577d464706
+2025-10-23 12:06:09 [INFO] ✅ Memento succesfully created
+2025-10-23 12:06:09 [INFO] Memento saved. Undo stack size: 5; Redo stack cleared
+2025-10-23 12:06:09 [INFO] ✅ Operation added to history: 2025-10-23 12:05:19,Absdifference,33,67,34.0,848468a0-e8a0-4746-b65b-af577d464706
+2025-10-23 12:06:09 [INFO] ✅ Memento succesfully created
+2025-10-23 12:06:09 [INFO] Memento saved. Undo stack size: 6; Redo stack cleared
+2025-10-23 12:06:09 [INFO] ✅ Operation added to history: 2025-10-23 12:05:24,IntegerDivision,44,345,0.0,848468a0-e8a0-4746-b65b-af577d464706
+2025-10-23 12:06:09 [INFO] ✅ Loaded 6 operations from history/caretaker_history.csv
+2025-10-23 12:06:09 [INFO] ✅ History displayed
+2025-10-23 12:06:40 [INFO] user input entered Q
+2025-10-23 12:06:40 [INFO] ✅ Determined operation code 'exit' for command 'Q'
+2025-10-23 12:06:40 [INFO] 👋  Application closed!
+2025-10-23 13:46:42 [INFO] ✅ LoggingObserver initialized with log file: history/history_log.json
+2025-10-23 13:46:42 [INFO] ✅ AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-23 13:47:24 [INFO] user input entered A
+2025-10-23 13:47:24 [INFO] ✅ Determined operation code 'Percentage' for command 'A'
+2025-10-23 13:47:25 [INFO] ✅ Percentage performed: 3.0000 % 4.0000 = 75.0000
+2025-10-23 13:47:25 [INFO] ✅ Memento succesfully created
+2025-10-23 13:47:25 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
+2025-10-23 13:47:25 [INFO] ✅ Operation added to history: 2025-10-23 13:47:25,Percentage,3,4,75.0000,1d04720a-d90b-4ffb-a5e1-e8ab302f9c6e
+2025-10-23 13:47:25 [INFO] ✅ Logging Observer saved new calculation to history/history_log.json
+2025-10-23 13:47:25 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 13:47:25', 'operation': 'Percentage', 'operand1': '3', 'operand2': '4', 'result': '75.0000', 'instance_id': '1d04720a-d90b-4ffb-a5e1-e8ab302f9c6e'}
+2025-10-23 13:47:25 [INFO] ✅ Logging Observer saved new calculation to history/history_log.json
+2025-10-23 13:47:25 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 13:47:25', 'operation': 'Percentage', 'operand1': '3', 'operand2': '4', 'result': '75.0000', 'instance_id': '1d04720a-d90b-4ffb-a5e1-e8ab302f9c6e'}
+2025-10-23 13:47:56 [INFO] user input entered B
+2025-10-23 13:47:56 [INFO] ✅ Determined operation code 'Modulo' for command 'B'
+2025-10-23 13:47:58 [INFO] ✅ Modulo performed: 4.0000 % 55.0000 = 4.0000
+2025-10-23 13:47:58 [INFO] ✅ Memento succesfully created
+2025-10-23 13:47:58 [INFO] Memento saved. Undo stack size: 2; Redo stack cleared
+2025-10-23 13:47:58 [INFO] ✅ Operation added to history: 2025-10-23 13:47:58,Modulo,4,55,4.0000,1d04720a-d90b-4ffb-a5e1-e8ab302f9c6e
+2025-10-23 13:47:58 [INFO] ✅ Logging Observer saved new calculation to history/history_log.json
+2025-10-23 13:47:58 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 13:47:58', 'operation': 'Modulo', 'operand1': '4', 'operand2': '55', 'result': '4.0000', 'instance_id': '1d04720a-d90b-4ffb-a5e1-e8ab302f9c6e'}
+2025-10-23 13:47:58 [INFO] ✅ Logging Observer saved new calculation to history/history_log.json
+2025-10-23 13:47:58 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 13:47:58', 'operation': 'Modulo', 'operand1': '4', 'operand2': '55', 'result': '4.0000', 'instance_id': '1d04720a-d90b-4ffb-a5e1-e8ab302f9c6e'}
+2025-10-23 13:48:01 [INFO] user input entered C
+2025-10-23 13:48:01 [INFO] ✅ Determined operation code 'Multiplication' for command 'C'
+2025-10-23 13:48:02 [INFO] ✅ Multiplication performed: 3.0000 * 22.0000 = 66.0000
+2025-10-23 13:48:02 [INFO] ✅ Memento succesfully created
+2025-10-23 13:48:02 [INFO] Memento saved. Undo stack size: 3; Redo stack cleared
+2025-10-23 13:48:02 [INFO] ✅ Operation added to history: 2025-10-23 13:48:02,Multiplication,3,22,66.0000,1d04720a-d90b-4ffb-a5e1-e8ab302f9c6e
+2025-10-23 13:48:02 [INFO] ✅ Logging Observer saved new calculation to history/history_log.json
+2025-10-23 13:48:02 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 13:48:02', 'operation': 'Multiplication', 'operand1': '3', 'operand2': '22', 'result': '66.0000', 'instance_id': '1d04720a-d90b-4ffb-a5e1-e8ab302f9c6e'}
+2025-10-23 13:48:02 [INFO] ✅ Logging Observer saved new calculation to history/history_log.json
+2025-10-23 13:48:02 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 13:48:02', 'operation': 'Multiplication', 'operand1': '3', 'operand2': '22', 'result': '66.0000', 'instance_id': '1d04720a-d90b-4ffb-a5e1-e8ab302f9c6e'}
+2025-10-23 13:48:11 [INFO] user input entered K
+2025-10-23 13:48:11 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 13:48:11 [INFO] ✅ History displayed
+2025-10-23 13:48:58 [INFO] ✅ LoggingObserver initialized with log file: history/history_log.json
+2025-10-23 13:48:58 [INFO] ✅ AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-23 13:49:05 [INFO] user input entered D
+2025-10-23 13:49:05 [INFO] ✅ Determined operation code 'Root' for command 'D'
+2025-10-23 13:49:08 [INFO] ✅ Root performed: 55.0000 root 66.0000 = 1.0626
+2025-10-23 13:49:08 [INFO] ✅ Memento succesfully created
+2025-10-23 13:49:08 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
+2025-10-23 13:49:08 [INFO] ✅ Operation added to history: 2025-10-23 13:49:08,Root,55,66,1.0626,addef615-907b-430e-9c9c-bd783ee7f2db
+2025-10-23 13:49:08 [INFO] ✅ Logging Observer saved new calculation to history/history_log.json
+2025-10-23 13:49:08 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 13:49:08', 'operation': 'Root', 'operand1': '55', 'operand2': '66', 'result': '1.0626', 'instance_id': 'addef615-907b-430e-9c9c-bd783ee7f2db'}
+2025-10-23 13:49:08 [INFO] ✅ Logging Observer saved new calculation to history/history_log.json
+2025-10-23 13:49:08 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 13:49:08', 'operation': 'Root', 'operand1': '55', 'operand2': '66', 'result': '1.0626', 'instance_id': 'addef615-907b-430e-9c9c-bd783ee7f2db'}
+2025-10-23 13:49:10 [INFO] user input entered F
+2025-10-23 13:49:10 [INFO] ✅ Determined operation code 'IntDiff' for command 'F'
+2025-10-23 13:49:12 [INFO] ✅ IntegerDivision performed: 44.0000 // 55.0000 = 0
+2025-10-23 13:49:12 [INFO] ✅ Memento succesfully created
+2025-10-23 13:49:12 [INFO] Memento saved. Undo stack size: 2; Redo stack cleared
+2025-10-23 13:49:12 [INFO] ✅ Operation added to history: 2025-10-23 13:49:12,IntegerDivision,44,55,0,addef615-907b-430e-9c9c-bd783ee7f2db
+2025-10-23 13:49:12 [INFO] ✅ Logging Observer saved new calculation to history/history_log.json
+2025-10-23 13:49:12 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 13:49:12', 'operation': 'IntegerDivision', 'operand1': '44', 'operand2': '55', 'result': '0', 'instance_id': 'addef615-907b-430e-9c9c-bd783ee7f2db'}
+2025-10-23 13:49:12 [INFO] ✅ Logging Observer saved new calculation to history/history_log.json
+2025-10-23 13:49:12 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 13:49:12', 'operation': 'IntegerDivision', 'operand1': '44', 'operand2': '55', 'result': '0', 'instance_id': 'addef615-907b-430e-9c9c-bd783ee7f2db'}
+2025-10-23 13:54:03 [INFO] ✅ LoggingObserver initialized with log file: history/history_log.json
+2025-10-23 13:54:03 [INFO] ✅ AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-23 13:54:10 [INFO] user input entered A
+2025-10-23 13:54:10 [INFO] ✅ Determined operation code 'Percentage' for command 'A'
+2025-10-23 13:54:12 [INFO] ✅ Percentage performed: 4.0000 % 55.0000 = 7.2727
+2025-10-23 13:54:12 [INFO] ✅ Memento succesfully created
+2025-10-23 13:54:12 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
+2025-10-23 13:54:12 [INFO] ✅ Operation added to history: 2025-10-23 13:54:12,Percentage,4,55,7.2727,3d93150b-f391-4b88-a489-46d61c328a61
+2025-10-23 13:54:12 [INFO] ✅ Logging Observer saved new calculation to history/history_log.json
+2025-10-23 13:54:12 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 13:54:12', 'operation': 'Percentage', 'operand1': '4', 'operand2': '55', 'result': '7.2727', 'instance_id': '3d93150b-f391-4b88-a489-46d61c328a61'}
+2025-10-23 13:54:21 [INFO] user input entered F
+2025-10-23 13:54:21 [INFO] ✅ Determined operation code 'IntDiff' for command 'F'
+2025-10-23 13:54:22 [INFO] ✅ IntegerDivision performed: 8.0000 // 99.0000 = 0
+2025-10-23 13:54:22 [INFO] ✅ Memento succesfully created
+2025-10-23 13:54:22 [INFO] Memento saved. Undo stack size: 2; Redo stack cleared
+2025-10-23 13:54:22 [INFO] ✅ Operation added to history: 2025-10-23 13:54:22,IntegerDivision,8,99,0,3d93150b-f391-4b88-a489-46d61c328a61
+2025-10-23 13:54:22 [INFO] ✅ Logging Observer saved new calculation to history/history_log.json
+2025-10-23 13:54:22 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 13:54:22', 'operation': 'IntegerDivision', 'operand1': '8', 'operand2': '99', 'result': '0', 'instance_id': '3d93150b-f391-4b88-a489-46d61c328a61'}
+2025-10-23 14:08:57 [INFO] ✅ LoggingObserver initialized with log file: history/history_log.json
+2025-10-23 14:08:57 [INFO] ✅ AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-23 14:09:05 [INFO] user input entered A
+2025-10-23 14:09:05 [INFO] ✅ Determined operation code 'Percentage' for command 'A'
+2025-10-23 14:09:06 [INFO] ✅ Percentage performed: 4.0000 % 3.0000 = 133.3333
+2025-10-23 14:09:06 [INFO] ✅ Memento succesfully created
+2025-10-23 14:09:06 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
+2025-10-23 14:09:06 [INFO] ✅ Operation added to history: 2025-10-23 14:09:06,Percentage,4,3,133.3333,d6f9e05c-5e89-4474-a64b-475e6b3b8a68
+2025-10-23 14:09:06 [INFO] ✅ Logging Observer saved new calculation to history/history_log.json
+2025-10-23 14:09:06 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 14:09:06', 'operation': 'Percentage', 'operand1': '4', 'operand2': '3', 'result': '133.3333', 'instance_id': 'd6f9e05c-5e89-4474-a64b-475e6b3b8a68'}
+2025-10-23 14:09:08 [INFO] user input entered C
+2025-10-23 14:09:08 [INFO] ✅ Determined operation code 'Multiplication' for command 'C'
+2025-10-23 14:09:11 [INFO] ✅ Multiplication performed: 5.0000 * 66.0000 = 330.0000
+2025-10-23 14:09:11 [INFO] ✅ Memento succesfully created
+2025-10-23 14:09:11 [INFO] Memento saved. Undo stack size: 2; Redo stack cleared
+2025-10-23 14:09:11 [INFO] ✅ Operation added to history: 2025-10-23 14:09:11,Multiplication,5,66,330.0000,d6f9e05c-5e89-4474-a64b-475e6b3b8a68
+2025-10-23 14:09:11 [INFO] ✅ Logging Observer saved new calculation to history/history_log.json
+2025-10-23 14:09:11 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 14:09:11', 'operation': 'Multiplication', 'operand1': '5', 'operand2': '66', 'result': '330.0000', 'instance_id': 'd6f9e05c-5e89-4474-a64b-475e6b3b8a68'}
+2025-10-23 14:09:13 [INFO] user input entered K
+2025-10-23 14:09:13 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-23 14:09:13 [INFO] ✅ History displayed
+2025-10-23 14:09:17 [INFO] user input entered A
+2025-10-23 14:09:17 [INFO] ✅ Determined operation code 'Percentage' for command 'A'
+2025-10-23 14:09:19 [INFO] ❌ Invalid input 'e'
+2025-10-23 14:09:21 [INFO] ✅ Percentage performed: 3.0000 % 4.0000 = 75.0000
+2025-10-23 14:09:21 [INFO] ✅ Memento succesfully created
+2025-10-23 14:09:21 [INFO] Memento saved. Undo stack size: 3; Redo stack cleared
+2025-10-23 14:09:21 [INFO] ✅ Operation added to history: 2025-10-23 14:09:21,Percentage,3,4,75.0000,d6f9e05c-5e89-4474-a64b-475e6b3b8a68
+2025-10-23 14:09:21 [INFO] ✅ Logging Observer saved new calculation to history/history_log.json
+2025-10-23 14:09:21 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-23 14:09:21', 'operation': 'Percentage', 'operand1': '3', 'operand2': '4', 'result': '75.0000', 'instance_id': 'd6f9e05c-5e89-4474-a64b-475e6b3b8a68'}
+2025-10-23 14:09:23 [INFO] user input entered Q
+2025-10-23 14:09:23 [INFO] ✅ Determined operation code 'exit' for command 'Q'
+2025-10-23 14:09:23 [INFO] 👋  Application closed!
+2025-10-24 17:16:16 [INFO] ✅ LoggingObserver initialized with log file: history/history_log.json
+2025-10-24 17:16:16 [INFO] ✅ AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-24 17:16:20 [INFO] user input entered HELP
+2025-10-24 17:16:56 [INFO] ✅ LoggingObserver initialized with log file: history/history_log.json
+2025-10-24 17:16:56 [INFO] ✅ AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-24 17:16:58 [INFO] user input entered A
+2025-10-24 17:16:58 [INFO] ✅ Determined operation code 'Percentage' for command 'A'
+2025-10-24 17:16:58 [INFO] ✅ Percentage performed: 3.0000 % 4.0000 = 75.0000
+2025-10-24 17:16:58 [INFO] ✅ Memento succesfully created
+2025-10-24 17:16:58 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
+2025-10-24 17:16:58 [INFO] ✅ Operation added to history: 2025-10-24 17:16:58,Percentage,3,4,75.0000,6421a635-19f1-43fc-b775-3742c84706a1
+2025-10-24 17:16:58 [INFO] ✅ Logging Observer saved new calculation to history/history_log.json
+2025-10-24 17:16:59 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-24 17:16:58', 'operation': 'Percentage', 'operand1': '3', 'operand2': '4', 'result': '75.0000', 'instance_id': '6421a635-19f1-43fc-b775-3742c84706a1'}
+2025-10-24 17:17:02 [INFO] user input entered HELP
+2025-10-24 17:17:07 [INFO] user input entered L
+2025-10-24 17:17:07 [INFO] ✅ Determined operation code 'clear' for command 'L'
+2025-10-24 17:17:09 [WARNING] ⚠️ No saved history file found at history/caretaker_history.csv
+2025-10-24 17:17:09 [INFO] ✅ Deleted in-memory history: history/caretaker_history.csv
+2025-10-24 17:17:09 [INFO] ✅ User confirmed and deleted both in-memory and saved history.
+2025-10-24 17:17:15 [INFO] user input entered K
+2025-10-24 17:17:15 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-24 17:17:15 [WARNING] Attempted to display history but it is empty
+2025-10-24 17:17:15 [INFO] ✅ History displayed
+2025-10-24 17:17:18 [INFO] user input entered Q
+2025-10-24 17:17:18 [INFO] ✅ Determined operation code 'exit' for command 'Q'
+2025-10-24 17:17:18 [INFO] 👋  Application closed!
+2025-10-24 18:04:05 [INFO] ✅ LoggingObserver initialized with log file: history/history_log.json
+2025-10-24 18:04:05 [INFO] ✅ AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-24 18:04:06 [INFO] user input entered K
+2025-10-24 18:04:06 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-24 18:04:06 [WARNING] Attempted to display history but it is empty
+2025-10-24 18:04:06 [INFO] ✅ History displayed
+2025-10-24 18:04:11 [INFO] user input entered HEL
+2025-10-24 18:04:11 [WARNING] ❌ Invalid operation key: HEL
+2025-10-24 18:04:14 [INFO] user input entered HELP
+2025-10-24 18:04:28 [INFO] user input entered P
+2025-10-24 18:04:28 [INFO] ✅ Determined operation code 'load' for command 'P'
+2025-10-24 18:04:28 [WARNING] ❌ No CSV history file found to load!
+2025-10-24 18:04:28 [WARNING] Attempted to display history but it is empty
+2025-10-24 18:04:28 [INFO] ✅ History displayed
+2025-10-24 18:05:18 [INFO] user input entered A
+2025-10-24 18:05:18 [INFO] ✅ Determined operation code 'Percentage' for command 'A'
+2025-10-24 18:05:19 [INFO] ✅ Percentage performed: 4.0000 % 5.0000 = 80.0000
+2025-10-24 18:05:19 [INFO] ✅ Memento succesfully created
+2025-10-24 18:05:19 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
+2025-10-24 18:05:19 [INFO] ✅ Operation added to history: 2025-10-24 18:05:19,Percentage,4,5,80.0000,6a478964-61db-4c65-ba17-84ec87a5415e
+2025-10-24 18:05:19 [INFO] ✅ Logging Observer saved new calculation to history/history_log.json
+2025-10-24 18:05:19 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-24 18:05:19', 'operation': 'Percentage', 'operand1': '4', 'operand2': '5', 'result': '80.0000', 'instance_id': '6a478964-61db-4c65-ba17-84ec87a5415e'}
+2025-10-24 18:05:24 [INFO] user input entered E
+2025-10-24 18:05:24 [INFO] ✅ Determined operation code 'AbsDiff' for command 'E'
+2025-10-24 18:05:26 [INFO] ✅ Absdifference performed: 4.0000 |a-b| 6.0000 = 2.0000
+2025-10-24 18:05:26 [INFO] ✅ Memento succesfully created
+2025-10-24 18:05:26 [INFO] Memento saved. Undo stack size: 2; Redo stack cleared
+2025-10-24 18:05:26 [INFO] ✅ Operation added to history: 2025-10-24 18:05:26,Absdifference,4,6,2.0000,6a478964-61db-4c65-ba17-84ec87a5415e
+2025-10-24 18:05:26 [INFO] ✅ Logging Observer saved new calculation to history/history_log.json
+2025-10-24 18:05:26 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-24 18:05:26', 'operation': 'Absdifference', 'operand1': '4', 'operand2': '6', 'result': '2.0000', 'instance_id': '6a478964-61db-4c65-ba17-84ec87a5415e'}
+2025-10-24 18:05:27 [INFO] user input entered F
+2025-10-24 18:05:27 [INFO] ✅ Determined operation code 'IntDiff' for command 'F'
+2025-10-24 18:05:29 [INFO] ✅ IntegerDivision performed: 7.0000 // 8.0000 = 0
+2025-10-24 18:05:29 [INFO] ✅ Memento succesfully created
+2025-10-24 18:05:29 [INFO] Memento saved. Undo stack size: 3; Redo stack cleared
+2025-10-24 18:05:29 [INFO] ✅ Operation added to history: 2025-10-24 18:05:29,IntegerDivision,7,8,0,6a478964-61db-4c65-ba17-84ec87a5415e
+2025-10-24 18:05:29 [INFO] ✅ Logging Observer saved new calculation to history/history_log.json
+2025-10-24 18:05:29 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-24 18:05:29', 'operation': 'IntegerDivision', 'operand1': '7', 'operand2': '8', 'result': '0', 'instance_id': '6a478964-61db-4c65-ba17-84ec87a5415e'}
+2025-10-24 18:05:30 [INFO] user input entered K
+2025-10-24 18:05:30 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-24 18:05:30 [INFO] ✅ History displayed
+2025-10-24 18:05:35 [INFO] user input entered HELP
+2025-10-24 18:05:47 [INFO] user input entered O
+2025-10-24 18:05:47 [INFO] ✅ Determined operation code 'save' for command 'O'
+2025-10-24 18:05:47 [INFO] ✅ Saved 3 operations to CSV: history/caretaker_history.csv
+2025-10-24 18:06:00 [INFO] user input entered Q
+2025-10-24 18:06:00 [INFO] ✅ Determined operation code 'exit' for command 'Q'
+2025-10-24 18:06:00 [INFO] 👋  Application closed!
+2025-10-24 18:06:05 [INFO] ✅ LoggingObserver initialized with log file: history/history_log.json
+2025-10-24 18:06:05 [INFO] ✅ AutosaveObserver loaded existing file: history/history_log.csv
+2025-10-24 18:06:07 [INFO] user input entered K
+2025-10-24 18:06:07 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-24 18:06:07 [WARNING] Attempted to display history but it is empty
+2025-10-24 18:06:07 [INFO] ✅ History displayed
+2025-10-24 18:06:12 [INFO] user input entered P
+2025-10-24 18:06:12 [INFO] ✅ Determined operation code 'load' for command 'P'
+2025-10-24 18:06:12 [INFO] ✅ Warning: History loaded into instance successfully
+2025-10-24 18:06:12 [INFO] ✅ Memento succesfully created
+2025-10-24 18:06:12 [INFO] Memento saved. Undo stack size: 1; Redo stack cleared
+2025-10-24 18:06:12 [INFO] ✅ Operation added to history: 2025-10-24 18:05:19,Percentage,4,5,80.0,6a478964-61db-4c65-ba17-84ec87a5415e
+2025-10-24 18:06:12 [INFO] ✅ Memento succesfully created
+2025-10-24 18:06:12 [INFO] Memento saved. Undo stack size: 2; Redo stack cleared
+2025-10-24 18:06:12 [INFO] ✅ Operation added to history: 2025-10-24 18:05:26,Absdifference,4,6,2.0,6a478964-61db-4c65-ba17-84ec87a5415e
+2025-10-24 18:06:12 [INFO] ✅ Memento succesfully created
+2025-10-24 18:06:12 [INFO] Memento saved. Undo stack size: 3; Redo stack cleared
+2025-10-24 18:06:12 [INFO] ✅ Operation added to history: 2025-10-24 18:05:29,IntegerDivision,7,8,0.0,6a478964-61db-4c65-ba17-84ec87a5415e
+2025-10-24 18:06:12 [INFO] ✅ Loaded 3 operations from history/caretaker_history.csv
+2025-10-24 18:06:12 [INFO] ✅ History displayed
+2025-10-24 18:06:14 [INFO] user input entered K
+2025-10-24 18:06:14 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-24 18:06:14 [INFO] ✅ History displayed
+2025-10-24 18:06:18 [INFO] user input entered F
+2025-10-24 18:06:18 [INFO] ✅ Determined operation code 'IntDiff' for command 'F'
+2025-10-24 18:06:20 [INFO] ✅ IntegerDivision performed: 44.0000 // 55.0000 = 0
+2025-10-24 18:06:20 [INFO] ✅ Memento succesfully created
+2025-10-24 18:06:20 [INFO] Memento saved. Undo stack size: 4; Redo stack cleared
+2025-10-24 18:06:20 [INFO] ✅ Operation added to history: 2025-10-24 18:06:20,IntegerDivision,44,55,0,96089247-21df-490a-a456-174c76d59aff
+2025-10-24 18:06:20 [INFO] ✅ Logging Observer saved new calculation to history/history_log.json
+2025-10-24 18:06:20 [INFO] ✅ AutosaveObserver auto-saved operation: {'timestamp': '2025-10-24 18:06:20', 'operation': 'IntegerDivision', 'operand1': '44', 'operand2': '55', 'result': '0', 'instance_id': '96089247-21df-490a-a456-174c76d59aff'}
+2025-10-24 18:06:23 [INFO] user input entered K
+2025-10-24 18:06:23 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-24 18:06:23 [INFO] ✅ History displayed
+2025-10-24 18:06:28 [INFO] user input entered HELP
+2025-10-24 18:06:31 [INFO] user input entered M
+2025-10-24 18:06:31 [INFO] ✅ Determined operation code 'undo' for command 'M'
+2025-10-24 18:06:31 [INFO] ⚠️ Undo requested by user
+2025-10-24 18:06:31 [INFO] ✅ Memento succesfully created
+2025-10-24 18:06:31 [INFO] ✅ History restored from memento. Previous: ['2025-10-24 18:05:19,Percentage,4,5,80.0,6a478964-61db-4c65-ba17-84ec87a5415e', '2025-10-24 18:05:26,Absdifference,4,6,2.0,6a478964-61db-4c65-ba17-84ec87a5415e', '2025-10-24 18:05:29,IntegerDivision,7,8,0.0,6a478964-61db-4c65-ba17-84ec87a5415e', '2025-10-24 18:06:20,IntegerDivision,44,55,0,96089247-21df-490a-a456-174c76d59aff'], New: ['2025-10-24 18:05:19,Percentage,4,5,80.0,6a478964-61db-4c65-ba17-84ec87a5415e', '2025-10-24 18:05:26,Absdifference,4,6,2.0,6a478964-61db-4c65-ba17-84ec87a5415e', '2025-10-24 18:05:29,IntegerDivision,7,8,0.0,6a478964-61db-4c65-ba17-84ec87a5415e']
+2025-10-24 18:06:34 [INFO] user input entered K
+2025-10-24 18:06:34 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-24 18:06:34 [INFO] ✅ History displayed
+2025-10-24 18:06:50 [INFO] user input entered N
+2025-10-24 18:06:50 [INFO] ✅ Determined operation code 'redo' for command 'N'
+2025-10-24 18:06:50 [INFO] ⚠️ Redo requested by user
+2025-10-24 18:06:50 [INFO] ✅ Memento succesfully created
+2025-10-24 18:06:50 [INFO] ✅ History restored from memento. Previous: ['2025-10-24 18:05:19,Percentage,4,5,80.0,6a478964-61db-4c65-ba17-84ec87a5415e', '2025-10-24 18:05:26,Absdifference,4,6,2.0,6a478964-61db-4c65-ba17-84ec87a5415e', '2025-10-24 18:05:29,IntegerDivision,7,8,0.0,6a478964-61db-4c65-ba17-84ec87a5415e'], New: ['2025-10-24 18:05:19,Percentage,4,5,80.0,6a478964-61db-4c65-ba17-84ec87a5415e', '2025-10-24 18:05:26,Absdifference,4,6,2.0,6a478964-61db-4c65-ba17-84ec87a5415e', '2025-10-24 18:05:29,IntegerDivision,7,8,0.0,6a478964-61db-4c65-ba17-84ec87a5415e', '2025-10-24 18:06:20,IntegerDivision,44,55,0,96089247-21df-490a-a456-174c76d59aff']
+2025-10-24 18:06:50 [INFO] Redo performed. Operation redone: 2025-10-24 18:06:20,IntegerDivision,44,55,0,96089247-21df-490a-a456-174c76d59aff
+2025-10-24 18:06:52 [INFO] user input entered K
+2025-10-24 18:06:52 [INFO] ✅ Determined operation code 'hist' for command 'K'
+2025-10-24 18:06:52 [INFO] ✅ History displayed
+2025-10-24 18:07:12 [INFO] user input entered P
+2025-10-24 18:07:12 [INFO] ✅ Determined operation code 'load' for command 'P'
+2025-10-24 18:07:12 [WARNING] ❌ User attempted to override existing history, operation aborted
+2025-10-24 18:07:21 [INFO] user input entered Q
+2025-10-24 18:07:21 [INFO] ✅ Determined operation code 'exit' for command 'Q'
+2025-10-24 18:07:21 [INFO] 👋  Application closed!
