@@ -203,7 +203,7 @@ def test_save_memento_clears_redo_stack():
     caretaker = CareTaker()
     originator.add_operation("5 + 2 = 7")
     m = originator.create_memento()
-    caretaker.stack_redo.append(originator.create_memento())  # pre-fill redo
+    caretaker.stack_redo.append(originator.create_memento()) 
     caretaker.save_memento(m)
     assert len(caretaker.stack_redo) == 0
 
@@ -259,14 +259,13 @@ def test_save_history_to_csv_saves_valid_entries(monkeypatch, caplog):
     originator = Originator()
     caretaker = CareTaker()
 
-    # Prepare history with two valid entries and one malformed
+    # Prepare history with two valid entries and one wrong
     originator.history = [
         "2025-10-23 12:00,add,2,3,5,1",
         "2025-10-23 12:01,multiply,3,4,12,1",
         "malformed entry without proper columns"
     ]
 
-    # Patch os.makedirs to avoid actually creating directories
     with patch("os.makedirs") as mock_makedirs, \
          patch("pandas.DataFrame.to_csv") as mock_to_csv:
         with caplog.at_level("INFO"):
@@ -279,8 +278,7 @@ def test_save_history_to_csv_saves_valid_entries(monkeypatch, caplog):
     mock_to_csv.assert_called_once()
     args, kwargs = mock_to_csv.call_args
     df_passed = args[0] if args else kwargs.get("index", None)
-    # Actually test dataframe rows passed
-    # Can't get df directly from to_csv mock, but can check logger
+
     assert any("Saved 2 operations to CSV" in record.message for record in caplog.records)
     assert any("Skipping unproperly formatted entry" in record.message for record in caplog.records)
 
@@ -343,6 +341,8 @@ def test_delete_saved_history_file_missing(monkeypatch, caplog):
 
     # Check warning log
     assert any("No saved history file found" in record.message for record in caplog.records)
+
+
 # -------------------------------
 # Memento calculator tests
 # -------------------------------

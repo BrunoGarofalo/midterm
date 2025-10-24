@@ -63,6 +63,9 @@ def test_help_command_shows_commands(mock_calc):
         ("K", "show_history", "hist"),     # history
     ]
 )
+# -------------------------------
+# REPL command tests
+# -------------------------------
 def test_repl_commands_call_methods(mock_calc, command, method_name, op_code):
     mock_calc.get_operation_code.return_value = op_code
     run_repl_threaded(mock_calc, [command])
@@ -74,14 +77,18 @@ def test_repl_commands_call_methods(mock_calc, command, method_name, op_code):
         # If method_name is None (like exit), assert delete_history is NOT called
         assert not hasattr(mock_calc, "delete_history") or not mock_calc.delete_history.called
 
-
+# -------------------------------
+# Undo / Redo command tests
+# -------------------------------
 def test_undo_and_redo(mock_calc):
     mock_calc.get_operation_code.side_effect = ["undo", "redo"]
     run_repl_threaded(mock_calc, ["M", "N"])
     mock_calc.undo.assert_called_once()
     mock_calc.redo.assert_called_once()
 
-
+# -------------------------------
+# Operation execution tests
+# -------------------------------
 @patch("app.calculator_repl.get_validated_operand", side_effect=[5, 2])
 def test_add_operation_performed(mock_operand, mock_calc):
     mock_calc.get_operation_code.return_value = "add"
@@ -89,23 +96,32 @@ def test_add_operation_performed(mock_operand, mock_calc):
     mock_calc.create_operation.assert_called_once()
 
 
+# -------------------------------
+# Input validation tests
+# -------------------------------
 @patch("app.calculator_repl.get_validated_operand", side_effect=ValidationError("bad input"))
 def test_validation_error_handled(mock_operand, mock_calc):
     mock_calc.get_operation_code.return_value = "add"
     run_repl_threaded(mock_calc, ["G"])  # should not freeze
 
-
+# -------------------------------
+# Command error handling tests
+# -------------------------------
 def test_command_error_handled(mock_calc):
     mock_calc.get_operation_code.side_effect = CommandError("Invalid command")
     run_repl_threaded(mock_calc, ["Z"])  # should not freeze
 
-
+# -------------------------------
+# Operation error handling tests
+# -------------------------------
 def test_operation_error_handled(mock_calc):
     mock_calc.get_operation_code.return_value = "add"
     mock_calc.create_operation.side_effect = OperationError("Bad op")
     run_repl_threaded(mock_calc, ["G"])  # should not freeze
 
-
+# -------------------------------
+# History error handling tests
+# -------------------------------
 def test_history_error_handled(mock_calc):
     mock_calc.get_operation_code.return_value = "undo"
     mock_calc.undo.side_effect = HistoryError("Nothing to undo")

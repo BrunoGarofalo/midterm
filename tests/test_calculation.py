@@ -14,6 +14,7 @@ from app.calculation import CalculationTemplate
 # Helper function to quantize decimals using config precision
 def quantize_decimal(val: Decimal):
     return val.quantize(Decimal(f"1.{'0'*CALCULATOR_PRECISION}"))
+
 # ------------------------------------------------------------
 # Dummy concrete class to allow instantiation
 # ------------------------------------------------------------

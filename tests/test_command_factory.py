@@ -1,12 +1,11 @@
 import pytest
 from app.command_factory import CommandFactory
-from app.calculation import (
-    Percentage, IntegerDivision, Modulo, Root, Absdifference,
-    Multiplication, Addition, Division, Subtraction, Power,
-    CalculationTemplate
-)
+from app.calculation import Percentage, IntegerDivision, Modulo, Root, Absdifference, Multiplication, Addition, Division, Subtraction, Power, CalculationTemplate
 from app.exceptions import CommandError
 
+# ============================================================
+# Command Factory: Valid Operation Tests
+# ============================================================
 @pytest.mark.parametrize("user_input, expected_class", [
     ("percentage", Percentage),
     ("add", Addition),
@@ -24,6 +23,9 @@ def test_create_operation_object_valid(user_input, expected_class):
     op = factory.createOperationObject()
     assert isinstance(op, expected_class)
 
+# ============================================================
+# Command factory invalid operation tests
+# ============================================================
 def test_create_operation_object_invalid():
     factory = CommandFactory("invalid_command")
     with pytest.raises(CommandError) as exc_info:
@@ -33,6 +35,9 @@ def test_create_operation_object_invalid():
     for cmd in CalculationTemplate.operations_allowed:
         assert cmd in str(exc_info.value)
 
+# ============================================================
+# Command factory input storage tests
+# ============================================================
 def test_factory_user_input_is_stored():
     factory = CommandFactory("add")
     assert factory.user_input == "add"

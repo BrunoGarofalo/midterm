@@ -4,7 +4,9 @@ from app.calculator import Calculator
 from app.exceptions import CommandError, OperationError
 
 
-
+# ============================================================
+#  Pytest fixture calculator Setup
+# ============================================================
 @pytest.fixture
 def calc():
     """Fixture to create a Calculator instance with mocks."""
@@ -171,7 +173,9 @@ def test_delete_history_eof(calc):
         calc.delete_history()
         mock_delete.assert_not_called()
 
-
+'''
+Cannot get this test to work
+'''
 # def test_delete_history_clears(calc):
 #     calc.originator.history = ["5 + 2 = 7", "3 * 4 = 12"]
 
@@ -192,7 +196,9 @@ def test_save_history_calls_caretaker(calc):
         calc.save_history()
         mock_save.assert_called_once_with(calc.originator)
 
-
+# -------------------------------
+# load_history() method tests
+# -------------------------------
 def test_load_history_restores(calc):
     # Mock caretaker's get_loaded_history
     calc.caretaker.get_loaded_history = MagicMock()
