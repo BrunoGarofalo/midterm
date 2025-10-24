@@ -2,59 +2,60 @@
 
 Welcome to the Python Calculator!
 
-## **Project Description**
+## 👉 ***1. Project Description***
 
 This project is a command-line calculator application designed to perform a wide range of mathematical operations while maintaining a robust history and undo/redo functionality. It is built with modularity, reliability, and user experience in mind, leveraging design patterns such as Memento and Observer to manage state and events efficiently.
 
 🔹 **Key Features**
 
-- **Basic Arithmetic Operations:** Addition, Subtraction, Multiplication, Division.
+- 🧮 **Basic Arithmetic Operations:** Addition, Subtraction, Multiplication, Division.
 
-- **Advanced Operations:** Percentage, Modulo, Power, Root, Absolute Difference, and Integer Division.
+- 🧮 **Advanced Operations:** Percentage, Modulo, Power, Root, Absolute Difference, and Integer Division.
 
-- **History Management:** Tracks all calculations performed, with the ability to display, clear, save, or load history.
+- 📂 **History Management:** Tracks all calculations performed, with the ability to display, clear, save, or load history.
 
-- **Undo/Redo Functionality:** Allows users to revert or redo previous operations seamlessly.
+- 🔄 **Undo/Redo Functionality:** Allows users to revert or redo previous operations seamlessly.
 
-- **Persistent Storage:** Automatically saves calculation history to CSV and JSON files for later retrieval.
+- 💾 **Persistent Storage:** Automatically saves calculation history to CSV and JSON files for later retrieval.
 
-- **Event Logging:** Logs all key actions such as operations performed, errors encountered, history changes, and system events to provide transparency and facilitate debugging.
+- 💾 **Event Logging:** Logs all key actions such as operations performed, errors encountered, history changes, and system events to provide transparency and facilitate debugging.
 
-- **Configuration Management:** Supports customizable settings through environment variables (.env), including maximum history size, precision, and auto-save behavior.
+- 🔧 **Configuration Management:** Supports customizable settings through environment variables (.env), including maximum history size, precision, and auto-save behavior.
 
-- **Error Handling:** Graceful handling of invalid inputs, calculation errors, and file access issues.
+- ❌ **Error Handling:** Graceful handling of invalid inputs, calculation errors, and file access issues.
 
-- **Extensible Architecture:** Uses a command factory for operations and design patterns to simplify future expansions or new features.
-
-
+- 🧩 **Extensible Architecture:** Uses a command factory for operations and design patterns to simplify future expansions or new features.
 
 
-## **Configuration Set-up**
+## ⚙️ *** 2. Configuration Set-up***
 1. Create a .env file in the root directory of the project named .env
 2. Define Environment Variables:
 
 ### Base Directories
-- CALCULATOR_LOG_DIR=logs
-- CALCULATOR_HISTORY_DIR=history
+1. **CALCULATOR_LOG_DIR:** Directory for log (Default = logs)
+2. **CALCULATOR_HISTORY_DIR:** Directory for history files (Default = history)
 
-### History Files
-- CSV_HISTORY_FILE=history_log.csv
-- LOG_HISTORY_FILE=event_log.txt
-- TXT_HISTORY_FILE=history_log.json
-- CSV_CARETAKER_HISTORY_FILE=caretaker_history.csv
+### File names
+3. **CSV_CARETAKER_HISTORY_FILE:** File name of CSV for history manual save (Default= caretaker_history.csv)
+4. **TXT_HISTORY_FILE:** JSON file where calculations are saved for by autologging observer (Default = history_log.json)
+5. **LOG_HISTORY_FILE:** TXT file where event logs are saved (Default = event_log.txt)
+6. **CSV_HISTORY_FILE:** CSV file where autosave observer saves the each calculation (Defaul = history_log.csv) 
+
+### CSV file columns
+7. **CSV_COLUMNS:** Column names of CVS files (Default = timestamp,operation,operand1,operand2,result,instance_id)
 
 ### History Settings
-- CALCULATOR_MAX_HISTORY_SIZE=100
-- CALCULATOR_AUTO_SAVE=true
+8. **CALCULATOR_MAX_HISTORY_SIZE:** Max history entries	(Default = 100)
+9. **CALCULATOR_AUTO_SAVE:** Auto-save history (Default=True)
 
 ### Calculation Settings
-- CALCULATOR_PRECISION=4
-- CALCULATOR_MAX_INPUT_VALUE=1000
-- CALCULATOR_DEFAULT_ENCODING=utf-8
+10. **CALCULATOR_PRECISION:** Decimal places in results (Default = 4)
+11. **CALCULATOR_MAX_INPUT_VALUE:** Max allowed input (Default = 1000)
+12. **CALCULATOR_DEFAULT_ENCODING:** File encoding (Default = utf-8)
 
 3. If a variable is not set in .env, the application will use default values specified in config.py.
 
-⚙️ 1. ***Prerequisites***
+⚙️ *** 3. Prerequisites ***
 
 🔹 **Install Git**
 
@@ -124,42 +125,34 @@ Only once per machine.
 
 - pip install -r requirements.txt
 
-## 🔧 *** 4. Configuration***
+## ▶️ ***4. Running the Calculator***
+- python main.py
 
-⚙️ **Variables**
-
-### Base Directories
-1. **CALCULATOR_LOG_DIR:** Directory for log (Default = logs)
-2. **CALCULATOR_HISTORY_DIR:** Directory for history files (Default = history)
-
-### File names
-3. **CSV_CARETAKER_HISTORY_FILE:** File name of CSV for history manual save (Default= caretaker_history.csv)
-4. **TXT_HISTORY_FILE:** JSON file where calculations are saved for by autologging observer (Default = history_log.json)
-5. **LOG_HISTORY_FILE:** TXT file where event logs are saved (Default = event_log.txt)
-6. **CSV_HISTORY_FILE:** CSV file where autosave observer saves the each calculation (Defaul = history_log.csv) 
-
-### CSV file columns
-7. **CSV_COLUMNS:** Column names of CVS files (Default = timestamp,operation,operand1,operand2,result,instance_id)
-
-### History Settings
-8. **CALCULATOR_MAX_HISTORY_SIZE:** Max history entries	(Default = 100)
-9. **CALCULATOR_AUTO_SAVE:** Auto-save history (Default=True)
-
-### Calculation Settings
-10. **CALCULATOR_PRECISION:** Decimal places in results (Default = 4)
-11. **CALCULATOR_MAX_INPUT_VALUE:** Max allowed input (Default = 1000)
-12. **CALCULATOR_DEFAULT_ENCODING:** File encoding (Default = utf-8)
-
-
-## ▶️ ***5. Running the Calculator***
-- python calculator_repl.py
+### ***Operations and commands description***
+**Command ID	 - Operation Name	- What It Does**
+A -	Percentage - Calculates the percentage of a number relative to another.
+B -	Modulo	- Computes the remainder of dividing one number by another.
+C -	Multiplication - Multiplies two numbers.
+D -	Root - Calculates the N-th root of a number (square root by default).
+E -	Absolute Difference	- Returns the absolute difference between two numbers.
+F -	Integer Division - Performs division and returns the integer quotient (ignoring remainder).
+G - Addition - Adds two numbers together.
+H -	Subtraction - Subtracts the second number from the first.
+I -	Division - Divides the first number by the second number (returns a decimal).
+J -	Power -	Raises a number to the power of another number.
+K -	Display history - Shows a list of all previous operations performed in the current session.
+L -	Clear history - Deletes all in-memory history and optionally clears saved history files.
+M -	Undo previous operation	- Reverts the last operation performed.
+N -	Redo operation - Reapplies the last undone operation.
+O -	Save history to CSV - Saves the current calculation history to a CSV file for later retrieval.
+P -	Load history from CSV - Loads previously saved calculation history from a CSV file (only if current history is empty).
+Q -	Exit - Exits the calculator program safely.
 
 🔹 **Prompt Example:**
 
 👉 Select operation (type 'help' to list commands):
 
 ***Type help to see commands:***
-
 🔑 Key	📌 Operation
 A	Percentage
 B	Modulo
@@ -179,20 +172,22 @@ O	Save history to CSV
 P	Load history from CSV
 Q	Exit
 
+## 💡 ** Example Usage**
+👉 Select operation (type 'help' to list commands): G or g for Addition
 
-## ✨ ***6. Features***
+- Enter first operand: 5
 
-🔄 Undo/Redo using the Memento pattern.
+- Enter second operand: 7
 
-📂 History Tracking in memory & optional JSON/CSV persistence.
+✅ Result of add with operands 5 and 7 = 12.0000
 
-💾 Autosave configurable via .env.
+👉 Select operation: M --> Undo operation selected
 
-🧮 Configurable Precision for results.
+↩️ Undo performed: 5 + 7 = 12.0000
 
-🚫 Input Validation for safe calculations.
+👉 Select operation: N M --> Redo operation selected
 
-👁️ Observer Pattern: logging & autosave notifications.
+↪️ Redo performed: 5 + 7 = 12.0000
 
 
 ## 🧪 ***7. Testing instructions***
@@ -237,19 +232,3 @@ The calculator application is set up with a GitHub Actions workflow to automatic
 
 📂 Loading history only works if in-memory history is empty. If memory already has data, then the previous history will no be loaded
 
-## 💡 ***10. Example Usage***
-👉 Select operation (type 'help' to list commands): G or g for Addition
-
-- Enter first operand: 5
-
-- Enter second operand: 7
-
-✅ Result of add with operands 5 and 7 = 12.0000
-
-👉 Select operation: M --> Undo operation selected
-
-↩️ Undo performed: 5 + 7 = 12.0000
-
-👉 Select operation: N M --> Redo operation selected
-
-↪️ Redo performed: 5 + 7 = 12.0000
