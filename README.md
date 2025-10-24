@@ -27,7 +27,7 @@ This project is a command-line calculator application designed to perform a wide
 - 🧩 **Extensible Architecture:** Uses a command factory for operations and design patterns to simplify future expansions or new features.
 
 
-## ⚙️ *** 2. Configuration Set-up ***
+## ⚙️ ***2. Configuration Set-up***
 1. Create a .env file in the root directory of the project named .env
 2. Define Environment Variables:
 
@@ -55,7 +55,7 @@ This project is a command-line calculator application designed to perform a wide
 
 3. If a variable is not set in .env, the application will use default values specified in config.py.
 
-# ⚙️ *** 3. Prerequisites ***
+# ⚙️ ***3. Prerequisites***
 
 🔹 **Install Git**
 
@@ -148,7 +148,7 @@ O -	Save history to CSV - Saves the current calculation history to a CSV file fo
 P -	Load history from CSV - Loads previously saved calculation history from a CSV file (only if current history is empty).
 Q -	Exit - Exits the calculator program safely.
 
-🔹 **Prompt Example:**
+🔹 **Prompt view**
 
 👉 Select operation (type 'help' to list commands):
 
