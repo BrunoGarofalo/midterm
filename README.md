@@ -154,24 +154,25 @@ Only once per machine.
 👉 Select operation (type 'help' to list commands):
 
 ***Type help to see commands:***
-🔑 Key	📌 Operation
-A	Percentage
-B	Modulo
-C	Multiplication
-D	Root
-E	Absolute Difference
-F	Integer Division
-G	Addition
-H	Subtraction
-I	Division
-J	Power
-K	Display history
-L	Clear history
-M	Undo previous operation
-N	Redo operation
-O	Save history to CSV
-P	Load history from CSV
-Q	Exit
+| Key | Operation Name         |
+|-----|-----------------------|
+| A   | Percentage            |
+| B   | Modulo                |
+| C   | Multiplication        |
+| D   | Root                  |
+| E   | Absolute Difference   |
+| F   | Integer Division      |
+| G   | Addition              |
+| H   | Subtraction           |
+| I   | Division              |
+| J   | Power                 |
+| K   | Display history       |
+| L   | Clear history         |
+| M   | Undo previous operation |
+| N   | Redo operation        |
+| O   | Save history to CSV   |
+| P   | Load history from CSV |
+| Q   | Exit                  |
 
 ## 💡 ** Example Usage**
 👉 Select operation (type 'help' to list commands): G or g for Addition
