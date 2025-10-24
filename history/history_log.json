@@ -1,0 +1,10 @@
+{"timestamp": "2025-10-23 13:54:12", "operation": "Percentage", "operand1": "4", "operand2": "55", "result": "7.2727", "instance_id": "3d93150b-f391-4b88-a489-46d61c328a61"}
+{"timestamp": "2025-10-23 13:54:22", "operation": "IntegerDivision", "operand1": "8", "operand2": "99", "result": "0", "instance_id": "3d93150b-f391-4b88-a489-46d61c328a61"}
+{"timestamp": "2025-10-23 14:09:06", "operation": "Percentage", "operand1": "4", "operand2": "3", "result": "133.3333", "instance_id": "d6f9e05c-5e89-4474-a64b-475e6b3b8a68"}
+{"timestamp": "2025-10-23 14:09:11", "operation": "Multiplication", "operand1": "5", "operand2": "66", "result": "330.0000", "instance_id": "d6f9e05c-5e89-4474-a64b-475e6b3b8a68"}
+{"timestamp": "2025-10-23 14:09:21", "operation": "Percentage", "operand1": "3", "operand2": "4", "result": "75.0000", "instance_id": "d6f9e05c-5e89-4474-a64b-475e6b3b8a68"}
+{"timestamp": "2025-10-24 17:16:58", "operation": "Percentage", "operand1": "3", "operand2": "4", "result": "75.0000", "instance_id": "6421a635-19f1-43fc-b775-3742c84706a1"}
+{"timestamp": "2025-10-24 18:05:19", "operation": "Percentage", "operand1": "4", "operand2": "5", "result": "80.0000", "instance_id": "6a478964-61db-4c65-ba17-84ec87a5415e"}
+{"timestamp": "2025-10-24 18:05:26", "operation": "Absdifference", "operand1": "4", "operand2": "6", "result": "2.0000", "instance_id": "6a478964-61db-4c65-ba17-84ec87a5415e"}
+{"timestamp": "2025-10-24 18:05:29", "operation": "IntegerDivision", "operand1": "7", "operand2": "8", "result": "0", "instance_id": "6a478964-61db-4c65-ba17-84ec87a5415e"}
+{"timestamp": "2025-10-24 18:06:20", "operation": "IntegerDivision", "operand1": "44", "operand2": "55", "result": "0", "instance_id": "96089247-21df-490a-a456-174c76d59aff"}
