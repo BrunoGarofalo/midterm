@@ -74,7 +74,7 @@ Only once per machine.
 
 ## 🔧 *** 4. Configuration***
 
-⚙️ **Variable - Description - Default**
+⚙️ **Variables**
 
 ### Base Directories
 1. **CALCULATOR_LOG_DIR:** Directory for log (Default = logs)
