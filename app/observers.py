@@ -17,10 +17,13 @@ from app.exceptions import FileAccessError
 
 
 
-# ------------------------------------------------------------
-# LoggingObserver
-# ------------------------------------------------------------
+##############################################################
+############### LoggingObserver
+##############################################################
 class LoggingObserver:
+    '''
+    Logs each new operation to a JSON file
+    '''
     def __init__(self, log_file=TXT_HISTORY_FILE):
         try:
 
@@ -34,7 +37,7 @@ class LoggingObserver:
             logger.error(f"❌ Failed to initialize LoggingObserver  {e}")
             raise FileAccessError(f"❌ Failed to create log directory: {e}")
 
-    # method that appends new calculation to TXT file
+    # method that appends new calculation to JSON file
     def update(self,  message):
         if not message:
             logger.warning("❌ Logging Observer attempted to save new calculation. Caclulation data unavailable.")
@@ -51,10 +54,13 @@ class LoggingObserver:
 
 
 
-# ------------------------------------------------------------
-# AutosaveObserver
-# ------------------------------------------------------------
+##############################################################
+############### AutosaveObserver
+##############################################################
 class AutosaveObserver:
+    '''
+    Logs each new operation to a CSV file
+    '''
 
     def __init__(self, log_file=CSV_HISTORY_FILE):
         try:
@@ -78,7 +84,7 @@ class AutosaveObserver:
             raise FileAccessError(f"❌ Error initializing AutosaveObserver: {e}")
 
 
-    #method that adds the new calculation log to 
+    #method that adds the new calculation log to pandas df then to CSV
     def update(self, message):
 
         try:
@@ -112,9 +118,9 @@ class AutosaveObserver:
 
     
 
-# ------------------------------------------------------------
-# Subject
-# ------------------------------------------------------------
+##############################################################
+############### Subject
+##############################################################
 class Subject:
     def __init__(self):
         self.observers = []
@@ -137,7 +143,7 @@ class Subject:
 
             return values_dict
 
-
+    # method that notifies the logging and autosave observers
     def notify(self, message):
 
         final_message = self.final_message_split(message)

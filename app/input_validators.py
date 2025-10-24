@@ -8,24 +8,25 @@ from app.logger import logger
 def get_valid_operand(prompt: str) -> Decimal:
     """
     Prompt user for a valid decimal operand.
-    Keeps asking until a correct, allowed value is entered.
+    Keeps asking until a correct, allowed value is entered
     """
     while True:
+        # ensures that the value is numeric
         try:
             raw = input(prompt)
             value = Decimal(raw)
+
         except (InvalidOperation, ValueError):
             logger.info(f"❌ Invalid input '{raw}'")
             print(f"❌ {Fore.MAGENTA}Invalid number. Please try again.{Style.RESET_ALL}")
             continue
 
-        # --- Range validation ---
+        # --- ensures the value entered is within the set range ---
         if abs(value) > CALCULATOR_MAX_INPUT_VALUE:
             print(f"⚠️ {Fore.MAGENTA}Value too large. Max allowed: {CALCULATOR_MAX_INPUT_VALUE}{Style.RESET_ALL}")
             logger.warning(f"❌ Value too large: {value}")
             continue
 
-        # --- Nonzero or nonnegative checks can be delegated later ---
         return value
 
 def get_validated_operand(prompt: str) -> Decimal:

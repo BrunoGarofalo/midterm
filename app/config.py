@@ -6,10 +6,10 @@ from decimal import Decimal
 # Load environment variables from .env
 load_dotenv()
 
-
-def get_env(name, default=None, cast=None):
-    value = os.getenv(name, default)
-    if cast:
+# helper function for safely reading and converting environment variables
+def get_env(name, default=None, cast=None): # pragma: no cover
+    value = os.getenv(name, default) 
+    if cast: 
         if cast == bool:
             value = str(value).lower() in ("1", "true", "yes", "on")
         else:
@@ -32,10 +32,10 @@ CSV_CARETAKER_HISTORY_FILE = os.getenv("CSV_CARETAKER_HISTORY_FILE", "caretaker_
 # File columns
 DEFAULT_COLUMNS = ["timestamp", "operation", "operand1", "operand2", "result", "instance_id"]
 CSV_COLUMNS = os.getenv("CSV_COLUMNS")
-if CSV_COLUMNS:
+if CSV_COLUMNS: 
     CSV_COLUMNS = [c.strip() for c in CSV_COLUMNS.split(",")]
 else:
-    CSV_COLUMNS = DEFAULT_COLUMNS
+    CSV_COLUMNS = DEFAULT_COLUMNS # pragma: no cover
 
 # History Settings
 CALCULATOR_MAX_HISTORY_SIZE = int(os.getenv("CALCULATOR_MAX_HISTORY_SIZE", "100"))

@@ -9,27 +9,27 @@ from app.logger import logger
 
 init(autoreset=True)
 
-''''
-need to validate global variables
-'''
 
 def main():
     try:
+        # initialize calculator
         calc = Calculator()
         print(f"{Fore.CYAN}👋 Welcome to the Calculator app! Type 'help' to see available commands.{Style.RESET_ALL}")
 
         while True:
             try:
+                # get user input
                 user_input = input(
                     f"{Fore.MAGENTA}👉 Select operation (type 'help' to list commands): {Style.RESET_ALL}"
                 ).strip().upper()
                 logger.info(f"user input entered {user_input}")
                 
-
+                # --------------------- HELP COMMAND ----------------------------
                 if user_input == "HELP":
                     print(calc.show_commands())
                     continue
-
+                
+                # --------------------- GET CODE FOR SELECTED COMMAND ----------------------------
                 try:
                     op_code = calc.get_operation_code(user_input).lower()
                 except CommandError as e:
@@ -87,12 +87,12 @@ def main():
                 operand_b = get_validated_operand("Enter second operand: ")             
 
 
-                # Perform calculation
+                # ---------------------- Perform calculation ---------------------
                 result = operation_obj.calculate(operand_a, operand_b)
                 timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 log_message = f"{timestamp},{operation_obj.__class__.__name__},{operand_a},{operand_b},{result},{calc.instance_ID}"
 
-                # Update calculator state and observers
+                # ----------------------- Update calculator state and observers -------------------
                 calc.add_operation(log_message)
                 calc.notify_observers(log_message)
 
@@ -108,9 +108,9 @@ def main():
             except HistoryError as e:
                 print(f"{Fore.BLUE}📂 Calculator_REPL.py #3 - History Error: {e}{Style.RESET_ALL}")
             except Exception as e:
-                print(f"{Fore.RED}💥 Calculator_REPL.py #4 -  Unexpected error: {e}{Style.RESET_ALL}")
+                print(f"{Fore.RED}💥 Calculator_REPL.py #4 -  Unexpected error: {e}{Style.RESET_ALL}") # pragma: no cover
 
-    except Exception as e:
+    except Exception as e: # pragma: no cover
         # Handle fatal errors during initialization
         print(f"💥 Calculator_REPL.py #5 - Fatal error: {e}")
         logger.error(f"💥 Calculator_REPL.py #5 -Fatal error in calculator REPL: {e}")

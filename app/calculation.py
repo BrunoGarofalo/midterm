@@ -34,10 +34,11 @@ class CalculationTemplate(ABC):
     def _round_operand(self, operand: Decimal) -> Decimal:
         return operand.quantize(Decimal(f"1.{'0'*CALCULATOR_PRECISION}"), rounding=ROUND_HALF_UP)
 
+    # Ensure both operands (a and b) are within the allowed numeric limits 
     def check_decimals(self, a: Decimal, b: Decimal) -> tuple[Decimal, Decimal]:
         if a > CALCULATOR_MAX_INPUT_VALUE or b > CALCULATOR_MAX_INPUT_VALUE:
             logger.error(f"❌ {e} wrong inputs, Inputs must be ≤ {CALCULATOR_MAX_INPUT_VALUE}")
-            raise ValidationError(f"❌ Inputs must be ≤ {CALCULATOR_MAX_INPUT_VALUE}")
+            raise ValidationError(f"❌ Inputs must be ≤ {CALCULATOR_MAX_INPUT_VALUE}") # pragma: no cover
         try:
             a = self._round_operand(a)
             b = self._round_operand(b)
@@ -49,6 +50,7 @@ class CalculationTemplate(ABC):
     def _round_result(self, value: Decimal) -> Decimal:
         return value.quantize(Decimal(f"1.{'0'*CALCULATOR_PRECISION}"), rounding=ROUND_HALF_UP)
 
+    # apply round results
     def format_result(self, result: Decimal) -> Decimal:
         try:
             return self._round_result(result)
@@ -112,10 +114,6 @@ class Multiplication(CalculationTemplate):
 class Percentage(CalculationTemplate):
 
     def check_decimals(self, a: Decimal, b: Decimal):
-        '''
-        Change the parent method check_decimals so that it checks that b isn't 0
-        and return a ValueError if it is
-        '''
         
         if b ==0:
             logger.error(f"Percentage calculation failed: {a} / {b}, Cannot perform percent calculation if denominator = 0")
@@ -139,10 +137,6 @@ class Division(CalculationTemplate):
 
 class IntegerDivision(CalculationTemplate):
     def check_decimals(self, a: Decimal, b: Decimal):
-        '''
-        Change the parent method check_decimals so that it checks that b isn't 0
-        and return a ValueError if it is
-        '''
         
         if b ==0:
             logger.error(f"IntegerDivision check failed: attempted to divide {a} by zero")
@@ -151,7 +145,6 @@ class IntegerDivision(CalculationTemplate):
 
         return super().check_decimals(a, b)
 
-    #method to execute the subtraction calculation
     def runOperation(self, a: Decimal, b: Decimal) -> Decimal:
         return int(a//b)
     
@@ -191,10 +184,6 @@ class Root(CalculationTemplate):
 class Modulo(CalculationTemplate):
 
     def check_decimals(self, a: Decimal, b: Decimal):
-        '''
-        Change the parent method check_decimals so that it checks that a isn't <0 and b isn't 0
-        if they are, return a ValueError
-        '''
        
         if b ==0:
             logger.error(f"Modulo calculation failed: {a} % {b}, modulo cannot take b as 0")

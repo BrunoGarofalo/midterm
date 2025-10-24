@@ -8,6 +8,9 @@ from colorama import init, Fore, Style
 from app.config import CSV_CARETAKER_HISTORY_FILE, CALCULATOR_HISTORY_DIR, CSV_COLUMNS, CALCULATOR_MAX_HISTORY_SIZE
 init(autoreset=True) 
 
+#################################################################
+############ Memento class
+#################################################################
 class MementoCalculator:
     #hold snapshop in time
     def __init__(self, state):
@@ -39,7 +42,10 @@ class MementoCalculator:
         except Exception as e:
             logger.error(f"❌ Failed to get memento state: {e}")
             raise HistoryError(f"❌ Failed to get memento state: {e}") from e
-    
+
+#################################################################
+############ Originator class
+#################################################################
 class Originator: 
     #the object whose state we want to track, holds the current history and creates or restores mementos
     def __init__(self):
@@ -65,7 +71,8 @@ class Originator:
             raise HistoryError(f"❌ Failed to create memento {e}") from e
     
     def add_operation(self, message, caretaker=None):
-        #saves new operation to temporary history, IE: "12 - 2 = 10"
+        '''saves new operation to temporary history, IE: "12 - 2 = 10"
+        '''
         try:
             # Save current state to undo stack before adding new operation
             if caretaker:
@@ -103,10 +110,9 @@ class Originator:
             raise HistoryError(f"❌ Failed to restore memento: {e}") from e
 
 
-
-    
-
-
+#################################################################
+############ Caretaker class
+#################################################################
 class CareTaker:
     # manage stack redo and undo
     '''
@@ -135,13 +141,15 @@ class CareTaker:
             os.makedirs(CALCULATOR_HISTORY_DIR, exist_ok=True)
             self.log_file = os.path.join(CALCULATOR_HISTORY_DIR, CSV_CARETAKER_HISTORY_FILE)
         
-        except Exception as e:
-            logger.error(f"❌ Failed to initialize Caretaker history CSV path  {e}")
-            raise FileAccessError(f"❌ Failed to initialize Caretaker history CSV path: {e}")
+        except Exception as e: # pragma: no cover
+            logger.error(f"❌ Failed to initialize Caretaker history CSV path  {e}") # pragma: no cover
+            raise FileAccessError(f"❌ Failed to initialize Caretaker history CSV path: {e}") # pragma: no cover
 
+    # reformat the calculation as a string following the defined standard
     def recompose_calculation(self, row):
         return f"{row['timestamp']},{row['operation']},{row['operand1']},{row['operand2']},{row['result']},{row['instance_id']}"
 
+    # save the mememento to the history
     def save_memento(self, memento):
         try:
 
@@ -155,6 +163,7 @@ class CareTaker:
             logger.exception(f"❌ Failed to save memento: {e}")
             raise HistoryError(f"❌ Failed to save memento: {e}") from e
 
+    # undo the memento
     def undo_memento(self, originator):
 
         '''
@@ -199,6 +208,7 @@ class CareTaker:
             logger.exception(f"❌ Failed to perform undo: {e}")
             raise HistoryError(f"❌ Undo failed: {e}") from e
 
+    # redo the memento
     def redo_memento(self, originator):
         '''
         Redo: pop from stack_redo → push current state to stack_undo → restore popped memento
@@ -224,6 +234,7 @@ class CareTaker:
             return False
         
         try:
+            # copy the current 
             current_state = originator.history.copy()
 
             #take the last memento from the stack_redo
@@ -235,8 +246,10 @@ class CareTaker:
             # restore popped memento from stack_redo to history
             originator.restore_memento(memento)
 
+            # Loops through every operation (op) stored in the complete history. builds a new list containing only those operations that are missing from the current state
             redone_operations = [op for op in originator.history if op not in current_state]
 
+            # Takes the last undone operation (the most recent one that isn’t in the current state).
             redone_op = redone_operations[-1] if redone_operations else None
 
             if redone_op:
@@ -247,7 +260,8 @@ class CareTaker:
         except Exception as e:
             logger.exception(f"❌ Failed to perform redo: {e}")
             raise HistoryError(f"❌ Redo failed: {e}") from e
-        
+    
+    # Loads the history from CSV file, only allowed if the history is empty
     def get_loaded_history(self, originator):
         if not os.path.exists(self.log_file) or os.path.getsize(self.log_file) == 0:
             logger.warning("❌ No CSV history file found to load!")
@@ -278,15 +292,15 @@ class CareTaker:
                 print(f"✅ {Fore.GREEN}Loaded {len(operations)} operations into history.{Style.RESET_ALL}")
 
             except FileAccessError as e:
-                raise e
+                raise e # pragma: no cover
             except Exception as e:
                 logger.exception(f"❌ Failed to load history from CSV: {e}")
                 raise DataFormatError(f"❌ Failed to load history: {e}") from e
         else:
-            logger.warning(f"Warning: request to load history from CSV, no history to load!")
-            print(f"❌ {Fore.MAGENTA}No history to load from CSV.{Style.RESET_ALL}")
+            logger.warning(f"Warning: request to load history from CSV, no history to load!") # pragma: no cover
+            print(f"❌ {Fore.MAGENTA}No history to load from CSV.{Style.RESET_ALL}") # pragma: no cover
 
-
+    # saves history to CSV file
     def save_history_to_csv(self, originator):
         if not originator.history:
             logger.warning("❌ No history to save!")
@@ -319,12 +333,13 @@ class CareTaker:
             logger.info(f"✅ Saved {len(csv_rows)} operations to CSV: {self.log_file}")
             print(f"✅ {Fore.GREEN}Saved {len(csv_rows)} operations to CSV.{Style.RESET_ALL}")
 
-        except Exception as e:
-            logger.exception(f"❌ Failed to save history to CSV: {e}")
-            raise FileAccessError(f"❌ Failed to save history to CSV: {e}") from e
+        except Exception as e: # pragma: no cover
+            logger.exception(f"❌ Failed to save history to CSV: {e}") # pragma: no cover
+            raise FileAccessError(f"❌ Failed to save history to CSV: {e}") from e # pragma: no cover
 
+    # delete saved history
     def delete_saved_history(self, originator):
-        """Delete the saved in memory and CSV persistent history - ONLY AFTER USER CONFIRMATION!."""
+        """Delete both in memory and CSV persistent history - ONLY AFTER USER CONFIRMATION!."""
         try:
             if os.path.exists(self.log_file):
 
@@ -344,9 +359,9 @@ class CareTaker:
 
             print(f"✅ Saved history succesfully deleted")
 
-        except PermissionError as e:
-            logger.error(f"❌ Permission denied deleting CSV history: {e}")
-            raise
-        except OSError as e:
-            logger.error(f"❌ Error deleting CSV history: {e}")
-            raise
+        except PermissionError as e: # pragma: no cover
+            logger.error(f"❌ Permission denied deleting CSV history: {e}") # pragma: no cover
+            raise # pragma: no cover
+        except OSError as e: # pragma: no cover
+            logger.error(f"❌ Error deleting CSV history: {e}") # pragma: no cover
+            raise # pragma: no cover

@@ -24,8 +24,3 @@ if not logger.hasHandlers():
     )
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
-
-    # Optional: also log to console
-    # console_handler = logging.StreamHandler()
-    # console_handler.setFormatter(formatter)
-    # logger.addHandler(console_handler)

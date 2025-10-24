@@ -3,17 +3,11 @@ from app.calculation import CalculationTemplate
 from app.logger import logger
 from app.exceptions import CommandError
 
+# class that creates the calculation objects
 class CommandFactory:
     #initialize instance
     def __init__(self, user_input):
         self.user_input = user_input
-    '''
-    Need to ensure user_input is passed correctly, input will be selected using unique IDs to ensure no mismatches occur, IE:
-
-    A = Multiplication
-    B = Integer Division
-    etc...
-    '''
 
     #create operation object based on user input, also handles operation mismatches
     def createOperationObject(self):
@@ -38,8 +32,6 @@ class CommandFactory:
                 return Multiplication()
             elif self.user_input == 'power':
                 return Power()
-            # elif self.user_input == 'help':
-            #     return Help()
             else:
                 logger.error(f"❌ Value error: Command {self.user_input} not allowed")
                 raise CommandError(f"❌ Command '{self.user_input}' not allowed. Allowed commands: {CalculationTemplate.operations_allowed}"
