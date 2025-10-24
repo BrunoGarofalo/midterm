@@ -129,24 +129,25 @@ Only once per machine.
 - python main.py
 
 ### ***Operations and commands description***
-**Command ID	 - Operation Name	- What It Does**
-A -	Percentage - Calculates the percentage of a number relative to another.
-B -	Modulo	- Computes the remainder of dividing one number by another.
-C -	Multiplication - Multiplies two numbers.
-D -	Root - Calculates the N-th root of a number (square root by default).
-E -	Absolute Difference	- Returns the absolute difference between two numbers.
-F -	Integer Division - Performs division and returns the integer quotient (ignoring remainder).
-G - Addition - Adds two numbers together.
-H -	Subtraction - Subtracts the second number from the first.
-I -	Division - Divides the first number by the second number (returns a decimal).
-J -	Power -	Raises a number to the power of another number.
-K -	Display history - Shows a list of all previous operations performed in the current session.
-L -	Clear history - Deletes all in-memory history and optionally clears saved history files.
-M -	Undo previous operation	- Reverts the last operation performed.
-N -	Redo operation - Reapplies the last undone operation.
-O -	Save history to CSV - Saves the current calculation history to a CSV file for later retrieval.
-P -	Load history from CSV - Loads previously saved calculation history from a CSV file (only if current history is empty).
-Q -	Exit - Exits the calculator program safely.
+| Command ID | Operation Name         | What It Does                                                                                  |
+|------------|----------------------|-----------------------------------------------------------------------------------------------|
+| A          | Percentage           | Calculates the percentage of a number relative to another.                                     |
+| B          | Modulo               | Computes the remainder of dividing one number by another.                                      |
+| C          | Multiplication       | Multiplies two numbers.                                                                       |
+| D          | Root                 | Calculates the N-th root of a number (square root by default).                                 |
+| E          | Absolute Difference  | Returns the absolute difference between two numbers.                                           |
+| F          | Integer Division     | Performs division and returns the integer quotient (ignoring remainder).                      |
+| G          | Addition             | Adds two numbers together.                                                                    |
+| H          | Subtraction          | Subtracts the second number from the first.                                                   |
+| I          | Division             | Divides the first number by the second number (returns a decimal).                             |
+| J          | Power                | Raises a number to the power of another number.                                               |
+| K          | Display history      | Shows a list of all previous operations performed in the current session.                     |
+| L          | Clear history        | Deletes all in-memory history and optionally clears saved history files.                       |
+| M          | Undo previous operation | Reverts the last operation performed.                                                         |
+| N          | Redo operation       | Reapplies the last undone operation.                                                          |
+| O          | Save history to CSV  | Saves the current calculation history to a CSV file for later retrieval.                      |
+| P          | Load history from CSV | Loads previously saved calculation history from a CSV file (only if current history is empty). |
+| Q          | Exit                 | Exits the calculator program safely.         
 
 🔹 **Prompt view**
 
