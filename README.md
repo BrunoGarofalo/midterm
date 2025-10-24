@@ -174,7 +174,7 @@ Only once per machine.
 | P   | Load history from CSV |
 | Q   | Exit                  |
 
-## 💡 ** Example Usage**
+### 💡 **Example Usage**
 👉 Select operation (type 'help' to list commands): G or g for Addition
 
 - Enter first operand: 5
